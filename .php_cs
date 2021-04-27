@@ -3,6 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . DIRECTORY_SEPARATOR . 'tests')
     ->in(__DIR__ . DIRECTORY_SEPARATOR . 'src')
+    ->exclude('_wdsl')
     ->append(['.php_cs']);
 
 $rules = [
