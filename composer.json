@@ -1,47 +1,47 @@
 {
-    "name": "exactsports/fedex",
-    "description": "FedEx API Wrapper for Laravel 8+",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Ed Grosvenor",
-            "email": "ed@gros.co"
-        }
-    ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "php": "^8.0",
-        "illuminate/support": "^8.0",
-      "ext-soap": "*"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.0",
-        "friendsofphp/php-cs-fixer": "^2.18"
-    },
-    "autoload": {
-        "psr-4": {
-            "EXACTSports\\FedEx\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/",
-            "App\\": "vendor/orchestra/testbench-core/laravel/app"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": "EXACTSports\\FedEx\\FedExProvider"
-        }
-    },
-    "scripts": {
-        "lint": "php-cs-fixer fix -v",
-        "test:unit": "phpunit",
-        "test": [
-            "@lint",
-            "@test:unit"
-        ]
+  "name": "exactsports/fedex",
+  "description": "FedEx API Wrapper for Laravel 8+",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ed Grosvenor",
+      "email": "ed@gros.co"
     }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^8.0",
+    "ext-soap": "*"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "friendsofphp/php-cs-fixer": "^2.18"
+  },
+  "autoload": {
+    "psr-4": {
+      "EXACTSports\\FedEx\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/",
+      "App\\": "vendor/orchestra/testbench-core/laravel/app"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": "EXACTSports\\FedEx\\FedExProvider"
+    }
+  },
+  "scripts": {
+    "lint": "php-cs-fixer fix -v",
+    "test:unit": "phpunit",
+    "test": [
+      "@lint",
+      "@test:unit"
+    ]
+  }
 }
