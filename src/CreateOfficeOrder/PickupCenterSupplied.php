@@ -7,9 +7,4 @@ use EXACTSports\FedEx\FedExTrait;
 class PickupCenterSupplier
 {
     use FedExTrait;
-
-    public function create()
-    {
-        
-    }
 }

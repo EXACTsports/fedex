@@ -17,7 +17,9 @@ trait FedExTrait
     public Version $version; 
     public RequestedOfficeOrder $requestedOfficeOrder;
 
-    public function __construct(WebAuthenticationDetail $webAuthenticationDetail, ClientDetail $clientDetail, 
+    public function __construct(
+        WebAuthenticationDetail $webAuthenticationDetail, 
+        ClientDetail $clientDetail, 
         TransactionDetail $transactionDetail,
         Version $version,
         RequestedOfficeOrder $requestedOfficeOrder)

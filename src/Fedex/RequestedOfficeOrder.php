@@ -6,7 +6,7 @@ use EXACTSports\FedEx\Fedex\OrderContact;
 
 class RequestedOfficeOrder
 {
-    private OrderContact $orderContact; 
+    public OrderContact $orderContact; 
 
     public function __construct(OrderContact $orderContact)
     {
