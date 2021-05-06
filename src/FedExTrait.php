@@ -7,6 +7,8 @@ use EXACTSports\FedEx\Fedex\ClientDetail;
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
 use EXACTSports\FedEx\Fedex\Version; 
 use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
+use EXACTSports\FedEx\Fedex\OfficeOrderChargesPayment;
+use EXACTSports\FedEx\Fedex\CustomerReferences;
 
 trait FedExTrait
 {
@@ -16,17 +18,24 @@ trait FedExTrait
     public TransactionDetail $transactionDetail; 
     public Version $version; 
     public RequestedOfficeOrder $requestedOfficeOrder;
-
+    public OfficeOrderChargesPayment $officeOrderChargesPayment;
+    public CustomerReferences $customerReferences;
+    
     public function __construct(
         WebAuthenticationDetail $webAuthenticationDetail, 
         ClientDetail $clientDetail, 
         TransactionDetail $transactionDetail,
         Version $version,
-        RequestedOfficeOrder $requestedOfficeOrder)
+        RequestedOfficeOrder $requestedOfficeOrder,
+        OfficeOrderChargesPayment $officeOrderChargesPayment,
+        CustomerReferences $customerReferences)
     {
         $this->webAuthenticationDetail = $webAuthenticationDetail; 
         $this->clientDetail = $clientDetail;
+        $this->transactionDetail = $transactionDetail;
         $this->version = $version;
         $this->requestedOfficeOrder = $requestedOfficeOrder;
+        $this->officeOrderChargesPayment = $officeOrderChargesPayment;
+        $this->customerReferences = $customerReferences;
     } 
 }

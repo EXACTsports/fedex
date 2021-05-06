@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx;
+namespace EXACTSports\FedEx\Fedex;
 
 use EXACTSports\FedEx\Fedex\Section;
 

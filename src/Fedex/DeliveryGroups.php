@@ -10,13 +10,11 @@ class DeliveryGroups
     public string|null $name; // delivery group name
     public string|null $description; // delivery group description
     public DeliveryMethod $deliveryMethod; 
-    public PrintLineItems $printLineItems;
+    public PrintLineItems|array $printLineItems = [];
     
 
-    public function __construct(DeliveryMethod $deliveryMethod,
-        PrintLineItems $printLineItems)
+    public function __construct(DeliveryMethod $deliveryMethod)
     {
         $this->deliveryMethod = $deliveryMethod; 
-        $this->printiLineItems = $printLineItems;
     }
 }
