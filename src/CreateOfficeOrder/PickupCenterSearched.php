@@ -39,4 +39,12 @@ class PickupCenterSearched
         $this->orderPickupDetail = $orderPickupDetail;
         $this->requestedOfficeOrder->orderContact->deliveryGroups->deliveryMethod->orderRecipient->orderPickupDetail = $this->orderPickupDetail;
     }
+
+     /**
+     * Builds requiest array
+     */
+    public function getRequest()
+    {
+        return $this->toArray($this);
+    }
 }

@@ -38,4 +38,37 @@ trait FedExTrait
         $this->officeOrderChargesPayment = $officeOrderChargesPayment;
         $this->customerReferences = $customerReferences;
     } 
+
+    /**
+     * Converts request object to array
+     * @param $requestObject
+     * @return array
+     */
+    public function toArray($requestObject)
+    {
+        $array = json_decode(json_encode($requestedObject), true);
+
+        return $this->ucFirstKeys($array);
+    }
+
+    /**
+     * Capitalizes first chart of array keys
+     * @param array $array
+     * @return array  
+     */
+    private function ucFirstKeys($array) {
+        $request = [];
+    
+        foreach ($array as $key => $value) {
+            $ucKey = ucfirst($key);
+            $request[$ucKey] = $value;
+    
+            if (is_array($value)) {
+                $request[$ucKey] = ucFirstKeys($value);
+            }
+    
+         }
+    
+         return $request;
+    }
 }
