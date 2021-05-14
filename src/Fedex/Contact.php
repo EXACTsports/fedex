@@ -12,8 +12,12 @@ class Contact
     public string|null $faxNumber; // contact fax number
     public string|null $eMailAddress; // contact email address
 
-    public function __construct(PersonName $personName)
+    public function __construct(PersonName $personName = null)
     {
+        if (is_null($personName)) {
+            $personName = new PersonName();
+        }
+        
         $this->personName = $personName;
     }
 }

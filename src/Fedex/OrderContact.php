@@ -12,11 +12,10 @@ class OrderContact
     public Address $address;
     public DeliveryGroups $deliveryGroups;  
 
-    public function __construct(Contact $contact, Address $address,
-        DeliveryGroups $deliveryGroups)
+    public function __construct(DeliveryGroups $deliveryGroups)
     {
-        $this->contact = $contact; 
-        $this->address = $address;
+        $this->contact = new Contact(); 
+        $this->address = new Address();
         $this->deliveryGroups = $deliveryGroups;
     }
 }

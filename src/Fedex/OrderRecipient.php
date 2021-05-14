@@ -7,9 +7,13 @@ use EXACTSports\FedEx\Fedex\Contact;
 class OrderRecipient
 {
     public Contact $contact;
-    
-    public function __construct(Contact $contact)
+
+    public function __construct(Contact $contact = null)
     {
+        if (is_null($contact)) {
+            $contact = new Contact();
+        }
+
         $this->contact = $contact;
     }
 

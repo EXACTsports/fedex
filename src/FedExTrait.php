@@ -5,14 +5,14 @@ namespace EXACTSports\FedEx;
 use EXACTSports\FedEx\Fedex\WebAuthenticationDetail; 
 use EXACTSports\FedEx\Fedex\ClientDetail; 
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
-use EXACTSports\FedEx\Fedex\Version; 
+use EXACTSports\FedEx\Fedex\Version;
 use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
 use EXACTSports\FedEx\Fedex\OfficeOrderChargesPayment;
 use EXACTSports\FedEx\Fedex\CustomerReferences;
+use EXACTSPorts\FedEx\Fedex\OrderRecipient; 
 
 trait FedExTrait
 {
-
     public WebAuthenticationDetail $webAuthenticationDetail; 
     public ClientDetail $clientDetail; 
     public TransactionDetail $transactionDetail; 
@@ -26,18 +26,23 @@ trait FedExTrait
         ClientDetail $clientDetail, 
         TransactionDetail $transactionDetail,
         Version $version,
-        RequestedOfficeOrder $requestedOfficeOrder,
         OfficeOrderChargesPayment $officeOrderChargesPayment,
-        CustomerReferences $customerReferences)
+        CustomerReferences $customerReferences,
+        OrderRecipient $orderRecipient)
     {
         $this->webAuthenticationDetail = $webAuthenticationDetail; 
         $this->clientDetail = $clientDetail;
         $this->transactionDetail = $transactionDetail;
         $this->version = $version;
-        $this->requestedOfficeOrder = $requestedOfficeOrder;
+        $this->requestedOfficeOrder = new RequestedOfficeOrder($orderRecipient); 
         $this->officeOrderChargesPayment = $officeOrderChargesPayment;
         $this->customerReferences = $customerReferences;
     } 
+
+    public function getRequest()
+    {
+        return $this->toArray($this);
+    }
 
     /**
      * Converts request object to array
@@ -46,8 +51,7 @@ trait FedExTrait
      */
     public function toArray($requestObject)
     {
-        $array = json_decode(json_encode($requestedObject), true);
-
+        $array = json_decode(json_encode($requestObject), true);
         return $this->ucFirstKeys($array);
     }
 
@@ -64,7 +68,7 @@ trait FedExTrait
             $request[$ucKey] = $value;
     
             if (is_array($value)) {
-                $request[$ucKey] = ucFirstKeys($value);
+                $request[$ucKey] = $this->ucFirstKeys($value);
             }
     
          }

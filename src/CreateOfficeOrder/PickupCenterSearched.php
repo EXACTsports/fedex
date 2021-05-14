@@ -7,11 +7,10 @@ use EXACTSports\FedEx\Fedex\WebAuthenticationDetail;
 use EXACTSports\FedEx\Fedex\ClientDetail; 
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
 use EXACTSports\FedEx\Fedex\Version; 
-use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
 use EXACTSports\FedEx\Fedex\OfficeOrderChargesPayment;
 use EXACTSports\FedEx\Fedex\CustomerReferences;
 use EXACTSports\FedEx\Fedex\OrderPickupDetail;
-
+use EXACTSports\FedEx\Fedex\OrderRecipient; 
 
 class PickupCenterSearched 
 {
@@ -19,32 +18,27 @@ class PickupCenterSearched
         FedexTrait::__construct as ___construct;
     } 
 
-    public OrderPickupDetail $orderPickupDetail;
-
     public function __construct(
         WebAuthenticationDetail $webAuthenticationDetail, 
         ClientDetail $clientDetail, 
         TransactionDetail $transactionDetail,
         Version $version,
-        RequestedOfficeOrder $requestedOfficeOrder,
         OfficeOrderChargesPayment $officeOrderChargesPayment,
-        CustomerReferences $customerReferences,
-        OrderPickupDetail $orderPickupDetail)
+        CustomerReferences $customerReferences)
     {
-        $this->___construct($webAuthenticationDetail, $clientDetail, $transactionDetail, 
-            $version, 
-            $requestedOfficeOrder, 
-            $officeOrderChargesPayment,
-            $customerReferences);
-        $this->orderPickupDetail = $orderPickupDetail;
-        $this->requestedOfficeOrder->orderContact->deliveryGroups->deliveryMethod->orderRecipient->orderPickupDetail = $this->orderPickupDetail;
-    }
 
-     /**
-     * Builds requiest array
-     */
-    public function getRequest()
-    {
-        return $this->toArray($this);
+        $orderRecipient = new OrderRecipient();
+        $orderRecipient->orderPickupDetail = new OrderPickupDetail(); 
+
+        $this->___construct(
+            $webAuthenticationDetail, 
+            $clientDetail, 
+            $transactionDetail, 
+            $version, 
+            $officeOrderChargesPayment,
+            $customerReferences,
+            $orderRecipient
+        );
+
     }
 }

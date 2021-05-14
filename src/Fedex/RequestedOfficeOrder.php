@@ -3,6 +3,9 @@
 namespace EXACTSports\FedEx\Fedex;
 
 use EXACTSports\FedEx\Fedex\OrderContact;
+use EXACTSports\FedEx\Fedex\DeliveryGroups;
+use EXACTSports\FedEx\Fedex\DeliveryMethod;
+use EXACTSports\FedEx\Fedex\OrderRecipient;
 use EXACTSports\FedEx\Fedex\OfficeOrderChargesPayment;
 use EXACTSports\FedEx\Fedex\CustomerReferences;
 
@@ -16,12 +19,12 @@ class RequestedOfficeOrder
     public string|null $orderNotificationBCCEmailAddresses; // bcc email address for order notification
     public CustomerReferences $customerReferences;
 
-    public function __construct(OrderContact $orderContact,
-        OfficeOrderChargesPayment $officeOrderChargesPayment,
-        CustomerReferences $customerReferences)
+    public function __construct(OrderRecipient $orderRecipient)
     {
-        $this->orderContact = $orderContact;
-        $this->officeOrderChargesPayment = $officeOrderChargesPayment;
-        $this->customerReferences = $customerReferences;
+        $deliveryMethod = new DeliveryMethod($orderRecipient);
+        $deliveryGroups = new DeliveryGroups($deliveryMethod);
+        $this->orderContact = new OrderContact($deliveryGroups);
+        $this->officeOrderChargesPayment = new OfficeOrderChargesPayment();
+        $this->customerReferences = new CustomerReferences();
     }
 }
