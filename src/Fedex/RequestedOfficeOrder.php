@@ -7,6 +7,8 @@ use EXACTSports\FedEx\Fedex\DeliveryGroups;
 use EXACTSports\FedEx\Fedex\DeliveryMethod;
 use EXACTSports\FedEx\Fedex\OrderRecipient;
 use EXACTSports\FedEx\Fedex\OfficeOrderChargesPayment;
+use EXACTSports\FedEx\Fedex\AssociatedAccounts;
+use EXACTSports\FedEx\Fedex\Payor;
 use EXACTSports\FedEx\Fedex\CustomerReferences;
 
 class RequestedOfficeOrder
@@ -24,7 +26,13 @@ class RequestedOfficeOrder
         $deliveryMethod = new DeliveryMethod($orderRecipient);
         $deliveryGroups = new DeliveryGroups($deliveryMethod);
         $this->orderContact = new OrderContact($deliveryGroups);
-        $this->officeOrderChargesPayment = new OfficeOrderChargesPayment();
+              
+        $associatedAccounts = new AssociatedAccounts();
+        $payor = new Payor();
+        $payor->associatedAccounts = $associatedAccounts; 
+        $officeOrderChargesPayment = new OfficeOrderChargesPayment($payor);
+        
+        $this->officeOrderChargesPayment = $officeOrderChargesPayment; 
         $this->customerReferences = new CustomerReferences();
     }
 }
