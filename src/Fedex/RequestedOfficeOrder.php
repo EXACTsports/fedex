@@ -21,18 +21,10 @@ class RequestedOfficeOrder
     public string|null $orderNotificationBCCEmailAddresses; // bcc email address for order notification
     public CustomerReferences $customerReferences;
 
-    public function __construct(OrderRecipient $orderRecipient)
+    public function __construct()
     {
-        $deliveryMethod = new DeliveryMethod($orderRecipient);
-        $deliveryGroups = new DeliveryGroups($deliveryMethod);
-        $this->orderContact = new OrderContact($deliveryGroups);
-              
-        $associatedAccounts = new AssociatedAccounts();
-        $payor = new Payor();
-        $payor->associatedAccounts = $associatedAccounts; 
-        $officeOrderChargesPayment = new OfficeOrderChargesPayment($payor);
-        
-        $this->officeOrderChargesPayment = $officeOrderChargesPayment; 
+        $this->orderContact = new OrderContact();      
+        $this->officeOrderChargesPayment = new OfficeOrderChargesPayment();
         $this->customerReferences = new CustomerReferences();
     }
 }

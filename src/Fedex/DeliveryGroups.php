@@ -10,11 +10,10 @@ class DeliveryGroups
     public string|null $name; // delivery group name
     public string|null $description; // delivery group description
     public DeliveryMethod $deliveryMethod; 
-    public PrintLineItems|array $printLineItems = [];
-    
+    public array $printLineItems = [];
 
-    public function __construct(DeliveryMethod $deliveryMethod)
+    public function __construct()
     {
-        $this->deliveryMethod = $deliveryMethod; 
+        $this->deliveryMethod = new DeliveryMethod();
     }
 }

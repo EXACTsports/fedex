@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use ExactSPorts\Client; 
+use ExactSports\Client; 
 
 class CreateOfficeOrderTest extends TestCase
 {

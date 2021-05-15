@@ -8,18 +8,27 @@ use EXACTSports\FedEx\CreateOfficeOrder\Shipment;
 
 class CreateOfficeOrder
 {
-    public PickupCenterSearched $pickupCenterSearched;
-    public PickupCenterSupplied $pickupCenterSupplied;
-    public Shipment $shipment;
-
-    public function __construct(
-        PickupCenterSearched $pickupCenterSearched, 
-        PickupCenterSupplied $pickupCenterSupplied,
-        Shipment $shipment
-        )
+    /**
+     * Gets pickup center searched object
+     */
+    public function pickupCenterSearched()
     {
-        $this->pickupCenterSearched = $pickupCenterSearched; 
-        $this->pickupCenterSupplied = $pickupCenterSupplied; 
-        $this->shipment = $shipment;
+        return new PickupCenterSearched(); 
+    }
+
+    /**
+     * Gets pickup center supplied object
+     */
+    public function pickupCenterSupplier()
+    {
+        return new PickupCenterSupplier();
+    }
+
+    /**
+     * Gets shipment object
+     */
+    public function shipment()
+    {
+        return new Shipment();
     }
 }

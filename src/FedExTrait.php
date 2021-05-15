@@ -8,6 +8,9 @@ use EXACTSports\FedEx\Fedex\TransactionDetail;
 use EXACTSports\FedEx\Fedex\Version;
 use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
 use EXACTSPorts\FedEx\Fedex\OrderRecipient; 
+use EXACTSports\FedEx\Client;
+use EXACTSports\FedEx\CreateofficeOrder\CreatefficeOrderInterface;
+use EXACTSPorts\FedEx\Fedex\Response;
 
 trait FedExTrait
 {
@@ -21,29 +24,22 @@ trait FedExTrait
         WebAuthenticationDetail $webAuthenticationDetail, 
         ClientDetail $clientDetail, 
         TransactionDetail $transactionDetail,
-        Version $version,
-        OrderRecipient $orderRecipient)
+        Version $version)
     {
         $this->webAuthenticationDetail = $webAuthenticationDetail; 
         $this->clientDetail = $clientDetail;
         $this->transactionDetail = $transactionDetail;
         $this->version = $version;
-        $this->requestedOfficeOrder = new RequestedOfficeOrder($orderRecipient); 
     } 
 
-    public function getRequest()
-    {
-        return $this->toArray($this);
-    }
-
     /**
-     * Converts request object to array
-     * @param $requestObject
+     * Converts object to array
+     * @param $object
      * @return array
      */
-    public function toArray($requestObject)
+    public function toArray($object)
     {
-        $array = json_decode(json_encode($requestObject), true);
+        $array = json_decode(json_encode($object), true);
         return $this->ucFirstKeys($array);
     }
 
@@ -67,4 +63,19 @@ trait FedExTrait
     
          return $request;
     }
+
+    /**
+     * Creates office order
+     */
+    public function createOfficeOrder(CreatefficeOrderInterface $createOfficeOrder) 
+    {
+        $client = new Client();
+        $createOfficeOrderArray = $this->toArray($createOfficeOrder);
+        
+        try {
+            $reponse = $client->createOfficeOrder($createOfficeOrderArray);
+        catch (\SoapFault $exception) {
+            
+        }
+    }   
 }

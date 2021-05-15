@@ -8,8 +8,8 @@ class WebAuthenticationDetail
 {
     public UserCredential $userCredential;
 
-    public function __construct(UserCredential $userCredential)
+    public function __construct()
     {
-        $this->userCredential = $userCredential;
+        $this->userCredential = new UserCredential();
     }
 }

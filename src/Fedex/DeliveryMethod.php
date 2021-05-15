@@ -9,8 +9,8 @@ class DeliveryMethod
     public string|null $deliveryType = "PICKUP"; //as is
     public OrderRecipient $orderRecipient;
 
-    public function __construct(OrderRecipient $orderRecipient)
+    public function __construct()
     {
-        $this->orderRecipient = $orderRecipient;
+        $this->orderRecipient = new OrderRecipient();
     }
 }
