@@ -2,9 +2,9 @@
 
 namespace EXACTSports\FedEx;
 
-use EXACTSports\FedEx\CreateOfficeOrder\PickupCenterSearched;
-use EXACTSports\FedEx\CreateOfficeOrder\PickupCenterSupplied;
-use EXACTSports\FedEx\CreateOfficeOrder\Shipment;
+use EXACTSports\FedEx\Fedex\CreateOfficeOrder\PickupCenterSearched;
+use EXACTSports\FedEx\Fedex\CreateOfficeOrder\PickupCenterSupplied;
+use EXACTSports\FedEx\Fedex\CreateOfficeOrder\Shipment;
 
 class CreateOfficeOrder
 {

@@ -8,9 +8,11 @@ use EXACTSports\FedEx\Fedex\ClientDetail;
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
 use EXACTSports\FedEx\Fedex\Version; 
 use EXACTSports\FedEx\Fedex\OrderRecipient; 
-use EXACTSports\FedEx\CreateOfficeOrder\CreateOfficeOrderInterface;
+use EXACTSports\FedEx\Fedex\Address; 
+use EXACTSports\FedEx\Fedex\OrderShipmentDetail;
+use EXACTSports\FedEx\Fedex\Interfaces\CreateOfficeOrderInterface;
 
-class PickupCenterSupplied
+class Shipment 
     implements CreateOfficeOrderInterface
 {
     use FedexTrait {
@@ -24,7 +26,8 @@ class PickupCenterSupplied
         $transactionDetail = new TransactionDetail();
         $version = new Version();
         $orderRecipient = new OrderRecipient();
-        $orderRecipient->centerId = "";
+        $orderRecipient->address = new Address();
+        $orderRecipient->orderShipmentDetail = new OrderShipmentDetail(); 
 
         $this->___construct(
             $webAuthenticationDetail, 
@@ -36,10 +39,10 @@ class PickupCenterSupplied
     }
 
     /**
-     * Creates offices order
+     * Creates office order
      */
     public function createOfficeOrder()
     {
-        $this->createOfficeOrder($this);
+        return $this->makeRequest("createOfficeOrder", $this);
     }
 }

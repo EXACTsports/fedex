@@ -9,7 +9,6 @@ use EXACTSports\FedEx\Fedex\Version;
 use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
 use EXACTSPorts\FedEx\Fedex\OrderRecipient; 
 use EXACTSports\FedEx\Client;
-use EXACTSports\FedEx\CreateofficeOrder\CreatefficeOrderInterface;
 use EXACTSPorts\FedEx\Fedex\Response;
 
 trait FedExTrait
@@ -65,17 +64,24 @@ trait FedExTrait
     }
 
     /**
-     * Creates office order
+     * Makes request
      */
-    public function createOfficeOrder(CreatefficeOrderInterface $createOfficeOrder) 
+    public function makeRequest($method, $officeOrder) 
     {
-        $client = new Client();
-        $createOfficeOrderArray = $this->toArray($createOfficeOrder);
-        
+        $officeOrderArray = $this->toArray($officeOrder);
+        $client = new Client();   
+        $soapResponse = new Response($client);
+
         try {
-            $reponse = $client->createOfficeOrder($createOfficeOrderArray);
-        catch (\SoapFault $exception) {
-            
+            $response = call_user_func(array($client, $method), $officeOrderArray); 
+        } catch (\SoapFault $exception) {
+            return $soapResponse->exception($exception, $client);
         }
-    }   
+
+        if ($soapResponse->HighestSeverity != 'FAILURE' && $soapResponse->HighestSeverity != 'ERROR') {
+            return $soapResponse->success();
+        } else {
+            return $soapResponse->failure();
+        }
+    }
 }

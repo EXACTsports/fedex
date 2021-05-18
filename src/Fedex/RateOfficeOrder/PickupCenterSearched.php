@@ -10,10 +10,10 @@ use EXACTSports\FedEx\Fedex\Version;
 use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
 use EXACTSports\FedEx\Fedex\OrderPickupDetail;
 use EXACTSports\FedEx\Fedex\AssociatedAccounts; 
-use EXACTSports\FedEx\CreateOfficeOrder\CreateOfficeOrderInterface;
+use EXACTSports\FedEx\Fedex\Interfaces\RateOfficeOrderInterface;
 
 class PickupCenterSearched 
-    implements CreateOfficeOrderInterface
+    implements RateOfficeOrderInterface
 {
     use FedexTrait {
         FedexTrait::__construct as ___construct;
@@ -41,10 +41,10 @@ class PickupCenterSearched
     }
 
     /**
-     * Creates offices order
+     * Rates office interface
      */
-    public function createOfficeOrder()
+    public function rateOfficeOrder()
     {
-        $this->createOfficeOrder($this);
+        return $this->makeRequest("rateOfficeOrder", $this);
     }
 }

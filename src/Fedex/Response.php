@@ -28,4 +28,45 @@ class Response
     {
         return $this->client->__getLastResponse();
     }
+
+    /**
+     * Return success array
+     */
+    public function success()
+    {
+        return array(
+            "lastRequest" => $this->getLastRequest(),
+            "lastResponse" => $this->getLastResponse()
+        );
+    } 
+
+    /**
+     * Returns failures
+     */
+    public function failure($response)
+    {
+        $notifications = [];
+
+        foreach ($response->Notifications as $notification) {
+            $notificationArray = array(
+                "severity" => $notification->Severity,
+                "message" => $notification->Message
+            );
+            
+            $notifications[] = $notificationArray; 
+        }
+        
+        return $notifications;
+    }
+
+    /**
+     * Failure
+     */
+    public function exception($exception, $client)
+    {
+        return array(                     
+            "code" => $exception->faultcode, 
+            "message" => $exception->faultstring
+        );
+    }
 }

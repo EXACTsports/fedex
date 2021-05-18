@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\CreateOfficeOrder;
+namespace EXACTSports\FedEx\Fedex\Interfaces;
 
 interface CreateOfficeOrderInterface
 {

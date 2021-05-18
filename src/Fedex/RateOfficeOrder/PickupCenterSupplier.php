@@ -8,12 +8,10 @@ use EXACTSports\FedEx\Fedex\ClientDetail;
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
 use EXACTSports\FedEx\Fedex\Version; 
 use EXACTSports\FedEx\Fedex\OrderRecipient; 
-use EXACTSports\FedEx\Fedex\Address; 
-use EXACTSports\FedEx\Fedex\OrderShipmentDetail;
-use EXACTSports\FedEx\CreateOfficeOrder\CreateOfficeOrderInterface;
+use EXACTSports\FedEx\Fedex\Interfaces\RateOfficeOrderInterface;
 
-class Shipment 
-    implements CreateOfficeOrderInterface
+class PickupCenterSupplied
+    implements RateOfficeOrderInterface
 {
     use FedexTrait {
         FedexTrait::__construct as ___construct;
@@ -26,8 +24,7 @@ class Shipment
         $transactionDetail = new TransactionDetail();
         $version = new Version();
         $orderRecipient = new OrderRecipient();
-        $orderRecipient->address = new Address();
-        $orderRecipient->orderShipmentDetail = new OrderShipmentDetail(); 
+        $orderRecipient->centerId = "";
 
         $this->___construct(
             $webAuthenticationDetail, 
@@ -39,10 +36,10 @@ class Shipment
     }
 
     /**
-     * Creates offices order
+     * Rates office interface
      */
-    public function createOfficeOrder()
+    public function rateOfficeOrder()
     {
-        $this->createOfficeOrder($this);
+        return $this->makeRequest("rateOfficeOrder", $this);
     }
 }

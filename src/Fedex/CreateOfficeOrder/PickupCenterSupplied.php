@@ -1,14 +1,16 @@
-<?php
+<?php 
 
-namespace EXACTSports\FedEx;
+namespace EXACTSports\FedEx\CreateOfficeOrder;
 
 use EXACTSports\FedEx\FedExTrait; 
 use EXACTSports\FedEx\Fedex\WebAuthenticationDetail; 
 use EXACTSports\FedEx\Fedex\ClientDetail; 
 use EXACTSports\FedEx\Fedex\TransactionDetail; 
 use EXACTSports\FedEx\Fedex\Version; 
+use EXACTSports\FedEx\Fedex\OrderRecipient; 
 
-class GetUploadLocation
+class PickupCenterSupplied
+    implements CreateOfficeOrderInterface
 {
     use FedexTrait {
         FedexTrait::__construct as ___construct;
@@ -20,20 +22,23 @@ class GetUploadLocation
         $clientDetail = new ClientDetail();
         $transactionDetail = new TransactionDetail();
         $version = new Version();
+        $orderRecipient = new OrderRecipient();
+        $orderRecipient->centerId = "";
 
-         $this->___construct(
+        $this->___construct(
             $webAuthenticationDetail, 
             $clientDetail, 
             $transactionDetail, 
             $version, 
+            $orderRecipient
         );
     }
 
     /**
-     * Rates office interface
+     * Creates office order
      */
-    public function getUploadLocation()
+    public function createOfficeOrder()
     {
-        return $this->makeRequest("getUploadLocation", $this);
+        return $this->makeRequest("createOfficeOrder", $this);
     }
 }
