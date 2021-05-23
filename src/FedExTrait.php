@@ -2,26 +2,26 @@
 
 namespace EXACTSports\FedEx;
 
-use EXACTSports\FedEx\Fedex\WebAuthenticationDetail; 
-use EXACTSports\FedEx\Fedex\ClientDetail; 
-use EXACTSports\FedEx\Fedex\TransactionDetail; 
-use EXACTSports\FedEx\Fedex\Version;
-use EXACTSports\FedEx\Fedex\RequestedOfficeOrder;
-use EXACTSPorts\FedEx\Fedex\OrderRecipient; 
+use EXACTSports\FedEx\Base\Interfaces\WebAuthenticationDetailInterface;
+use EXACTSports\FedEx\Base\Interfaces\ClientDetailInterface; 
+use EXACTSports\FedEx\Base\TransactionDetail; 
+use EXACTSports\FedEx\Base\Version;
+use EXACTSports\FedEx\Base\RequestedOfficeOrder;
+use EXACTSports\FedEx\Base\OrderRecipient; 
 use EXACTSports\FedEx\Client;
-use EXACTSPorts\FedEx\Fedex\Response;
+use EXACTSports\FedEx\Base\Response;
 
 trait FedExTrait
 {
-    public WebAuthenticationDetail $webAuthenticationDetail; 
-    public ClientDetail $clientDetail; 
+    public WebAuthenticationDetailInterface $webAuthenticationDetail; 
+    public ClientDetailInterface $clientDetail; 
     public TransactionDetail $transactionDetail; 
     public Version $version; 
     public RequestedOfficeOrder $requestedOfficeOrder;
     
     public function __construct(
-        WebAuthenticationDetail $webAuthenticationDetail, 
-        ClientDetail $clientDetail, 
+        WebAuthenticationDetailInterface $webAuthenticationDetail, 
+        ClientDetailInterface $clientDetail, 
         TransactionDetail $transactionDetail,
         Version $version)
     {
