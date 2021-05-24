@@ -1,9 +1,9 @@
 <?php 
 
-namespace EXACTSports\FedEx\LocationService;
+namespace EXACTSports\FedEx\LocationsService;
 
 use EXACTSports\FedEx\Base\BaseWebAuthenticationDetail;
-use EXACTSports\FedEx\LocationService\ParentCredential;
+use EXACTSports\FedEx\LocationsService\ParentCredential;
 
 class WebAuthenticationDetail extends BaseWebAuthenticationDetail
 {

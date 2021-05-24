@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\Base; 
+namespace EXACTSports\FedEx\LocationsService; 
 
 class UniqueTrackingNumber
 {

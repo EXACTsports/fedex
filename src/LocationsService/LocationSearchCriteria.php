@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\Base\LocationService;
+namespace EXACTSports\FedEx\Base\LocationsService;
 
 class LocationSearchCriteria 
 {

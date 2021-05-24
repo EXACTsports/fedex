@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\LocationService; 
+namespace EXACTSports\FedEx\LocationsService; 
 
 use EXACTSports\FedEx\Base\BaseClientDetail; 
 
@@ -11,4 +11,9 @@ class ClientDetail extends BaseClientDetail
     // Optional
     public string|null $meterInstance;
     public string|null $region;  
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 } 

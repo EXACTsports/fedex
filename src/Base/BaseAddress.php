@@ -9,5 +9,5 @@ class BaseAddress
     public string|null $stateOrProvinceCode; // contact state
     public string|null $postalCode; // contact postal code
     public string|null $countryCode; // contact contry code
-    public string|null $residential = "false"; // contact residential
+    public string|null $residential; // contact residential
 }

@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\LocationService;
+namespace EXACTSports\FedEx\LocationsService;
 
 class SortDetail
 {

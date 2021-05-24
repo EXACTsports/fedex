@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\LocationService;
+namespace EXACTSports\FedEx\LocationsService;
 
 class RequiredLocationCapabilities
 {
@@ -8,5 +8,5 @@ class RequiredLocationCapabilities
     public string|null $serviceType;
     public string|null $serviceCategory;
     public string|null $transferOfPossesionType;
-    public string|null $daysOfWeek;
+    public array $daysOfWeek;
 }

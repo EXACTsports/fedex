@@ -10,4 +10,9 @@ class BaseClientDetail
 {
     public string|null $integratorId; // your integrator id
     public Localization $localization; 
+
+    public function __construct()
+    {
+        $this->localization = new Localization();
+    }
 }

@@ -3,14 +3,14 @@
 namespace EXACTSports\FedEx;
 
 use EXACTSports\FedEx\FedExTrait; 
-use EXACTSports\FedEx\LocationService\WebAuthenticationDetail; 
-use EXACTSports\FedEx\LocationService\ClientDetail; 
+use EXACTSports\FedEx\LocationsService\WebAuthenticationDetail; 
+use EXACTSports\FedEx\LocationsService\ClientDetail; 
 use EXACTSports\FedEx\Base\TransactionDetail; 
 use EXACTSports\FedEx\Base\Version; 
-use EXACTSports\FedEx\LocationService\UniqueTrackingNumber;
-use EXACTSports\FedEx\LocationService\Address;
-use EXACTSports\FedEx\LocationService\SortDetail; 
-use EXACTSports\FedEx\LocationService\Constraints;
+use EXACTSports\FedEx\LocationsService\UniqueTrackingNumber;
+use EXACTSports\FedEx\LocationsService\Address;
+use EXACTSports\FedEx\LocationsService\SortDetail; 
+use EXACTSports\FedEx\LocationsService\Constraints;
 
 class SearchLocations 
 {
