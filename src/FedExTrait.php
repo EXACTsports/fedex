@@ -50,13 +50,13 @@ trait FedExTrait
      */
     private function removeEmptyElements($array) {
         foreach ($array as $key => &$value) {
-            if (empty($value)) {
+            if ($value !== "0" && empty($value)) {
                 unset($array[$key]);
             }
             else {
                 if (is_array($value)) {
                     $value = $this->removeEmptyElements($value);
-                    if (empty($value)) {
+                    if ($value !== "0" && empty($value)) {
                         unset($array[$key]);
                     }
                 }
