@@ -36,9 +36,9 @@ trait FedExTrait
      * @param $object
      * @return array
      */
-    public function toArray($object)
+    public function toArray()
     {
-        $array = json_decode(json_encode($object), true);
+        $array = json_decode(json_encode($this), true);
         return $this->ucFirstKeys($array);
     }
 
@@ -61,27 +61,5 @@ trait FedExTrait
          }
     
          return $request;
-    }
-
-    /**
-     * Makes request
-     */
-    public function makeRequest($method, $officeOrder) 
-    {
-        $officeOrderArray = $this->toArray($officeOrder);
-        $client = new Client();   
-        $soapResponse = new Response($client);
-
-        try {
-            $response = call_user_func(array($client, $method), $officeOrderArray); 
-        } catch (\SoapFault $exception) {
-            return $soapResponse->exception($exception, $client);
-        }
-
-        if ($soapResponse->HighestSeverity != 'FAILURE' && $soapResponse->HighestSeverity != 'ERROR') {
-            return $soapResponse->success();
-        } else {
-            return $soapResponse->failure();
-        }
     }
 }
