@@ -39,7 +39,31 @@ trait FedExTrait
     public function toArray()
     {
         $array = json_decode(json_encode($this), true);
-        return $this->ucFirstKeys($array);
+        $array = $this->ucFirstKeys($array);
+        $array = $this->removeEmptyElements($array);
+
+        return $array;
+    }
+
+    /**
+     * Remove empty elements
+     */
+    private function removeEmptyElements($array) {
+        foreach ($array as $key => &$value) {
+            if (empty($value)) {
+                unset($array[$key]);
+            }
+            else {
+                if (is_array($value)) {
+                    $value = $this->removeEmptyElements($value);
+                    if (empty($value)) {
+                        unset($array[$key]);
+                    }
+                }
+            }
+        }
+
+        return $array;
     }
 
     /**
