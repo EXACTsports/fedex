@@ -1,0 +1,34 @@
+{
+  "name": "fedex",
+  "version": "1.0.0",
+  "description": "Integrate FedEx web services with your Laravel 8 or higher app. Early iterations of this package will focus on FedEx Office services like printing.\r ### How To Use\r This package requires that you have a FedEx [developer account](https://www.fedex.com/en-us/developer/web-services/office/process.html#develop), complete with approved API keys.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EXACTsports/fedex.git"
+  },
+  "author": "Julián May",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EXACTsports/fedex/issues"
+  },
+  "homepage": "https://github.com/EXACTsports/fedex#readme",
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.11",
+    "laravel-mix": "^6.0.0-beta.17",
+    "vue": "^3.0.11",
+    "vue-loader": "^16.2.0"
+  }
+}

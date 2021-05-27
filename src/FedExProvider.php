@@ -10,6 +10,12 @@ class FedExProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'fedex');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('config.php'),
+        ], 'config');
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/fedex'),
+        ], 'public');
     }
 
     public function register(): void
