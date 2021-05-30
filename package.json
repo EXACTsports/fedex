@@ -33,5 +33,8 @@
     "tailwindcss": "^2.1.2",
     "vue": "^3.0.11",
     "vue-loader": "^16.2.0"
+  },
+  "dependencies": {
+    "alpinejs": "^2.8.2"
   }
 }

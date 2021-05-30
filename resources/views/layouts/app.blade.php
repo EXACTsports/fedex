@@ -11,9 +11,10 @@
         @livewireStyles
     </head>
     <body>
-        <div class="container">
+        <div class="container mx-auto">
             @yield('content')
         </div>
         @livewireScripts
+        <script src="{{ asset('vendor/fedex/js/app.js') }}"></script>
     </body> 
 </html>
