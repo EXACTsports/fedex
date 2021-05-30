@@ -27,7 +27,10 @@
   "homepage": "https://github.com/EXACTsports/fedex#readme",
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.11",
+    "autoprefixer": "^10.2.6",
     "laravel-mix": "^6.0.0-beta.17",
+    "postcss": "^8.3.0",
+    "tailwindcss": "^2.1.2",
     "vue": "^3.0.11",
     "vue-loader": "^16.2.0"
   }

@@ -3,6 +3,8 @@
 namespace EXACTSports\FedEx;
 
 use Illuminate\Support\ServiceProvider;
+use EXACTSports\FedEx\Http\Livewire\SearchLocations;
+use Livewire\Livewire;
 
 class FedExProvider extends ServiceProvider
 {
@@ -11,8 +13,9 @@ class FedExProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'fedex');
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/fedex'),
+        __DIR__.'/../public' => public_path('vendor/fedex'),
         ], 'public');
+        Livewire::component('fedex::search-locations', SearchLocations::class);
     }
 
     public function register(): void
