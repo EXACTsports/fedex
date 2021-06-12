@@ -17,9 +17,9 @@ class FedexService
     }
 
     /**
-     * Gets token
+     * OAuth
      */
-    public function getToken() 
+    public function token() 
     {
         $response = $this->client->request('POST', '/auth/oauth/v2/token', [
             'form_params' => [
@@ -30,9 +30,53 @@ class FedexService
             ]
         ]);
 
-        $body = (string )$response->getBody();
-        $body = json_decode($body, true);
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
 
-        return $body;
+        return $response;
+    }
+
+    /**
+     * Gets token
+     */
+    public function getToken() : string
+    {
+        $response = $this->token();
+
+        return $response["access_token"];
+    }
+
+    /**
+     * Uploads document from cloud drive
+     * @param string $link
+     * @param string $fileName
+     */
+    public function uploadDocumentFromCloudDrive(string $link, string $fileName)
+    {
+        $token = $this->getToken();
+
+        $client = new Client([
+            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
+        ]);
+
+        $response = $client->client->request('POST', '/document/fedexoffice/v1/documents', [
+            'headers' => array(
+                "Content-Type" => "application/json",
+                "Authorization" => "Bearer " . $token
+            ),
+            'json' => array(
+                "input" => array(
+                    "download" => array(
+                        "link" => $link,
+                        "fileName" => $fileName
+                    )
+                )
+            )
+        ]);
+
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
+
+        return $response;
     }
 }
