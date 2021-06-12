@@ -88,7 +88,7 @@ class FedexService
     {
         $token = $this->getToken();
 
-        $response = $this->client->request('POST', 'document/fedexoffice/v1/documents/' . $documentId . '/printready', [
+        $response = $this->client->request('POST', '/document/fedexoffice/v1/documents/' . $documentId . '/printready', [
             'headers' => array(
                 "Content-Type" => "application/json",
                 "Authorization" => "Bearer " . $token
@@ -96,6 +96,27 @@ class FedexService
             'json' => array(
                 "input" => array()
             )
+        ]);
+
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
+
+        return $response;
+    }
+
+    /**
+     * Gets delivery options pickup requiest
+     */
+    public function getDeliveryOptions(array $deliveryOptions)
+    {
+        $token = $this->getToken();
+
+        $response = $this->client->request('POST', '/order/fedexoffice/v2/deliveryoptions', [
+            'headers' => array(
+                "Content-Type" => "application/json",
+                "Authorization" => "Bearer " . $token
+            ),
+            'json' => $deliveryOptions
         ]);
 
         $response = (string )$response->getBody();
