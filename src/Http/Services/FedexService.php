@@ -79,4 +79,28 @@ class FedexService
 
         return $response;
     }
+
+    /**
+     * Converts to PDF
+     * @param string $documentId
+     */
+    public function convertToPDF(string $documentId)
+    {
+        $token = $this->getToken();
+
+        $response = $this->client->request('POST', 'document/fedexoffice/v1/documents/' . $documentId . '/printready', [
+            'headers' => array(
+                "Content-Type" => "application/json",
+                "Authorization" => "Bearer " . $token
+            ),
+            'json' => array(
+                "input" => array()
+            )
+        ]);
+
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
+
+        return $response;
+    }
 }
