@@ -2,6 +2,7 @@
 
 namespace EXACTSports\FedEx\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use EXACTSports\FedEx\Http\Services\FedexService;
 
@@ -19,13 +20,10 @@ class FedexController extends Controller
         return view('fedex::index');
     }
 
-    /**
-     * Gets token
-     */
-    public function getToken()
+    public function uploadDocument()
     {
-        $token = $this->fedexService->getToken();
+        $json = $this->fedexService->uploadDocumentFromLocalDrive();
 
-        return response()->json($token);
+        return response()->json($json);
     }
 }

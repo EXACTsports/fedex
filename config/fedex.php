@@ -8,5 +8,6 @@ return [
     'exceptions' => env('FEDEX_EXCEPTIONS', true),
     'apiBaseUrl' => env('FEDEX_API_BASE_URL'),
     'clientId' => env('FEDEX_CLIENT_ID'),
-    'clientSecret' => env('FEDEX_CLIENT_SECRET')
+    'clientSecret' => env('FEDEX_CLIENT_SECRET'),
+    'documentUploadHostname' => env('FEDEX_DOCUMENT_UPLOAD_HOSTNAME')
 ];
