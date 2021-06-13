@@ -5,8 +5,12 @@
     <div class="documents border-yellow-900">
         <ul>
             @foreach($documents as $document)
-                <li>{{ $document }}</li>
+                <li>
+                    <div class="flex">
+                        <p>{{ $document['fileName'] }}</p>
+                        <button type="button" class="bg-blue-400 text-white" wire:click="$emit('convertToPdf', {{ $document['documentId'] }})">SET PRINT OPTIONS</button>
+                </li>
             @endforeach
-        <ul>
+        </ul>
     </div>
 </div>

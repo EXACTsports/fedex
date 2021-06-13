@@ -113,7 +113,7 @@ class FedexService
      * Converts to PDF
      * @param string $documentId
      */
-    public function convertToPDF(string $documentId)
+    public function convertToPDF(string $documentId, array $options)
     {
         $token = $this->getToken();
 
@@ -122,9 +122,7 @@ class FedexService
                 "Content-Type" => "application/json",
                 "Authorization" => "Bearer " . $token
             ),
-            'json' => array(
-                "input" => array()
-            )
+            'json' => $options
         ]);
 
         $response = (string )$response->getBody();

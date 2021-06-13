@@ -19,7 +19,12 @@ class UploadFile extends Component
             $fedexService = new FedexService();
             $response = $fedexService->uploadDocumentFromLocalDrive($this->file->getRealPath(), $this->file->getClientOriginalName());
             $fileName = $response["output"]["document"]["documentName"];
-            array_push($this->documents, $fileName);
+            $documentId = $response["output"]["document"]["documentId"];
+
+            $this->documents[] = array(
+                "fileName" => $fileName,
+                "documentId" => $documentId
+            );
         }
         
         return view("fedex::livewire.upload_file", ["documents" => $this->documents]);
