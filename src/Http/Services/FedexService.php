@@ -47,6 +47,35 @@ class FedexService
     }
 
     /**
+     * Uploads document from local drive
+     * @param string $file
+     */
+    public function uploadDocumentFromLocalDrive(string $filePath, string $fileName)
+    {
+        $client = new Client([
+            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
+        ]);
+
+        $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
+            'headers' => array(
+                "Content-Type" => "multipart/form-data"
+            ),
+            'multipart' => array(
+                array(
+                    "name" => "localfile",
+                    "contents" => file_get_contents($filePath),
+                    "filename" => $fileName
+                )
+            )
+        ]);
+
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
+
+        return $response;
+    }
+
+    /**
      * Uploads document from cloud drive
      * @param string $link
      * @param string $fileName
@@ -59,7 +88,7 @@ class FedexService
             'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
         ]);
 
-        $response = $client->client->request('POST', '/document/fedexoffice/v1/documents', [
+        $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
             'headers' => array(
                 "Content-Type" => "application/json",
                 "Authorization" => "Bearer " . $token

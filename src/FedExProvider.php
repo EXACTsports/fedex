@@ -3,8 +3,7 @@
 namespace EXACTSports\FedEx;
 
 use Illuminate\Support\ServiceProvider;
-use EXACTSports\FedEx\Http\Livewire\SearchLocations;
-use EXACTSports\FedEx\Http\Livewire\DatePicker;
+use EXACTSports\FedEx\Http\Livewire\UploadFile;
 use Livewire\Livewire;
 
 class FedExProvider extends ServiceProvider
@@ -16,8 +15,7 @@ class FedExProvider extends ServiceProvider
         $this->publishes([
         __DIR__.'/../public' => public_path('vendor/fedex'),
         ], 'public');
-        Livewire::component('fedex::search-locations', SearchLocations::class);
-        Livewire::component('fedex::date-picker', DatePicker::class);
+        Livewire::component('fedex::upload-file', UploadFile::class);
     }
 
     public function register(): void
