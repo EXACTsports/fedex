@@ -4,7 +4,7 @@ namespace EXACTSports\FedEx;
 
 use Illuminate\Support\ServiceProvider;
 use EXACTSports\FedEx\Http\Livewire\UploadFile;
-use EXACTSports\FedEx\Http\Livewire\ConvertToPdf;
+use EXACTSports\FedEx\Http\Livewire\SetPrintOptions;
 use Livewire\Livewire;
 
 class FedExProvider extends ServiceProvider
@@ -17,7 +17,7 @@ class FedExProvider extends ServiceProvider
         __DIR__.'/../public' => public_path('vendor/fedex'),
         ], 'public');
         Livewire::component('fedex::upload-file', UploadFile::class);
-        Livewire::component('fedex::convert-to-pdf', ConvertToPdf::class);
+        Livewire::component('fedex::set-print-options', SetPrintOptions::class);
     }
 
     public function register(): void

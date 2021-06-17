@@ -151,4 +151,23 @@ class FedexService
 
         return $response;
     }
+
+    /**
+     * Gets document preview
+     * @param string $documentId
+     * @param int $pageNumber
+     */
+    public function getDocumentPreview(string $documentId, int $pageNumber = 1)
+    {
+         $client = new Client([
+            'base_uri' => env("FEDEX_DOCUMENT_PREVIEW_HOSTNAME")
+        ]);
+
+        $response = $client->request('GET', '/document/fedexoffice/v1/documents/' . $documentId . '/preview?pageNumber=' . $pageNumber);
+
+        $response = (string )$response->getBody();
+        $response = json_decode($response, true);
+
+        return $response;
+    }
 }
