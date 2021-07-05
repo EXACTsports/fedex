@@ -18,18 +18,6 @@ trait FedExTrait
     public TransactionDetail $transactionDetail; 
     public Version $version; 
     public RequestedOfficeOrder $requestedOfficeOrder;
-    
-    public function __construct(
-        WebAuthenticationDetailInterface $webAuthenticationDetail, 
-        ClientDetailInterface $clientDetail, 
-        TransactionDetail $transactionDetail,
-        Version $version)
-    {
-        $this->webAuthenticationDetail = $webAuthenticationDetail; 
-        $this->clientDetail = $clientDetail;
-        $this->transactionDetail = $transactionDetail;
-        $this->version = $version;
-    } 
 
     /**
      * Converts object to array
@@ -48,12 +36,12 @@ trait FedExTrait
     /**
      * Remove empty elements
      */
-    private function removeEmptyElements($array) {
+    private function removeEmptyElements(array $array) : array
+    {
         foreach ($array as $key => &$value) {
             if ($value !== "0" && empty($value)) {
                 unset($array[$key]);
-            }
-            else {
+            } else {
                 if (is_array($value)) {
                     $value = $this->removeEmptyElements($value);
                     if ($value !== "0" && empty($value)) {

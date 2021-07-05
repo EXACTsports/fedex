@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
+use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
 
-class FedexService
+class FedExService
 {
     private Client $client;
 
@@ -67,7 +68,7 @@ class FedexService
      * Uploads document from local drive
      * @param string $file
      */
-    public function uploadDocumentFromLocalDrive(string $filePath, string $fileName)
+    public function uploadDocumentFromLocalDrive(array $documentFromLocalDrive) : object
     {
         $client = new Client([
             'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
@@ -77,17 +78,11 @@ class FedexService
             'headers' => array(
                 "Content-Type" => "multipart/form-data"
             ),
-            'multipart' => array(
-                array(
-                    "name" => "localfile",
-                    "contents" => file_get_contents($filePath),
-                    "filename" => $fileName
-                )
-            )
+            'multipart' => array($documentFromLocalDrive)
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response, true);
+        $response = json_decode($response);
 
         return $response;
     }
@@ -97,7 +92,7 @@ class FedexService
      * @param string $link
      * @param string $fileName
      */
-    public function uploadDocumentFromCloudDrive(string $link, string $fileName)
+    public function uploadDocumentFromCloudDrive(string $link, string $fileName) : object
     {
         $client = new Client([
             'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
@@ -116,7 +111,7 @@ class FedexService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response, true);
+        $response = json_decode($response);
 
         return $response;
     }
@@ -125,7 +120,7 @@ class FedexService
      * Converts to PDF
      * @param string $documentId
      */
-    public function convertToPDF(string $documentId, array $options)
+    public function convertToPDF(string $documentId, array $options) : object
     {
         $response = $this->client->request('POST', '/document/fedexoffice/v1/documents/' . $documentId . '/printready', [
             'headers' => $this->getRequestHeader(),
@@ -133,7 +128,7 @@ class FedexService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response, true);
+        $response = json_decode($response);
 
         return $response;
     }
@@ -143,7 +138,7 @@ class FedexService
      * @param string $documentId
      * @param int $pageNumber
      */
-    public function getDocumentPreview(string $documentId, int $pageNumber = 1)
+    public function getDocumentPreview(string $documentId, int $pageNumber = 1) : object
     {
         $client = new Client([
             'base_uri' => env("FEDEX_DOCUMENT_PREVIEW_HOSTNAME")
@@ -152,7 +147,7 @@ class FedexService
         $response = $client->request('GET', '/document/fedexoffice/v1/documents/' . $documentId . '/preview?pageNumber=' . $pageNumber);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response, true);
+        $response = json_decode($response);
 
         return $response;
     }
