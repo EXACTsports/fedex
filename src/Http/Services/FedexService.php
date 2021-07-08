@@ -46,8 +46,8 @@ class FedExService
     {
         if (Redis::exists("fedex.accessToken")) {
             $expiresIn = Redis::get("fedex.expiresIn");
-            $expiresIn = date("H:i", $expiresIn);
-            $currentTime = date("H:i");
+            $expiresIn = date("Y-m-d H:i:s", $expiresIn);
+            $currentTime = date("Y-m-d H:i:s");
 
             if ($currentTime < $expiresIn) {
                 return Redis::get("fedex.accessToken");
@@ -55,7 +55,7 @@ class FedExService
         }
 
         $response = $this->token();
-        $expiresIn = strtotime(date("Y-m-d H:i")) + $response->expires_in;
+        $expiresIn = strtotime(date("Y-m-d H:i:s")) + $response->expires_in;
         $accessToken = $response->access_token;
         
         Redis::set("fedex.expiresIn", $expiresIn);

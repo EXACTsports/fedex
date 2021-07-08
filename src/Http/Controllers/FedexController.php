@@ -4,7 +4,7 @@ namespace EXACTSports\FedEx\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use EXACTSports\FedEx\Http\Services\FedexService;
+use EXACTSports\FedEx\Http\Services\FedExService;
 
 class FedexController extends Controller
 {
@@ -25,5 +25,12 @@ class FedexController extends Controller
         $json = $this->fedexService->uploadDocumentFromLocalDrive();
 
         return response()->json($json);
+    }
+
+    public function getToken()
+    {
+        $token = $this->fedexService->getPublicKey();
+        print_r($token);
+        die;
     }
 }

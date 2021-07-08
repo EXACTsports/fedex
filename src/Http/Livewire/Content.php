@@ -3,6 +3,8 @@
 namespace EXACTSports\FedEx\Http\Livewire;
 
 use Livewire\Component; 
+use EXACTSports\FedEx\Rates\RateRequest;
+use EXACTSports\FedEx\Http\Services\FedExService;
 
 class Content extends Component 
 {
@@ -16,6 +18,16 @@ class Content extends Component
     public array $document = []; 
     public array $cart = [];
     protected $listeners = ['setDocuments', 'setPrintOptions', 'deleteDocument', 'addTo' , 'goToCheckout', 'getLocations', 'placeOrder', 'showLoader'];
+    private RateRequest $rateRequest;
+    private FedExService $fedExService;
+
+    public function mount()
+    {
+        $this->fedExService = new FedExService();
+        $this->rateRequest = new RateRequest();
+        $this->rateRequest->fedExAccountNumber = "X123456";
+        $this->rateRequest->site = "site.com";
+    }
 
     /**
      * Shows loader
@@ -53,6 +65,7 @@ class Content extends Component
         $this->document = $this->documents[(int) $index]; 
         $this->emit('updateDocument', $this->document);
         $this->showUploadFileComponent = false;
+        $this->showLoader(true);
         $this->showSetPrintOptionsComponent = true;
     }
 

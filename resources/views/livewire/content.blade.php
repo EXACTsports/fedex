@@ -1,4 +1,5 @@
 <div class="content-wrapper" x-cloak 
+    @click="closeOpenedPanel($event)"
     x-data="{ 
         showUploadFileComponent: @entangle('showUploadFileComponent'), 
         showSetPrintOptionsComponent: @entangle('showSetPrintOptionsComponent'),
@@ -46,3 +47,15 @@
     </div>
     <!-- END CHEKOUT -->
 </div>
+@push('scripts')
+    <script>
+        /**
+         * Opens print option panel
+         */
+        function closeOpenedPanel(e) {
+            if (e.target.id !== "printOptionHeader") {
+                Livewire.emit("closeOpenedPanel");
+            }
+        }
+    </script>
+@endpush
