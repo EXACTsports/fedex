@@ -9,14 +9,16 @@ class PrintOptionPanel extends Component
     protected $listeners = ["openPrintOptionPanel", "closeOpenedPanel"];
     public string $openPrintOptionPanelStyle = "opacity: 0;"; 
     public array $printOptions = [];
-    public int $componentIndex = 0;
-    public int $index = 0;
+    public string $selectedProductId = "";
+    public string $productId = "";
     public bool $openedPanel = false;
+    public string $optionId = "";
 
-    public function mount(array $printOptions = [], int $componentIndex = 0)
+    public function mount(array $printOptions = [], string $selectedProductId = "", string $optionId = "")
     {
         $this->printOptions = $printOptions;
-        $this->componentIndex = $componentIndex; 
+        $this->selectedProductId = $selectedProductId; 
+        $this->optionId = $optionId;
     }
 
     /**
@@ -33,10 +35,11 @@ class PrintOptionPanel extends Component
      * Opens print option panel
      * @param bool $value
      */
-    public function openPrintOptionPanel(bool $value, int $leftPx = 0, int $index = -1)
+    public function openPrintOptionPanel(bool $value, int $leftPx = 0, string $productId = "")
     {
-        $this->openPrintOptionPanelStyle = $this->componentIndex === $index && $value ? "left: ". $leftPx . "px; z-index: 10; opacity: 1;" : "opacity: 0";
-        $this->index = $index;
+        $this->openPrintOptionPanelStyle = $this->selectedProductId === $productId && 
+            $value ? "left: ". $leftPx . "px; z-index: 10; opacity: 1;" : "opacity: 0";
+        $this->productId = $productId;
 
         if ($value) {
             $this->openedPanel = true;
@@ -48,9 +51,10 @@ class PrintOptionPanel extends Component
     /**
      * Selects print option
      */
-    public function selectPrintOption(string $param)
+    public function selectPrintOption(string $optionId, string $optionText)
     {
-        $test = $param;
+        $this->emit("selectDocumentPrintOption", $this->productId, $optionId);
+        $this->emit("selectText", $optionText, $this->selectedProductId);
     }
 
     public function render()
@@ -59,8 +63,9 @@ class PrintOptionPanel extends Component
             [
                 "openPrintOptionPanelStyle" => $this->openPrintOptionPanelStyle,
                 "printOptions" => $this->printOptions,
-                "componentIndex" => $this->componentIndex, 
-                "index" => $this->index
+                "selectedProductId" => $this->selectedProductId, 
+                "productId" => $this->productId,
+                "optionId" => $this->optionId
             ]
         );
     }

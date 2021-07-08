@@ -54,7 +54,7 @@
          */
         function closeOpenedPanel(e) {
             if (e.target.id !== "printOptionHeader") {
-                Livewire.emit("closeOpenedPanel");
+                // Livewire.emit("closeOpenedPanel");
             }
         }
     </script>

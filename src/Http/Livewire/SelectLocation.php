@@ -3,7 +3,7 @@
 namespace EXACTSports\FedEx\Http\Livewire;
 
 use Livewire\Component; 
-use EXACTSPorts\FedEx\Http\Services\FedexService;
+use EXACTSports\FedEx\Http\Services\FedexService;
 
 class SelectLocation extends Component 
 {

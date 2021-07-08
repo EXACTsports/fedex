@@ -8,8 +8,8 @@ use EXACTSports\FedEx\Http\Services\FedExService;
 
 class Content extends Component 
 {
-    public bool $showUploadFileComponent = true;
-    public bool $showSetPrintOptionsComponent = false;
+    public bool $showUploadFileComponent = false;
+    public bool $showSetPrintOptionsComponent = true;
     public bool $showCart = false;
     public bool $showDeliveryOptions = false;
     public bool $showCheckout = false;
