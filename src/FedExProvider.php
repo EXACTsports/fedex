@@ -8,6 +8,7 @@ use EXACTSports\FedEx\Http\Livewire\UploadFile;
 use EXACTSports\FedEx\Http\Livewire\PrintOptions\SetPrintOptions;
 use EXACTSports\FedEx\Http\Livewire\PrintOptions\PrintOption;
 use EXACTSports\FedEx\Http\Livewire\PrintOptions\PrintOptionPanel;
+use EXACTSports\FedEx\Http\Livewire\PrintOptions\MenuWithOptions;
 use EXACTSports\FedEx\Http\Livewire\Cart;
 use EXACTSports\FedEx\Http\Livewire\DeliveryOptions;
 use EXACTSports\FedEx\Http\Livewire\Checkout;
@@ -33,6 +34,7 @@ class FedExProvider extends ServiceProvider
         Livewire::component('fedex::set-print-options', SetPrintOptions::class);
         Livewire::component('fedex::print-option', PrintOption::class);
         Livewire::component('fedex::print-option-panel', PrintOptionPanel::class);
+        Livewire::component('fedex::menu-with-options', MenuWithOptions::class);
         Livewire::component('fedex::cart', Cart::class);
         Livewire::component('fedex::delivery-options', DeliveryOptions::class);
         Livewire::component('fedex::checkout', Checkout::class);

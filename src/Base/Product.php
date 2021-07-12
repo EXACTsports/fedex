@@ -18,12 +18,7 @@ class Product
     public int $qty;                    // Y - Number of copies to be produced. Quantity given at product level must be equal to sum of quantities in product association for the same product
     public array $properties;           // N - Properties for the print job which have name-value pairs and a unique ID. Used in the case of uploaded documents
     public array $features;             // N - Finishing options for order (ex. paper size, print color, folding, etc.). Mandatory when using contentReference
-    public string $pageExceptions;      // N - Pages that should have different features than the other pages in the print job
+    public array $pageExceptions;      // N - Pages that should have different features than the other pages in the print job
     public array $contentAssociations;  // N - Contains details of the uploaded document. Must be present when catalogReference is not used
     public array $catalogReference;     // N - Contains the catalogProductId and version of the document to be printed
-
-    public function __constructor()
-    {
-        
-    }
 }

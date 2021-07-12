@@ -18,7 +18,7 @@
             </path>
         </svg>
     </h2>
-    <livewire:fedex::print-option-panel :selectedProductId="$index"  :printOptions="$printOption['options']" />
+    <livewire:fedex::print-option-panel :printOptions="$printOption['options']" :selectedProductId="$index"  />
 @push('scripts')
     <script>
         /**

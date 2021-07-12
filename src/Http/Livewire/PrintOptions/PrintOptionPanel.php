@@ -13,12 +13,17 @@ class PrintOptionPanel extends Component
     public string $productId = "";
     public bool $openedPanel = false;
     public string $optionId = "";
+    public string $optionMenuClass= "p-7";
 
     public function mount(array $printOptions = [], string $selectedProductId = "", string $optionId = "")
     {
-        $this->printOptions = $printOptions;
+        $this->printOptions = $printOptions; 
         $this->selectedProductId = $selectedProductId; 
         $this->optionId = $optionId;
+
+        if (isset($this->printOptions["withMenu"])) {
+            $this->optionMenuClass = "p-5";
+        }
     }
 
     /**
@@ -65,7 +70,8 @@ class PrintOptionPanel extends Component
                 "printOptions" => $this->printOptions,
                 "selectedProductId" => $this->selectedProductId, 
                 "productId" => $this->productId,
-                "optionId" => $this->optionId
+                "optionId" => $this->optionId,
+                "optionMenuClass" => $this->optionMenuClass
             ]
         );
     }
