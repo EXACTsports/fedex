@@ -33,8 +33,8 @@
                                 </h2>
                                 <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-700 overflow-hidden max-h-0 duration-500 transition-all">
                                     <ul>
-                                        @foreach($menu["options"] as $option) 
-                                            <li class="p-2 cursor-pointer ml-2">{{ $option }}</li>
+                                        @foreach($menu["options"] as $key => $option) 
+                                            <li class="p-2 cursor-pointer ml-2" wire:click="selectPrintOption('{{$key}}', '{{$option}}')">{{ $option }}</li>
                                         @endforeach
                                     </ul>            
                                 </div>       
@@ -46,22 +46,3 @@
         @endforeach
     </ul>
 </div>
-@push('scripts')
-    <script>
-        Spruce.store('menuAccordion', {
-            tab: 0,
-        });
-
-        const menuAccordion = (idx) => ({
-            handleClick() {
-                this.$store.menuAccordion.tab = this.$store.menuAccordion.tab === idx ? 0 : idx;
-            },
-            handleRotate() {
-                return this.$store.menuAccordion.tab === idx ? 'rotate-180' : '';
-            },
-            handleToggle() {
-                return this.$store.menuAccordion.tab === idx ? `max-height: ${this.$refs.tab.scrollHeight}px` : '';
-            }
-        });
-    </script>
-@endpush('scripts')

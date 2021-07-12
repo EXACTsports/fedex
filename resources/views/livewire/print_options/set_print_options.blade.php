@@ -13,3 +13,31 @@
         <div class="pagination"></div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        Spruce.store('menuAccordion', {
+            tab: 0,
+        });
+
+        const menuAccordion = (idx) => ({
+            handleClick() {
+                this.$store.menuAccordion.tab = this.$store.menuAccordion.tab === idx ? 0 : idx;
+            },
+            handleRotate() {
+                return this.$store.menuAccordion.tab === idx ? 'rotate-180' : '';
+            },
+            handleToggle() {
+                return this.$store.menuAccordion.tab === idx ? `max-height: ${this.$refs.tab.scrollHeight}px` : '';
+            }
+        });
+        function openPrintOptionPanel(e, value, index) {
+            let printOptionPanelLeft = e.srcElement.offsetWidth; 
+
+            if (!value) {
+                printOptionPanelLeft = 0;
+            }
+
+            Livewire.emit("openPrintOptionPanel", value, printOptionPanelLeft, index);
+        }
+    </script>
+@endpush

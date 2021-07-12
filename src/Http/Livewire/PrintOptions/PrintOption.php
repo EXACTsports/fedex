@@ -31,19 +31,7 @@ class PrintOption extends Component
             break;
         }
     }
-
-    /**
-     * Selects print option
-     */
-    public function selectPrintOption(string $optionId, string $optionText)
-    {
-        $this->emit("selectDocumentPrintOption", $this->productId, $optionId);
-        
-        if ($this->optionId == $optionText) {
-            $this->emit("selectText", $optionText);
-        }
-    }
-
+    
     /**
      * Selects text
      */

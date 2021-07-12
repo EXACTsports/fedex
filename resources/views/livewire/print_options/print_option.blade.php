@@ -19,19 +19,4 @@
         </svg>
     </h2>
     <livewire:fedex::print-option-panel :printOptions="$printOption['options']" :selectedProductId="$index"  />
-@push('scripts')
-    <script>
-        /**
-         * Opens print option panel
-         */
-        function openPrintOptionPanel(e, value, index) {
-            let printOptionPanelLeft = e.srcElement.offsetWidth; 
-
-            if (!value) {
-                printOptionPanelLeft = 0;
-            }
-            console.log(index);
-            Livewire.emit("openPrintOptionPanel", value, printOptionPanelLeft, index);
-        }
-    </script>
-@endpush
+</li>

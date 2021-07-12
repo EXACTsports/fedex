@@ -10,8 +10,8 @@ use EXACTSports\FedEx\Http\Services\ProductService;
 
 class Content extends Component 
 {
-    public bool $showUploadFileComponent = false;
-    public bool $showSetPrintOptionsComponent = true;
+    public bool $showUploadFileComponent = true;
+    public bool $showSetPrintOptionsComponent = false;
     public bool $showCart = false;
     public bool $showDeliveryOptions = false;
     public bool $showCheckout = false;
@@ -28,8 +28,6 @@ class Content extends Component
 
     public function mount()
     {
-        echo phpinfo();
-        die;
         $this->fedExService = new FedExService();
         $this->productService =new ProductService();
         $this->rateRequest = new RateRequest();

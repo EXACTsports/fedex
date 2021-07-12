@@ -58,7 +58,7 @@ class PrintOptionPanel extends Component
      */
     public function selectPrintOption(string $optionId, string $optionText)
     {
-        $this->emit("selectDocumentPrintOption", $this->productId, $optionId);
+        $this->emit("updatePrintOptions", $this->productId, $optionId);
         $this->emit("selectText", $optionText, $this->selectedProductId);
     }
 

@@ -73,6 +73,12 @@ class SetPrintOptions extends Component
         )
     );
     public string $selectedText = '';
+    public array $sizes = array(
+        "1448986650332" => array (
+                "targetHeightInInches" => "11",
+                "targetWidthInInches" => "8.5"
+            )
+    );
 
     public function mount()
     {
@@ -127,9 +133,20 @@ class SetPrintOptions extends Component
     /**
      * Selects document print option
      */
-    public function selectDocumentPrintOption(string $productId, string $optionId)
+    public function updatePrintOptions(string $productId, string $optionId, string $documentId)
     {
-        $printOption = $this->printOptions[$productId];
+        // If is being updated the paper size, we convert the pdf again
+        if ($productId === "1448981549109") {
+            $size = $this->sizes[$optionId];
+            $options = new Options();
+
+            $options->input->conversionOptions->targetHeightInInches = $size["targetHeightInInches"];
+            $options->input->conversionOptions->targetWidthInInches = $size["targetWidthInInches"];
+            $options = json_decode(json_encode($options), true);
+            $options = $this->removeEmptyElements($options);
+            $response = $fedExService->convertToPdf($documentId, $options);
+        }
+        // $this->emit("updatePrintOptions", $productId, $optionId);
     }
     
     public function render()
