@@ -15,7 +15,7 @@
         </select>
         of 
         <input class="m-4 border border-grey-lighter h-10 w-60" type="text" name="address" wire:model="address" />
-         <button wire:click="$emit('getLocations', '{{ $distance }}', '{{ $address }}')" type="button" 
+         <button wire:click="$emit('searchLocations', '{{ $distance }}', '{{ $address }}')" type="button" 
             class="bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-700 text-white">SEARCH
         </button>
     </div>

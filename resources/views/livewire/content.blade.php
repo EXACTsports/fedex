@@ -19,7 +19,7 @@
         
     <!-- BEING UPLOAD FILE COMPONENT -->
     <div x-show="showUploadFileComponent">
-        <livewire:fedex::upload-file />
+        <livewire:fedex::upload-file :documents="$documents" />
     </div>
     <!-- END UPLOAD FILE COMPONENT -->
 
@@ -29,21 +29,9 @@
     </div>
     <!-- END PRINT OPTIONS COMPONENT -->
 
-    <!-- BEGIN CART -->
-    <div x-show="showCart">
-        <livewire:fedex::cart />
-    </div>
-    <!-- END CART --> 
-
-    <!-- BEGING DELIVERY OPTIONS -->
-    <div x-show="showDeliveryOptions">
-        <livewire:fedex::delivery-options />
-    </div>
-    <!-- END DELIVERY OPTIONS -->
-
     <!-- BEGING CHECKOUT -->
     <div x-show="showCheckout">
-        <livewire:fedex::checkout />
+        <livewire:fedex::checkout :documents="$documents" />
     </div>
     <!-- END CHEKOUT -->
 </div>

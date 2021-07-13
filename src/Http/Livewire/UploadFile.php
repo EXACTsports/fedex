@@ -20,7 +20,6 @@ class UploadFile extends Component
 
     public $file = null;
     public array $documents = [];
-    protected $listeners = ['updateDocuments'];
     public array $selectedPrintOptions = array(
         "Size" => "8.5x11",
         "Paper Type" => " Laser (32 lb.)",
@@ -30,7 +29,7 @@ class UploadFile extends Component
         "Prints Per Page" => "One",
         "Collation" => "Collated"
     );
-    
+
     /**
      * Sets documents
      */
@@ -38,6 +37,12 @@ class UploadFile extends Component
     {
         $this->documents[] = $document;
         $this->emit("showLoader", false);
+    }
+
+    public function goToCheckout()
+    {
+        $this->emit("showCheckout");
+        $this->emit("setDocumentsToCheckout", $this->documents);
     }
 
     public function render()
@@ -94,6 +99,8 @@ class UploadFile extends Component
             $this->setDocuments($document);
         }
         
-        return view("fedex::livewire.upload_file");
+        return view("fedex::livewire.upload_file", 
+            array("documents" => $this->documents)
+        );
     }
 }

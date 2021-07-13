@@ -7,18 +7,20 @@ use EXACTSports\FedEx\Http\Services\FedexService;
 
 class Checkout extends Component 
 {
-   protected $listeners = ['checkout', 'orderSubmission'];
-   public $documents = [];
-   private FedexService $fedexService;
-
-   public function __construct()
-   {
-      $this->fedexService = new FedexService();
-   }
-
-   public function checkout($documents)
+   protected $listeners = ['setDocumentsToCheckout', 'searchLocations'];
+   public array $documents = [];
+   
+   public function setDocumentsToCheckout($documents)
    {
       $this->documents = $documents;
+   }
+
+   /**
+    * Searches locations
+    */
+   public function searchLocations()
+   {
+      
    }
 
    /**

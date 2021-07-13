@@ -54,7 +54,7 @@
                         </table>
                     </div>
                     <div class="continue-button mt-5 flex justify-end">
-                        <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
+                        <button type="button" class="bg-purple-900 text-white p-3 w-60" wire:click="goToCheckout">CONTINUE</button>
                     </div>
                 </div>
             </div>

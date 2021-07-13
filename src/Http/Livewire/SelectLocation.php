@@ -7,54 +7,21 @@ use EXACTSports\FedEx\Http\Services\FedexService;
 
 class SelectLocation extends Component 
 {
-    protected $listeners = ['searchLocations'];
     public string $distance = "5-Miles"; 
     public string $address = ""; 
-
+    
     /**
      * Search locations.
      * @param $documents Documents
      */
-    public function searchLocations($contentAssociations = [])
+    public function searchLocations()
     {
         $fedexService = new FedexService();
         $deliveryOptions = [];
 
         $deliveryOptions = [
             "deliveryOptionsRequest" => [
-                "products" => [
-                    [  
-                        "id" => "1508784838900", 
-                        "name" => "", 
-                        "version" => 0, 
-                        "instanceId" => "1508784838901", 
-                        "qty" => 1, 
-                        "properties" => [], 
-                        "contentAssociations" => $contentAssociations, 
-                        "features" => [
-                            [
-                                "id" => "1448981549109", 
-                                "name" => "Paper Size", 
-                                "choice" => [
-                                    "id" => "1448986650332", 
-                                    "name" => "8.5x11", 
-                                    "properties" => [
-                                        [
-                                            "id" => "1449069906033", 
-                                            "name" => "MEDIA_HEIGHT", 
-                                            "value" => "11" 
-                                        ], 
-                                        [
-                                            "id" => "1449069908929", 
-                                            "name" => "MEDIA_WIDTH", 
-                                            "value" => "8.5" 
-                                        ] 
-                                    ] 
-                                ] 
-                            ] 
-                        ] 
-                    ] 
-                ], 
+                "products" => [],
                 "deliveries" => [
                     [
                         "deliveryReference" => null, 
