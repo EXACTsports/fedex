@@ -3,10 +3,6 @@
 namespace EXACTSports\FedEx\Http\Livewire;
 
 use Livewire\Component; 
-use EXACTSports\FedEx\Rates\RateRequest;
-use EXACTSports\FedEx\Base\Product;
-use EXACTSports\FedEx\Http\Services\FedExService;
-use EXACTSports\FedEx\Http\Services\ProductService;
 
 class Content extends Component 
 {
@@ -16,32 +12,11 @@ class Content extends Component
     public bool $showDeliveryOptions = false;
     public bool $showCheckout = false;
     public bool $showLoader = false;
-    public array $documents = [];
-    public array $document = []; 
+    public array $documents = [];  // This array keeps all documents with its corresponding print options
     public array $cart = [];
     protected $listeners = ['setDocuments', 
-        'setPrintOptions', 'deleteDocument', 'addTo' , 'goToCheckout', 'getLocations', 'placeOrder', 'showLoader', 'getFedExInstance'];
-    private RateRequest $rateRequest;
-    private FedExService $fedExService;
-    private ProductService $productService;
-    private Product $product; 
-
-    public function mount()
-    {
-        $this->fedExService = new FedExService();
-        $this->productService =new ProductService();
-        $this->rateRequest = new RateRequest();
-        $this->product = $this->productService->getBaseProduct();
-    }
-
-    /**
-     * Gets fedEx instance
-     */
-    public function getFedExInstance()
-    {
-        return $this->fedExService;
-    }
-
+        'setPrintOptions', 'deleteDocument', 'addTo' , 'goToCheckout', 'getLocations', 'placeOrder', 'showLoader', 'getFedExInstance', 'getBaseProduct'];
+    
     /**
      * Shows loader
      */
@@ -56,7 +31,7 @@ class Content extends Component
     public function setDocuments(array $document) 
     {
         $this->documents[] = $document;
-        $this->emit('updateDocuments', $this->documents);
+        // $this->emit('updateDocuments', $this->documents);
     }
 
     /**

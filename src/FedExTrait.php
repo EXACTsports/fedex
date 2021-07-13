@@ -74,4 +74,14 @@ trait FedExTrait
     
          return $request;
     }
+
+    /**
+     * Converts to array
+     * @param object $object 
+     * @return array
+     */
+    public function objectToArray(object $object) : array
+    {
+        return json_decode(json_encode($object), true);
+    }
 }

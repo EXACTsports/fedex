@@ -22,11 +22,11 @@ class ProductService
      */
     public function setBaseProduct()
     {
-        $this->product->id = "1456773326927";
+        $this->product->id = "1456773326927"; // This is the base id, it is used for custom document
         $this->product->name = "Multi Sheet";
         $this->product->version = 1;
         $this->product->instanceId = time();
-        $this->product->userProductName = "Custom product";
+        $this->product->userProductName = "";
         $this->product->qty = 1;
         $this->product->properties = $this->getBaseProperties();
         $this->product->features = $this->getBaseFeatures();

@@ -6,11 +6,16 @@
             @endforeach
         </ul>
     </div>
-    <div class="w-5/6 flex justify-center">
-        <div class="shadow-lg w-72 h-96">
-            <img src="{{$document['image']}}" />    
+    <div class="w-5/6 flex flex-col justify-center h-screen">
+        <div class="preview flex justify-center">
+            <div class="shadow-lg w-72 h-96">
+                <img src="{{$document['image']}}" />    
+            </div>
+            <div class="pagination"></div>
         </div>
-        <div class="pagination"></div>
+        <div class="continue-button mt-5 flex justify-end">
+            <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
+        </div>
     </div>
 </div>
 @push('scripts')

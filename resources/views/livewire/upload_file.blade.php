@@ -28,7 +28,14 @@
                                                 </div>
                                                 <div class="ml-4">
                                                     <div class="text-sm font-medium text-gray-500">
-                                                        <span class="px-2">{{ $document['fileName'] }}</span>
+                                                        <span class="px-2">{{ $document['documentName'] }}</span>
+                                                        <div class="print-options text-xs">
+                                                            <ul class="ml-4">
+                                                                @foreach($document['selectedPrintOptions'] as $key => $value)
+                                                                    <li>{{$key}}: {{$value}}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -45,6 +52,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="continue-button mt-5 flex justify-end">
+                        <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
                     </div>
                 </div>
             </div>
