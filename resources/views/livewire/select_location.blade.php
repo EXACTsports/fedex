@@ -1,5 +1,8 @@
 <div class="select-location">
-    <h1 class="text-4xl mb-11">1. Select a location</h1>
+    <div class="border-t-2 border-b-2">
+        <h1 class="text-4xl mt-3 mb-3">1. Select a location</h1>
+    </div>
+    <div class="divide-y divide-yellow-500"></div>
     <div class="pickup flex items-center">
         <div class="flex flex-col">
             <label class="inline-flex items-center w-32">
@@ -16,13 +19,11 @@
         of 
         <input class="m-4 border border-grey-lighter h-10 w-60" type="text" name="address" wire:model="address" />
          <button wire:click="$emit('searchLocations', '{{ $distance }}', '{{ $address }}')" type="button" 
-            class="bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-700 text-white">SEARCH
+            class="bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-900 text-white">SEARCH
         </button>
     </div>
     <livewire:fedex::locations />
-    <div class="button-continue">
-        <button type="button" 
-            class="mt-5 bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-700 text-white">CONTINUAR
-        </button>
+    <div class="continue-button mt-5 flex justify-end">
+        <button type="button" class="bg-purple-900 text-white p-3 w-60" wire:click="goToCheckout">CONTINUE</button>
     </div>
 </div>

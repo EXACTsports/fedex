@@ -3,16 +3,22 @@
 namespace EXACTSports\FedEx\Http\Livewire;
 
 use Livewire\Component; 
-use EXACTSports\FedEx\Http\Services\FedexService;
+use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\FedExTrait;
+use EXACTSports\FedEx\DeliveryOptions\Request;
+use EXACTSports\FedEx\DeliveryOptions\Delivery;
+use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
+use EXACTSports\FedEx\DeliveryOptions\RequestedPickup;
 
 class Checkout extends Component 
 {
-
-	use FedExTrait;
+   use FedExTrait;
 
 	protected $listeners = ['setDocumentsToCheckout', 'searchLocations', 'rate'];
 	public array $documents = [];
+   public bool $showSelectLocation = true;
+   public bool $showContactInformation = false; 
+   public bool $showPaymentInformation = false;
    
    public function setDocumentsToCheckout($documents)
    {
@@ -22,69 +28,47 @@ class Checkout extends Component
    /**
     * Searches locations
     */
-   	public function searchLocations( string $distance, string $address )
-   	{
-		$addressArr = array_map(function( $value ){
-			return trim($value);
-		}, explode(',', $address));
+   public function searchLocations(string $distance, string $address)
+   {
+      $addressArr = array_map(function($value) {
+         return trim($value);
+      }, explode(',', $address));
 
-		$docsFormatted = [];
-		$prodInstance  = [];
-		
-		foreach( $this->documents as $doc ){
-			$docsFormatted[] = [
-				"id" => $doc['documentId'],
-				"instanceId" => $doc['product']['instanceId'],
-				"qty" => $doc['product']['qty'],
-				"contentAssociations" => [
-					[
-						"parentContentReference" => $doc['product']['contentAssociations'][0]['parentContentReference'],
-						"contentReference" => $doc['product']['contentAssociations'][0]['contentReference'],
-						"name" => $doc['product']['contentAssociations'][0]['fileName'],
-						"printReady" => true,
-						"pageGroups" => [
-							$doc['metrics']['pageGroups'][0]
-						]
-					]
-				]
-			];
+      $products = [];
+      $productAssociations  = [];
 
-			$prodInstance[] = [
-				"id" => $doc['product']['instanceId'],
-				"quantity" => $doc['product']['qty']
-			];
+      $doRequest = new Request();
+      
+		foreach($this->documents as $doc) {
+			$products[] = $doc["product"];
+         $productAssociation = new ProductAssociation();
+         $productAssociation->id = $doc['product']['instanceId'];
+         $productAssociation->quantity = $doc['product']['qty'];
+
+         $productAssociations[] = $productAssociation;
 		}
 
+      $deliveries = [];
+      $delivery = new Delivery();
+      $delivery->address->streetLines[] = $addressArr[0];
+      $delivery->address->city = $addressArr[1];
+      $delivery->address->stateOrProvinceCode = $addressArr[2];
+      $delivery->address->postalCode = $addressArr[3];
+      $delivery->address->countryCode = "US";
+      $delivery->address->addressClassification = "HOME";
+
+      $deliveryRequestedPickup = new DeliveryRequestedPickup();
+      $deliveryRequestedPickup->requestedPickup->resultsRequested = 10;
+      $deliveryRequestedPickup->requestedPickup->searchRadius->value = explode('-', $distance)[0];
+      $deliveryRequestedPickup->requestedPickup->searchRadius->unit = "MILES";
+      $delivery->requestedDeliveryTypes->requestedPickup = $deliveryRequestedPickup;
+      $delivery->requestedDeliveryTypes->productAssociations = $productAssociations;
+
+      $doRequest->deliveryOptionsRequest->products = $products;
+      $doRequest->deliveryOptionsRequest->deliveries[] = $delivery;
+
 		$response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements([
-			"deliveryOptionsRequest" => [
-				"products" => $docsFormatted,
-				"deliveries" => [
-					[
-						"deliveryReference" => null,
-						"address" => [
-							"streetLines" => [
-								$addressArr[0]
-							],
-							"city" => $addressArr[1],
-							"stateOrProvinceCode" => $addressArr[2],
-							"postalCode" => $addressArr[3],
-							"countryCode" => $addressArr[4],
-							"addressClassification" => "HOME"
-						],
-						"holdUntilDate" => "",
-						"requestedDeliveryTypes" => [
-							"requestedPickup" => [
-								"resultsRequested" => 10,
-								"searchRadius" => [
-									"value" => explode('-', $distance)[0],
-									"unit" => "MILES"
-								]
-							]
-						],
-						"productAssociations" => $prodInstance
-					]
-				]
-			]
+         $doRequest
 		]));
 
 		$this->emit(
