@@ -4,11 +4,15 @@ namespace EXACTSports\FedEx\Http\Livewire;
 
 use Livewire\Component; 
 use EXACTSports\FedEx\Http\Services\FedexService;
+use EXACTSports\FedEx\FedExTrait;
 
 class Checkout extends Component 
 {
-   protected $listeners = ['setDocumentsToCheckout', 'searchLocations'];
-   public array $documents = [];
+
+	use FedExTrait;
+
+	protected $listeners = ['setDocumentsToCheckout', 'searchLocations', 'rate'];
+	public array $documents = [];
    
    public function setDocumentsToCheckout($documents)
    {
@@ -18,10 +22,91 @@ class Checkout extends Component
    /**
     * Searches locations
     */
-   public function searchLocations()
-   {
-      
-   }
+   	public function searchLocations( string $distance, string $address )
+   	{
+		$addressArr = array_map(function( $value ){
+			return trim($value);
+		}, explode(',', $address));
+
+		$docsFormatted = [];
+		$prodInstance  = [];
+		
+		foreach( $this->documents as $doc ){
+			$docsFormatted[] = [
+				"id" => $doc['documentId'],
+				"instanceId" => $doc['product']['instanceId'],
+				"qty" => $doc['product']['qty'],
+				"contentAssociations" => [
+					[
+						"parentContentReference" => $doc['product']['contentAssociations'][0]['parentContentReference'],
+						"contentReference" => $doc['product']['contentAssociations'][0]['contentReference'],
+						"name" => $doc['product']['contentAssociations'][0]['fileName'],
+						"printReady" => true,
+						"pageGroups" => [
+							$doc['metrics']['pageGroups'][0]
+						]
+					]
+				]
+			];
+
+			$prodInstance[] = [
+				"id" => $doc['product']['instanceId'],
+				"quantity" => $doc['product']['qty']
+			];
+		}
+
+		$response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements([
+			"deliveryOptionsRequest" => [
+				"products" => $docsFormatted,
+				"deliveries" => [
+					[
+						"deliveryReference" => null,
+						"address" => [
+							"streetLines" => [
+								$addressArr[0]
+							],
+							"city" => $addressArr[1],
+							"stateOrProvinceCode" => $addressArr[2],
+							"postalCode" => $addressArr[3],
+							"countryCode" => $addressArr[4],
+							"addressClassification" => "HOME"
+						],
+						"holdUntilDate" => "",
+						"requestedDeliveryTypes" => [
+							"requestedPickup" => [
+								"resultsRequested" => 10,
+								"searchRadius" => [
+									"value" => explode('-', $distance)[0],
+									"unit" => "MILES"
+								]
+							]
+						],
+						"productAssociations" => $prodInstance
+					]
+				]
+			]
+		]));
+
+		$this->emit(
+			"setLocations", 
+			$response["output"]["deliveryOptions"][0]["pickupOptions"]
+		);
+	}
+
+	/**
+    * Retrieves rate for the given location
+    */
+	public function rate(int $idLocation)
+	{
+		// echo $idLocation;exit;
+		$response = (new FedexService())->getRate(
+			// Array for rate request
+			// Currently checking docs
+		);
+
+		// echo "<pre>";
+		// print_r($response);exit;
+	}
 
    /**
     * Order submission
