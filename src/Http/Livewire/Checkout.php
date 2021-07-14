@@ -8,7 +8,8 @@ use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\DeliveryOptions\Request;
 use EXACTSports\FedEx\DeliveryOptions\Delivery;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
-use EXACTSports\FedEx\DeliveryOptions\RequestedPickup;
+use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
+use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 
 class Checkout extends Component 
 {
@@ -33,22 +34,20 @@ class Checkout extends Component
       $addressArr = array_map(function($value) {
          return trim($value);
       }, explode(',', $address));
-
-      $products = [];
-      $productAssociations  = [];
-
-      $doRequest = new Request();
       
-		foreach($this->documents as $doc) {
-			$products[] = $doc["product"];
+      $products = [];
+      $productAssociations = [];      
+      
+      foreach ($this->documents as $doc) {
+         $products[] = $doc["product"];
+         
          $productAssociation = new ProductAssociation();
          $productAssociation->id = $doc['product']['instanceId'];
          $productAssociation->quantity = $doc['product']['qty'];
 
-         $productAssociations[] = $productAssociation;
+			$productAssociations[] = $productAssociation;
 		}
 
-      $deliveries = [];
       $delivery = new Delivery();
       $delivery->address->streetLines[] = $addressArr[0];
       $delivery->address->city = $addressArr[1];
@@ -57,20 +56,19 @@ class Checkout extends Component
       $delivery->address->countryCode = "US";
       $delivery->address->addressClassification = "HOME";
 
-      $deliveryRequestedPickup = new DeliveryRequestedPickup();
-      $deliveryRequestedPickup->requestedPickup->resultsRequested = 10;
-      $deliveryRequestedPickup->requestedPickup->searchRadius->value = explode('-', $distance)[0];
-      $deliveryRequestedPickup->requestedPickup->searchRadius->unit = "MILES";
-      $delivery->requestedDeliveryTypes->requestedPickup = $deliveryRequestedPickup;
-      $delivery->requestedDeliveryTypes->productAssociations = $productAssociations;
+      $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
+      $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
+      $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = "MILES";
+      $delivery->productAssociations = $productAssociations;
 
+      $doRequest = new Request();
       $doRequest->deliveryOptionsRequest->products = $products;
-      $doRequest->deliveryOptionsRequest->deliveries[] = $delivery;
-
-		$response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements([
-         $doRequest
-		]));
-
+      $doRequest->deliveryOptionsRequest->deliveries = [ $delivery ];
+		
+      $response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements(
+         (array) $doRequest
+		));
+   
 		$this->emit(
 			"setLocations", 
 			$response["output"]["deliveryOptions"][0]["pickupOptions"]
