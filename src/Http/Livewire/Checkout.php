@@ -22,6 +22,7 @@ class Checkout extends Component
    public bool $showSelectLocation = true;
    public bool $showContactInformation = false; 
    public bool $showPaymentInformation = false;
+   public bool $showRatesInfo = false;
    
    public function setDocumentsToCheckout($documents)
    {
@@ -93,6 +94,8 @@ class Checkout extends Component
          $doc['product']['inserts'] = [];
          $doc['product']['exceptions'] = [];
 
+         dd($doc['product']);
+
          $products[] = $doc["product"];
 
          $productAssociation = new ProductAssociation();
@@ -109,13 +112,15 @@ class Checkout extends Component
       $throwRequest = new Request('rates');
       $throwRequest->rateRequest->products = $products;
       $throwRequest->rateRequest->recipients = [ (array) $recipient ];
-      
+
 		$response = (new FedexService())->getRate($this->removeEmptyElements(
          (array) $throwRequest
       ));
 
-      dd($response);
-
+      $this->emit(
+			"setRate",
+			$response["output"]["rate"]['rateDetails'][0]
+		);
 	}
 
    /**

@@ -18,6 +18,7 @@ use EXACTSports\FedEx\Http\Livewire\PaymentInformation;
 use EXACTSports\FedEx\Http\Livewire\ReviewOrder;
 use EXACTSports\FedEx\Http\Livewire\Pickup;
 use EXACTSports\FedEx\Http\Livewire\Locations;
+use EXACTSports\FedEx\Http\Livewire\Rate;
 use Livewire\Livewire;
 
 class FedExProvider extends ServiceProvider
@@ -44,6 +45,7 @@ class FedExProvider extends ServiceProvider
         Livewire::component('fedex::review-order', ReviewOrder::class);
         Livewire::component('fedex::pickup', Pickup::class);
         Livewire::component('fedex::locations', Locations::class);
+        Livewire::component('fedex::show-rate', Rate::class);
     }
 
     public function register(): void
