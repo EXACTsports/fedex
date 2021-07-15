@@ -94,8 +94,6 @@ class Checkout extends Component
          $doc['product']['inserts'] = [];
          $doc['product']['exceptions'] = [];
 
-         dd($doc['product']);
-
          $products[] = $doc["product"];
 
          $productAssociation = new ProductAssociation();
