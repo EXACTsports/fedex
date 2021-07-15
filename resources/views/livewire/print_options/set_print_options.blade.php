@@ -9,7 +9,7 @@
     <div class="w-5/6 flex flex-col justify-center h-screen">
         <div class="preview flex justify-center">
             <div class="shadow-lg w-72 h-96">
-                <img src="{{$document['image']}}" />    
+                <img src="{{isset($document['image']) ? $document['image'] : ''}}" />    
             </div>
             <div class="pagination"></div>
         </div>

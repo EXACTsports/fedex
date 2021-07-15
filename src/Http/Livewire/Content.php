@@ -13,7 +13,7 @@ class Content extends Component
     public bool $showCheckout = false;
     public bool $showLoader = false;
     public array $documents = [];  // This array keeps all documents with its corresponding print options
-    protected $listeners = ['setDocuments', 'setPrintOptions', 'deleteDocument', 'showCheckout', 'showLoader'];
+    protected $listeners = ['setParentDocuments', 'setPrintOptions', 'deleteDocument', 'showCheckout', 'showLoader'];
     
     /**
      * Shows loader
@@ -23,7 +23,14 @@ class Content extends Component
         $this->showLoader = $value;
     }
 
-  
+    /**
+     * Sets parent documents
+     */
+    public function setParentDocuments(array $document)
+    {
+        $this->documents[] = $document;
+    }
+
     /**
      * Deletes document
      * @param int $index
@@ -41,10 +48,9 @@ class Content extends Component
     public function setPrintOptions($index)
     {
         $this->document = $this->documents[(int) $index]; 
-        $this->emit('updateDocument', $this->document);
         $this->showUploadFileComponent = false;
-        $this->showLoader(true);
         $this->showSetPrintOptionsComponent = true;
+        $this->emit('updateDocument', $this->document);
     }
 
     public function showCheckout()

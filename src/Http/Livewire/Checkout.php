@@ -103,6 +103,11 @@ class Checkout extends Component
       $ratesRequest->rateRequest->products = $products; 
       $ratesRequest->rateRequest->recipients[] = $recipient;
 		$response = (new FedexService())->getRate($this->removeEmptyElements($this->objectToArray($ratesRequest)));
+
+      $this->emit(
+		   "setRates", 
+		   $response["output"]["rate"]["rateDetails"][0]
+		);
 	}
 
    /**

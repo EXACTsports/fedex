@@ -45,7 +45,7 @@ class FedExProvider extends ServiceProvider
         Livewire::component('fedex::review-order', ReviewOrder::class);
         Livewire::component('fedex::pickup', Pickup::class);
         Livewire::component('fedex::locations', Locations::class);
-        Livewire::component('fedex::show-rate', Rate::class);
+        Livewire::component('fedex::rate', Rate::class);
     }
 
     public function register(): void

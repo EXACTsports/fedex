@@ -4,5 +4,7 @@
         <livewire:fedex::contact-information :showContactInformation="$showContactInformation" />
         <livewire:fedex::payment-information :showPaymentInformation="$showPaymentInformation" />
     </div>
-    <livewire:fedex::show-rate :showRatesInfo="$showRatesInfo"/>
+    <div class=" w-2/6">
+        <livewire:fedex::rate />
+    </div>
 </div>

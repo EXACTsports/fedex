@@ -37,6 +37,7 @@ class UploadFile extends Component
     public function setDocuments(array $document)
     {
         $this->documents[] = $document;
+        $this->emit("setParentDocuments", $document);
         $this->emit("showLoader", false);
     }
 

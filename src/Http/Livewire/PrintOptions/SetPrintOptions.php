@@ -79,55 +79,13 @@ class SetPrintOptions extends Component
                 "targetWidthInInches" => "8.5"
             )
     );
-
-    public function mount()
-    {
-        // When loading page, build product with its corresponding print options
-        $document = [];
-        $document["fileName"] = "1-FedEx Office Print APIs Developer Guide_021921.pdf";
-        $document["documentType"] = "PDF";
-        $document["instanceId"] = time();
-        $document["parentDocumentId"] = "12588214039128978257520357305540984964286";
-        $document["documentId"] = "12588214041011852154202904765090670667322";
-        $document["image"] = 'data:image/png;base64,';
-        $document["totalAmount"] = 0;
-        $document["metrics"] = array(
-            "pageCount" => 12
-        );
-
-        $fedExService = new FedExService();
-        $response = $fedExService->getDocumentPreview($document["documentId"]);
-        $image = $response->output->imageByteStream;        
-        $document["image"] = $document["image"] . $image;
-        $this->document = $document;
-
-        // Getting rate
-        $product = new ProductService();
-        $contentAssociation = new ContentAssociation();
-        $contentAssociation->parentContentReference = $document["parentDocumentId"];
-        $contentAssociation->contentReference = $document["documentId"];
-        $contentAssociation->contentType = $document["documentType"];
-        $contentAssociation->fileName = $document["fileName"];
-        $product->contentAssociations[] = $contentAssociation;
-        
-        $productAssociation = new ProductAssociation();
-        $productAssociation->id = $document["instanceId"];
-        $productAssociation->quantity = 1;
-        $recipient = new Recipient();
-        $recipient->productAssociations[] = $productAssociation; 
-        
-        $rateRequest = new RateRequest();
-        $rateRequest->products[] = $product;
-        $rateRequest->recipients[] = $recipient;
-    }
-
+    
     /**
      * Updates document
      */
     public function updateDocument(array $document)
     {
         $this->document = $document;
-        $this->emit("showLoader", false);
     }
 
     /**
