@@ -6,11 +6,11 @@ use  EXACTSports\FedEx\Base\Location;
 
 class PickUpDelivery
 {
-    public string $requestedPickupLocalTime; // N - When present, must be in the format yyyy-mm-ddThh:MM:ss. Requested time for pickup of an order, uses local time
+    public string|null $requestedPickupLocalTime = null; // N - When present, must be in the format yyyy-mm-ddThh:MM:ss. Requested time for pickup of an order, uses local time
     public Location|string $location;
 
     public function __construct()
     {
-        $this->location = ""; 
+        $this->location = new Location(); 
     }
 }

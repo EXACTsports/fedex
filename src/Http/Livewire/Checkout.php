@@ -10,6 +10,8 @@ use EXACTSports\FedEx\DeliveryOptions\Delivery;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
 use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
+use EXACTSports\FedEx\Base\Product;
+use EXACTSports\FedEx\Base\Recipient;
 
 class Checkout extends Component 
 {
@@ -40,7 +42,7 @@ class Checkout extends Component
       
       foreach ($this->documents as $doc) {
          $products[] = $doc["product"];
-         
+
          $productAssociation = new ProductAssociation();
          $productAssociation->id = $doc['product']['instanceId'];
          $productAssociation->quantity = $doc['product']['qty'];
@@ -61,7 +63,7 @@ class Checkout extends Component
       $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = "MILES";
       $delivery->productAssociations = $productAssociations;
 
-      $doRequest = new Request();
+      $doRequest = new Request('deliveryOptions');
       $doRequest->deliveryOptionsRequest->products = $products;
       $doRequest->deliveryOptionsRequest->deliveries = [ $delivery ];
 		
@@ -80,14 +82,40 @@ class Checkout extends Component
     */
 	public function rate(int $idLocation)
 	{
-		// echo $idLocation;exit;
-		$response = (new FedexService())->getRate(
-			// Array for rate request
-			// Currently checking docs
-		);
+      $products = [];
+      $productAssociations = [];
 
-		// echo "<pre>";
-		// print_r($response);exit;
+      foreach ($this->documents as $doc) {
+         $doc["product"]['priceable'] = true;
+         $doc["product"]['proofRequired'] = false;
+         $doc["product"]['isOutSourced'] = false;
+         $doc['product']['addOns'] = [];
+         $doc['product']['inserts'] = [];
+         $doc['product']['exceptions'] = [];
+
+         $products[] = $doc["product"];
+
+         $productAssociation = new ProductAssociation();
+         $productAssociation->id = $doc['product']['instanceId'];
+         $productAssociation->quantity = $doc['product']['qty'];
+         
+			$productAssociations[] = $productAssociation;
+		}
+      
+      $recipient = new Recipient();
+      $recipient->pickUpDelivery->location->id = $idLocation;
+      $recipient->productAssociations = $productAssociations;
+      
+      $throwRequest = new Request('rates');
+      $throwRequest->rateRequest->products = $products;
+      $throwRequest->rateRequest->recipients = [ (array) $recipient ];
+      
+		$response = (new FedexService())->getRate($this->removeEmptyElements(
+         (array) $throwRequest
+      ));
+
+      dd($response);
+
 	}
 
    /**
