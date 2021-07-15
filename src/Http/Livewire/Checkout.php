@@ -10,7 +10,7 @@ use EXACTSports\FedEx\DeliveryOptions\Delivery;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
 use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
-use EXACTSports\FedEx\Base\Product;
+use EXACTSports\FedEx\Rates\RatesRequest;
 use EXACTSports\FedEx\Base\Recipient;
 
 class Checkout extends Component 
@@ -70,7 +70,7 @@ class Checkout extends Component
       $response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements(
          (array) $doRequest
 		));
-   
+
 		$this->emit(
 			"setLocations", 
 			$response["output"]["deliveryOptions"][0]["pickupOptions"]
@@ -82,17 +82,11 @@ class Checkout extends Component
     */
 	public function rate(int $idLocation)
 	{
+      $ratesRequest = new RatesRequest();
       $products = [];
       $productAssociations = [];
 
       foreach ($this->documents as $doc) {
-         $doc["product"]['priceable'] = true;
-         $doc["product"]['proofRequired'] = false;
-         $doc["product"]['isOutSourced'] = false;
-         $doc['product']['addOns'] = [];
-         $doc['product']['inserts'] = [];
-         $doc['product']['exceptions'] = [];
-
          $products[] = $doc["product"];
 
          $productAssociation = new ProductAssociation();
@@ -101,21 +95,14 @@ class Checkout extends Component
          
 			$productAssociations[] = $productAssociation;
 		}
-      
+
       $recipient = new Recipient();
       $recipient->pickUpDelivery->location->id = $idLocation;
       $recipient->productAssociations = $productAssociations;
-      
-      $throwRequest = new Request('rates');
-      $throwRequest->rateRequest->products = $products;
-      $throwRequest->rateRequest->recipients = [ (array) $recipient ];
-      
-		$response = (new FedexService())->getRate($this->removeEmptyElements(
-         (array) $throwRequest
-      ));
-
-      dd($response);
-
+      $recipient = $this->removeEmptyElements($this->objectToArray($recipient));
+      $ratesRequest->rateRequest->products = $products; 
+      $ratesRequest->rateRequest->recipients[] = $recipient;
+		$response = (new FedexService())->getRate($this->removeEmptyElements($this->objectToArray($ratesRequest)));
 	}
 
    /**

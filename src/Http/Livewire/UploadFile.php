@@ -11,6 +11,7 @@ use EXACTSports\FedEx\Http\Services\ProductService;
 use EXACTSports\FedEx\Rates\RateRequest;
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
+use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\FedExTrait;
 
 class UploadFile extends Component
@@ -82,13 +83,20 @@ class UploadFile extends Component
             $document["totalAmount"] = 0;
             $document["metrics"] = $metrics;
             $document["selectedPrintOptions"] = $this->selectedPrintOptions;
-            
+        
+            $pageGroup = new PageGroup();
+            $pageGroup->start = $metrics->pageGroups[0]->startPageNum;
+            $pageGroup->end = $metrics->pageGroups[0]->endPageNum;
+            $pageGroup->width = $metrics->pageGroups[0]->pageWidthInches;
+            $pageGroup->height = $metrics->pageGroups[0]->pageHeightInches;
+
             $product->userProductName = $documentName;
             $contentAssociation = new ContentAssociation();
             $contentAssociation->parentContentReference = $parentDocumentId; 
             $contentAssociation->contentReference = $documentId;
             $contentAssociation->contentType = $documentType;
             $contentAssociation->fileName = $documentName;
+            $contentAssociation->pageGroups[] = $pageGroup;
 
             $product->contentAssociations[] = $contentAssociation; 
 

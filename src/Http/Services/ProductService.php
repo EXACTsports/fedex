@@ -90,12 +90,7 @@ class ProductService
         $properties = []; 
         $choice = new Choice("1448999902070", "None", []);
         $features[] = new Feature("1448981555573", "Hole Punching", $choice);
-
-        // Folding 
-        $properties = []; 
-        $choice = new Choice("1448999720595", "None", []);
-        $features[] = new Feature("1448984877645", "Folding", $choice);
-
+        
         // Collation
         $properties = []; 
         $properties[]  = new Property("1449069945785", "COLLATION_TYPE", "MACHINE");

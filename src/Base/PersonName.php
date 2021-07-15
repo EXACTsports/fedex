@@ -4,6 +4,6 @@ namespace EXACTSports\FedEx\Base;
 
 class PersonName
 {
-    public string|null $firtName; // contact first name
-    public string|null $lastName; // contact last name
+    public string|null $firtName; // N - First Name of the recipient
+    public string|null $lastName; // N - Last Name of the recipient
 }
