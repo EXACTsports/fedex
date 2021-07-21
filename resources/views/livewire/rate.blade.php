@@ -1,14 +1,23 @@
-<div class="show-rate">
-    @if ($showRatesInfo) 
-        <div class="list">
-            <ul class="list-reset flex flex-col">
-                @foreach ($rateDetails['productLines'] as $product)
-                    <li class="relative -mb-px block border p-6 border-grey">
-                        <p>File Name: {{ $product["userProductName"] }}</p>
-                        <p>Product Price:  {{ $product["productRetailPrice"] }}</p>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+<div class="show-rate p-5">
+    <div class="checkout-documents">
+        <ul class="list-reset flex flex-col">
+            <template x-for="(document, index) in documents" :key="index">
+                <li class="border-1">
+                    <div class="flex flex-col">
+                        <div class="document-wrapper">
+                            <div class="document-description flex">
+                                <div class="document-image border w-24">
+                                    <img :src="document.image" :alt="document.documentName">
+                                </div>
+                                <div class="document-name p-5">
+                                    <p x-text="document.name"></p>
+                                    <p x-text="document.documentName"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </template>
+        </ul>
+    </div>
 </div>

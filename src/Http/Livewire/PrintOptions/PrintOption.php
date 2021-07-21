@@ -1,29 +1,29 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Http\Livewire\PrintOptions;
 
-use Livewire\Component; 
+use Livewire\Component;
 
-class PrintOption extends Component 
+class PrintOption extends Component
 {
     public array $printOption = [];
-    public string $index = ""; 
-    public string $selectedText = "";
-    protected $listeners = ["selectText"];
-     
-    public function mount(array $printOption = [], string $index = "")
+    public string $index = '';
+    public string $selectedText = '';
+    protected $listeners = ['selectText'];
+
+    public function mount(array $printOption = [], string $index = '')
     {
         $this->printOption = $printOption;
         $this->index = $index;
 
-        // Options 
-        foreach ($printOption["options"] as $key => $option) {
-            if ($key != "withMenu") {
+        // Options
+        foreach ($printOption['options'] as $key => $option) {
+            if ($key != 'withMenu') {
                 $this->selectedText = $option;
             } else {
                 foreach ($option as $menuOption) {
-                    if (isset($menuOption["default"])) {
-                        $this->selectedText = $menuOption["default"];
+                    if (isset($menuOption['default'])) {
+                        $this->selectedText = $menuOption['default'];
                     }
                 }
             }
@@ -31,9 +31,9 @@ class PrintOption extends Component
             break;
         }
     }
-    
+
     /**
-     * Selects text
+     * Selects text.
      */
     public function selectText(string $text, string $productId)
     {
@@ -41,13 +41,13 @@ class PrintOption extends Component
             $this->selectedText = $text;
         }
     }
-    
+
     public function render()
     {
-        return view("fedex::livewire.print_options.print_option",
+        return view('fedex::livewire.print_options.print_option',
             [
-                "printOption" => $this->printOption, 
-                "index" => $this->index
+                'printOption' => $this->printOption,
+                'index' => $this->index,
             ]
         );
     }

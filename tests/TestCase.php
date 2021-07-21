@@ -3,6 +3,7 @@
 namespace Tests;
 
 use EXACTSports\FedEx\FedExProvider;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -19,7 +20,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app)
     {
-        return [FedExProvider::class];
+        return [
+            FedExProvider::class, 
+            LivewireServiceProvider::class
+        ];
     }
 
     protected function getEnvironmentSetUp($app)

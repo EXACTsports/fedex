@@ -1,20 +1,20 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Http\Controllers;
 
+use EXACTSports\FedEx\Http\Services\FedExService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use EXACTSports\FedEx\Http\Services\FedExService;
 
 class FedexController extends Controller
 {
-    private FedexService $fedexService; 
+    private FedexService $fedexService;
 
     public function __construct(FedexService $fedexService)
     {
         $this->fedexService = $fedexService;
     }
-    
+
     public function index()
     {
         return view('fedex::index');

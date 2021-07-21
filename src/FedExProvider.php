@@ -2,33 +2,33 @@
 
 namespace EXACTSports\FedEx;
 
-use Illuminate\Support\ServiceProvider;
+use EXACTSports\FedEx\Http\Livewire\Cart;
+use EXACTSports\FedEx\Http\Livewire\Checkout;
+use EXACTSports\FedEx\Http\Livewire\ContactInformation;
 use EXACTSports\FedEx\Http\Livewire\Content;
-use EXACTSports\FedEx\Http\Livewire\UploadFile;
-use EXACTSports\FedEx\Http\Livewire\PrintOptions\SetPrintOptions;
+use EXACTSports\FedEx\Http\Livewire\DeliveryOptions;
+use EXACTSports\FedEx\Http\Livewire\Locations;
+use EXACTSports\FedEx\Http\Livewire\PaymentInformation;
+use EXACTSports\FedEx\Http\Livewire\Pickup;
+use EXACTSports\FedEx\Http\Livewire\PrintOptions\MenuWithOptions;
 use EXACTSports\FedEx\Http\Livewire\PrintOptions\PrintOption;
 use EXACTSports\FedEx\Http\Livewire\PrintOptions\PrintOptionPanel;
-use EXACTSports\FedEx\Http\Livewire\PrintOptions\MenuWithOptions;
-use EXACTSports\FedEx\Http\Livewire\Cart;
-use EXACTSports\FedEx\Http\Livewire\DeliveryOptions;
-use EXACTSports\FedEx\Http\Livewire\Checkout;
-use EXACTSports\FedEx\Http\Livewire\SelectLocation;
-use EXACTSports\FedEx\Http\Livewire\ContactInformation;
-use EXACTSports\FedEx\Http\Livewire\PaymentInformation;
-use EXACTSports\FedEx\Http\Livewire\ReviewOrder;
-use EXACTSports\FedEx\Http\Livewire\Pickup;
-use EXACTSports\FedEx\Http\Livewire\Locations;
+use EXACTSports\FedEx\Http\Livewire\PrintOptions\SetPrintOptions;
 use EXACTSports\FedEx\Http\Livewire\Rate;
+use EXACTSports\FedEx\Http\Livewire\ReviewOrder;
+use EXACTSports\FedEx\Http\Livewire\SelectLocation;
+use EXACTSports\FedEx\Http\Livewire\UploadFile;
+use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
 class FedExProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'fedex');
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'fedex');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->publishes([
-        __DIR__.'/../public' => public_path('vendor/fedex'),
+        __DIR__ . '/../public' => public_path('vendor/fedex'),
         ], 'public');
         Livewire::component('fedex::content', Content::class);
         Livewire::component('fedex::upload-file', UploadFile::class);

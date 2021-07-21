@@ -1,18 +1,19 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
-use Livewire\Component; 
 use EXACTSports\FedEx\Http\Services\FedExService;
+use Livewire\Component;
 
-class Rate extends Component 
+class Rate extends Component
 {
-    public array $rateDetails  = [];
+    public array $rateDetails = [];
     public bool $showRatesInfo;
-    protected $listeners = ["setRates"];
+    protected $listeners = ['setRates'];    
+    public array $documents = [];
 
     /**
-     * Set rate
+     * Set rate.
      * @param array $rate
      */
     public function setRates(array $rateDetails = [])
@@ -23,6 +24,6 @@ class Rate extends Component
 
     public function render()
     {
-        return view("fedex::livewire.rate");
+        return view('fedex::livewire.rate');
     }
 }

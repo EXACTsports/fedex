@@ -1,18 +1,18 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
-use Livewire\Component; 
-use Livewire\WithFileUploads;
-use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
+use EXACTSports\FedEx\Base\PageGroup;
+use EXACTSports\FedEx\Base\Product;
+use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Conversion\Options;
+use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
+use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\Http\Services\ProductService;
 use EXACTSports\FedEx\Rates\RateRequest;
-use EXACTSports\FedEx\Base\Product;
-use EXACTSports\FedEx\Base\Product\ContentAssociation;
-use EXACTSports\FedEx\Base\PageGroup;
-use EXACTSports\FedEx\FedExTrait;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class UploadFile extends Component
 {
@@ -20,37 +20,44 @@ class UploadFile extends Component
     use FedExTrait;
 
     public $file = null;
-    public array $documents = [];
-    public array $selectedPrintOptions = array(
-        "Size" => "8.5x11",
-        "Paper Type" => " Laser (32 lb.)",
-        "Print Color" => "Full Color",
-        "Sides" => "Single-Sided",
-        "Orientation" => "Vertical",
-        "Prints Per Page" => "One",
-        "Collation" => "Collated"
-    );
+    public array $selectedPrintOptions = [
+        'Size' => '8.5x11',
+        'Paper Type' => ' Laser (32 lb.)',
+        'Print Color' => 'Full Color',
+        'Sides' => 'Single-Sided',
+        'Orientation' => 'Vertical',
+        'Prints Per Page' => 'One',
+        'Collation' => 'Collated',
+    ];
 
     /**
-     * Sets documents
+     * Sets documents.
      */
-    public function setDocuments(array $document)
+    public function setDocument(array $document)
     {
-        $this->documents[] = $document;
-        $this->emit("setParentDocuments", $document);
-        $this->emit("showLoader", false);
+        $this->emit('showLoader', false);
+        $this->emit("addDocument", $document);
+    }
+
+    /**
+     * Adds document
+     */
+    public function addDocument(array $document)
+    {
+        $this->emit("addDocument", $document);
     }
 
     public function goToCheckout()
     {
-        $this->emit("showCheckout");
-        $this->emit("setDocumentsToCheckout", $this->documents);
+        print_r("testing...");
+        die;
+        $this->emit('showCheckout');
     }
 
     public function render()
     {
         if ($this->file !== null) {
-            $fedExService = new FedExService(); 
+            $fedExService = new FedExService();
             $product = (new ProductService())->getBaseProduct();
             $documentFromLocalDrive = new DocumentFromLocalDrive();
             // Upload document
@@ -59,8 +66,8 @@ class UploadFile extends Component
             $response = $fedExService->uploadDocumentFromLocalDrive((array) $documentFromLocalDrive);
             $documentName = $response->output->document->documentName;
             $documentId = $response->output->document->documentId;
-            
-            // Convert to pdf 
+
+            // Convert to pdf
             $options = new Options();
             $options = $this->objectToArray($options);
             $options = $this->removeEmptyElements($options);
@@ -71,20 +78,21 @@ class UploadFile extends Component
             $documentId = $document->documentId;
             $metrics = $document->metrics;
             $documentType = $document->documentType;
-            
+
             // Document preview
             $response = $fedExService->getDocumentPreview($documentId);
             $image = $response->output->imageByteStream;
-            
+
             $document = [];
-            $document["documentName"] = $documentName;
-            $document["parentDocumentId"] = $parentDocumentId;
-            $document["documentId"] = $documentId;
-            $document["image"] = 'data:image/png;base64,' . $image;
-            $document["totalAmount"] = 0;
-            $document["metrics"] = $metrics;
-            $document["selectedPrintOptions"] = $this->selectedPrintOptions;
-        
+            $document['name'] = "Multi Sheet";
+            $document['documentName'] = $documentName;
+            $document['parentDocumentId'] = $parentDocumentId;
+            $document['documentId'] = $documentId;
+            $document['image'] = 'data:image/png;base64,' . $image;
+            $document['totalAmount'] = 0;
+            $document['metrics'] = $metrics;
+            $document['selectedPrintOptions'] = $this->selectedPrintOptions;
+
             $pageGroup = new PageGroup();
             $pageGroup->start = $metrics->pageGroups[0]->startPageNum;
             $pageGroup->end = $metrics->pageGroups[0]->endPageNum;
@@ -93,23 +101,21 @@ class UploadFile extends Component
 
             $product->userProductName = $documentName;
             $contentAssociation = new ContentAssociation();
-            $contentAssociation->parentContentReference = $parentDocumentId; 
+            $contentAssociation->parentContentReference = $parentDocumentId;
             $contentAssociation->contentReference = $documentId;
             $contentAssociation->contentType = $documentType;
             $contentAssociation->fileName = $documentName;
             $contentAssociation->pageGroups[] = $pageGroup;
 
-            $product->contentAssociations[] = $contentAssociation; 
+            $product->contentAssociations[] = $contentAssociation;
 
-            $document["product"] = $product;
+            $document['product'] = $product;
 
             $this->file = null;
 
-            $this->setDocuments($document);
+            $this->setDocument($document);
         }
-        
-        return view("fedex::livewire.upload_file", 
-            array("documents" => $this->documents)
-        );
+
+        return view('fedex::livewire.upload_file');
     }
 }

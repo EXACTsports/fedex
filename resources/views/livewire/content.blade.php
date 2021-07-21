@@ -7,6 +7,12 @@
         showDeliveryOptions: @entangle('showDeliveryOptions'),
         showCheckout: @entangle('showCheckout'),
         showLoader: @entangle('showLoader'),
+        documents: @entangle('documents'),
+        document: @entangle('document'),
+        locations: @entangle('locations'),
+        showSelectLocation: @entangle('showSelectLocation'),
+        showContactInformation: @entangle('showContactInformation'),
+        showPaymentInformation: @entangle('showPaymentInformation')
     }"
 >   
     <div x-show="showLoader" class="w-full h-full fixed block top-0 left-0 bg-white opacity-75 z-50">
@@ -16,10 +22,10 @@
             <i class="fas fa-circle-notch fa-spin fa-3x"></i>
         </span>
     </div>
-        
+
     <!-- BEING UPLOAD FILE COMPONENT -->
     <div x-show="showUploadFileComponent">
-        <livewire:fedex::upload-file :documents="$documents" />
+        <livewire:fedex::upload-file />
     </div>
     <!-- END UPLOAD FILE COMPONENT -->
 
@@ -31,7 +37,7 @@
 
     <!-- BEGING CHECKOUT -->
     <div x-show="showCheckout">
-        <livewire:fedex::checkout :documents="$documents" />
+        <livewire:fedex::checkout />
     </div>
     <!-- END CHEKOUT -->
 </div>

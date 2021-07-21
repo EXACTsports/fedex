@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Base;
 
-use EXACTSports\FedEx\Base\PickUpDelivery;
 use EXACTSports\FedEx\Base\Contact;
+use EXACTSports\FedEx\Base\PickUpDelivery;
 
-class Recipient 
+class Recipient
 {
-    public string|null $reference = "";     // N - User-provided unique recipient reference to be used to relate delivery charges in the response
-    public Contact|null $contact = null;    // N - Recipient contact details
+    public string | null $reference = '';     // N - User-provided unique recipient reference to be used to relate delivery charges in the response
+    public Contact | null $contact = null;    // N - Recipient contact details
     public PickUpDelivery $pickUpDelivery;  // N - If pickUpDelivery is present then shipmentDelivery must not be present
     public array $productAssociations;      // N - Associates the product instance in a request with its recipient
 

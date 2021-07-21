@@ -1,21 +1,16 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
-use Livewire\Component; 
 use EXACTSports\FedEx\Http\Services\FedexService;
+use Livewire\Component;
 
-class ContactInformation extends Component 
+class ContactInformation extends Component
 {
-    public bool $showContactInformation = false; 
-
-    public function mount(bool $showContactInformation)
-    {
-        $this->showContactInformation = $showContactInformation;
-    }
+    public bool $showContactInformation = false;
 
     public function render()
     {
-        return view("fedex::livewire.contact_information");
+        return view('fedex::livewire.contact_information');
     }
 }

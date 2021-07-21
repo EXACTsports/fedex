@@ -6,7 +6,7 @@ use EXACTSports\FedEx\Conversion\ConversionOptions;
 
 class Input
 {
-    public ConversionOptions $conversionOptions; 
+    public ConversionOptions $conversionOptions;
 
     public function __construct()
     {

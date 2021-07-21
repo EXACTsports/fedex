@@ -1,8 +1,8 @@
-<div class="payment-information mt-3">
+<div class="payment-information-wrapper mt-3">
     <div class="border-t-2 border-b-2">
         <h1 class="text-4xl mt-3 mb-3">3. Payment information</h1>
     </div>
-    @if ($showPaymentInformation) 
+    <div x-show="showPaymentInformation" class="payment-information">
         <div class="form">
             <div class="mb-6">
                 <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Name on Card</label>
@@ -34,5 +34,5 @@
                 wire:click="$emit('placeOrder')" class="mt-5 bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-700 text-white">PLACE ORDER
             </button>
         </div>
-     @endif
+    </div>
 </div>

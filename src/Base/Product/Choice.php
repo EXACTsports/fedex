@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\Base\Product;
 
@@ -8,7 +8,7 @@ class Choice
     public string $name;        // N - Name of the selected choice
     public array $properties;   // N - Contains the properties specific to the choice that was selected
 
-    public function __construct(string $id = "", string $name = "", array $properties = [])
+    public function __construct(string $id = '', string $name = '', array $properties = [])
     {
         $this->id = $id;
         $this->name = $name;

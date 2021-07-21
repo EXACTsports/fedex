@@ -1,7 +1,6 @@
-<?php 
+<?php
 
 namespace EXACTSports\FedEx\DeliveryOptions;
-
 
 class DeliveryOptionsRequest
 {
