@@ -3,36 +3,31 @@
         <h1 class="text-4xl mt-3 mb-3">3. Payment information</h1>
     </div>
     <div x-show="showPaymentInformation" class="payment-information">
-        <div class="form">
-            <div class="mb-6">
-                <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Name on Card</label>
-                <input type="text" name="nameOnCard" class="px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+        <div class="form grid grid-cols-4 gap-4 mt-4">
+            <div class="mb-6 col-span-4">
+                <label for="nameOnCard" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Name on Card</label>
+                <input type="text" name="nameOnCard" class="w-1/2 px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
             </div>
-            <div class="mb-12 flex">
-                <div class="mb-6">
-                    <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Card Number</label>
-                    <input type="text" name="cardNumber" class="px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+            <div class="mb-6 col-span-4 flex">
+                <div class="card-number w-2/4">
+                    <label for="cardNumber" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Card Number</label>
+                    <input type="text" name="cardNumber" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Security Code</label>
-                    <input type="text" name="cardNumber" class="px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                <div class="security-code ml-2">
+                    <label for="securityCode" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Security Code</label>
+                    <input type="text" name="securityCode" class=" px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                 </div>
             </div>
-            <div class="mb-12 flex">
-                <div class="mb-3">
-                    <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Month</label>
-                    <input type="text" name="cardNumber" class="px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Year</label>
-                    <input type="text" name="cardNumber" class="px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+            <div class="mb-6 col-span-2">
+                <label for="expiration-date" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Exp. Date</label>
+                <div class="expiration-date flex">
+                    <input type="text" placeholder="Month" name="month" class="w-1/2 px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    <input type="text" placeholder="Year" name="year" class="w-1/2 px-3 py-2 placeholder-gray-300 border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                 </div>
             </div>
         </div>
-        <div class="button-continue">
-            <button type="button" 
-                wire:click="$emit('placeOrder')" class="mt-5 bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-700 text-white">PLACE ORDER
-            </button>
+        <div class="continue-button mt-5 flex justify-end">
+            <button type="button" class="bg-purple-900 text-white p-3 w-60">SUBMIT ORDER</button>
         </div>
     </div>
 </div>

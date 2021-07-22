@@ -1,5 +1,5 @@
 <div class="select-location">
-    <div class="border-t-2 border-b-2 flex flex justify-between items-center px-2">
+    <div class="border-t-2 border-b-2 flex justify-between items-center px-2">
         <h1 class="text-4xl mt-3 mb-3">1. Select a location</h1>
         <a x-show="!showSelectLocation" href="#">Edit</a>
     </div>
@@ -26,7 +26,7 @@
         </div>
         <livewire:fedex::locations />
         <div class="continue-button mt-5 flex justify-end">
-            <button type="button" class="bg-purple-900 text-white p-3 w-60" x-on:click="$wire.gotToContactInformation()">CONTINUE</button>
+            <button type="button" class="bg-purple-900 text-white p-3 w-60" x-on:click="$wire.goToContactInformation()">CONTINUE</button>
         </div>
     </div>
 </div>

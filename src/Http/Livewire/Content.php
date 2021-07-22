@@ -143,11 +143,21 @@ class Content extends Component
     /**
      * Goes to contact information
      */
-    public function gotToContactInformation()
+    public function goToContactInformation()
     {
         $this->showSelectLocation = false; 
         $this->showContactInformation = true; 
         $this->showPaymentInformation = false; 
+    }
+
+    /**
+     * Goes to payment information
+     */
+    public function goToPaymentInformation()
+    {
+        $this->showSelectLocation = false; 
+        $this->showContactInformation = false; 
+        $this->showPaymentInformation = true; 
     }
 
     public function render()
