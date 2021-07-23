@@ -1,7 +1,7 @@
 <div class="select-location">
     <div class="border-t-2 border-b-2 flex justify-between items-center px-2">
         <h1 class="text-4xl mt-3 mb-3">1. Select a location</h1>
-        <a x-show="!showSelectLocation" href="#">Edit</a>
+        <template x-if="!showSelectLocation" ><a x-on:click="$wire.getBackToSelectLocation()" href="#">Edit</a></template>
     </div>
     <div x-show="showSelectLocation" class="select-location-wrapper">
         <div class="divide-y divide-yellow-500"></div>
@@ -20,13 +20,14 @@
             </select>
             of 
             <input class="m-4 border border-grey-lighter h-10 w-60" type="text" name="address" wire:model="address" />
-            <button wire:click="$emit('searchLocations', '{{ $distance }}', '{{ $address }}')" type="button" 
+            <button x-on:click="$wire.emit('searchLocations')" type="button" 
                 class="bg-grey-lighter justify-end w-40 text-grey-darker border border-grey-lighter h-10 bg-purple-900 text-white">SEARCH
             </button>
         </div>
         <livewire:fedex::locations />
         <div class="continue-button mt-5 flex justify-end">
-            <button type="button" class="bg-purple-900 text-white p-3 w-60" x-on:click="$wire.goToContactInformation()">CONTINUE</button>
+            <button type="button" class="bg-purple-900 text-white p-3 w-60" 
+                x-on:click="$wire.emit('goToContactInformation')">CONTINUE</button>
         </div>
     </div>
 </div>

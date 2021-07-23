@@ -11,6 +11,7 @@ use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\Rates\RatesRequest; 
+use EXACTSports\FedEx\Http\Services\CheckoutService;
 use Livewire\Component;
 
 class Content extends Component
@@ -34,10 +35,16 @@ class Content extends Component
             'setPrintOptions', 
             'deleteDocument', 
             'showLoader',
-            'searchLocations'
+            'fetchLocations',
+            'showContactInformationForm',
+            'goToPaymentInformation',
+            'placeOrder'
     ];
-    public array $locations = [];
 
+    /* BEGING CHECKOUT */
+    public array $locations = [];
+    /* END CHECKOUT */
+    
     /**
      * Shows loader.
      */
@@ -97,54 +104,21 @@ class Content extends Component
     /**
      * Searches locations.
      */
-    public function searchLocations(string $distance, string $address)
+    public function fetchLocations(string $distance, string $address)
     {
-        $addressArr = array_map(function ($value) {
-            return trim($value);
-        }, explode(',', $address));
-
-        $products = [];
-        $productAssociations = [];
-
-        foreach ($this->documents as $doc) {
-            $products[] = $doc['product'];
-
-            $productAssociation = new ProductAssociation();
-            $productAssociation->id = $doc['product']['instanceId'];
-            $productAssociation->quantity = $doc['product']['qty'];
-
-            $productAssociations[] = $productAssociation;
-        }
-
-        $delivery = new Delivery();
-        $delivery->address->streetLines[] = $addressArr[0];
-        $delivery->address->city = $addressArr[1];
-        $delivery->address->stateOrProvinceCode = $addressArr[2];
-        $delivery->address->postalCode = $addressArr[3];
-        $delivery->address->countryCode = 'US';
-        $delivery->address->addressClassification = 'HOME';
-
-        $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
-        $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
-        $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = 'MILES';
-        $delivery->productAssociations = $productAssociations;
-
-        $doRequest = new Request('deliveryOptions');
-        $doRequest->deliveryOptionsRequest->products = $products;
-        $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
-
-        $response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements(
-         (array) $doRequest
-        ));
-
-        $this->locations = $response['output']['deliveryOptions'][0]['pickupOptions'];
+        $checkoutService = new CheckoutService();
+        $this->locations = $checkoutService->getLocations($this->documents, $distance, $address);
     }
 
     /**
      * Goes to contact information
      */
-    public function goToContactInformation()
+    public function showContactInformationForm(string $locationId)
     {
+        // Get rate 
+        $checkoutService = new CheckoutService();
+        $rateDetails = $checkoutService->getDocumentsRate($this->documents, $locationId);
+
         $this->showSelectLocation = false; 
         $this->showContactInformation = true; 
         $this->showPaymentInformation = false; 
@@ -153,11 +127,33 @@ class Content extends Component
     /**
      * Goes to payment information
      */
-    public function goToPaymentInformation()
+    public function goToPaymentInformation($contactInformation)
     {
         $this->showSelectLocation = false; 
         $this->showContactInformation = false; 
         $this->showPaymentInformation = true; 
+    }
+
+    /**
+     * Places order
+     */
+    public function placeOrder(array $paymentInformation)
+    {
+        $checkoutService = new CheckoutService();
+        $cardData = "M" . 
+            $paymentInformation["cardNumber"] . "=" . substr($paymentInformation["year"], -2) . 
+            $paymentInformation["month"] . ":" . $paymentInformation["securityCode"];
+        $encryptedData = $checkoutService->getEncryptedData($cardData);
+    }
+
+    /**
+     * Get back to select location
+     */
+    public function getBackToSelectLocation()
+    {
+        $this->showSelectLocation = true; 
+        $this->showContactInformation = false; 
+        $this->showPaymentInformation = false; 
     }
 
     public function render()

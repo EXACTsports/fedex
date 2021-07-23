@@ -15,55 +15,9 @@ use Livewire\Component;
 
 class Checkout extends Component
 {
-    use FedExTrait;
+   use FedExTrait;
 
-    protected $listeners = ['setDocumentsToCheckout', 'rate'];
-    public array $documents = [];
-    public bool $showSelectLocation = true;
-    public bool $showContactInformation = false;
-    public bool $showPaymentInformation = false;
-    
-   public function goToContanctInformation()
-   {
-      $this->showSelectLocation = false;
-      $this->showContactInformation = true;
-      $this->showPaymentInformation = false;
-   }
-
-    /**
-     * Retrieves rate for the given location.
-     */
-    public function rate(int $idLocation)
-    {
-        $ratesRequest = new RatesRequest();
-        $products = [];
-        $productAssociations = [];
-
-        foreach ($this->documents as $doc) {
-            $products[] = $doc['product'];
-
-            $productAssociation = new ProductAssociation();
-            $productAssociation->id = $doc['product']['instanceId'];
-            $productAssociation->quantity = $doc['product']['qty'];
-
-            $productAssociations[] = $productAssociation;
-        }
-
-        $recipient = new Recipient();
-        $recipient->pickUpDelivery->location->id = $idLocation;
-        $recipient->productAssociations = $productAssociations;
-        $recipient = $this->removeEmptyElements($this->objectToArray($recipient));
-        $ratesRequest->rateRequest->products = $products;
-        $ratesRequest->rateRequest->recipients[] = $recipient;
-        $response = (new FedexService())->getRate($this->removeEmptyElements($this->objectToArray($ratesRequest)));
-
-        $this->emit(
-           'setRates',
-           $response['output']['rate']['rateDetails'][0]
-        );
-    }
-
-    /**
+   /**
      * Order submission.
      */
     public function orderSubmission(array $contentAssociations)
@@ -344,8 +298,9 @@ class Checkout extends Component
         die;
     }
 
-    public function render()
-    {
-        return view('fedex::livewire.checkout', $this->documents);
-    }
+
+   public function render()
+   {
+      return view('fedex::livewire.checkout');
+   }
 }

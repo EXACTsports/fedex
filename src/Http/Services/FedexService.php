@@ -164,8 +164,7 @@ class FedExService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response, true);
-
+        $response = json_decode($response);
         return $response;
     }
 
