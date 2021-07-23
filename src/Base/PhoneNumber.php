@@ -4,6 +4,6 @@ namespace EXACTSports\FedEx\Base;
 
 class PhoneNumber
 {
-    public string $number;    // N - Recipient’s phone number
-    public string $extension; // N - Phone number extension, if any
+    public string $number;    // Y - Contact’s U.S. phone number
+    public string $extension; // N - Contact’s phone extension, if any
 }

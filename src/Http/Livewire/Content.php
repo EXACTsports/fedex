@@ -129,6 +129,7 @@ class Content extends Component
      */
     public function goToPaymentInformation($contactInformation)
     {
+        $this->contactInformation = $contactInformation;
         $this->showSelectLocation = false; 
         $this->showContactInformation = false; 
         $this->showPaymentInformation = true; 
@@ -136,14 +137,11 @@ class Content extends Component
 
     /**
      * Places order
+     * @param array $paymentInformation
      */
     public function placeOrder(array $paymentInformation)
     {
-        $checkoutService = new CheckoutService();
-        $cardData = "M" . 
-            $paymentInformation["cardNumber"] . "=" . substr($paymentInformation["year"], -2) . 
-            $paymentInformation["month"] . ":" . $paymentInformation["securityCode"];
-        $encryptedData = $checkoutService->getEncryptedData($cardData);
+        $response = CheckoutService::submitOrder($this->documents, $this->contactInformation, $paymentInformation);
     }
 
     /**

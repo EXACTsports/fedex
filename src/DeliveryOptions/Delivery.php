@@ -2,7 +2,7 @@
 
 namespace EXACTSports\FedEx\DeliveryOptions;
 
-use EXACTSports\FedEx\DeliveryOptions\Address;
+use EXACTSports\FedEx\Base\Address;
 use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 
 class Delivery

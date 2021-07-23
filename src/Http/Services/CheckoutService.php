@@ -104,8 +104,15 @@ class CheckoutService
 
     /**
      * Submits order
+     * @param array $documents
+     * @param array $contactInformation
+     * @param array $paymentInformation
      */
-    public function submitOrder()
+    public static function submitOrder(array $documents, array $contactInformation, array $paymentInformation)
     {
+        $cardData = "M" . 
+            $paymentInformation["cardNumber"] . "=" . substr($paymentInformation["year"], -2) . 
+            $paymentInformation["month"] . ":" . $paymentInformation["securityCode"];
+        $encryptedData = $this->getEncryptedData($cardData);
     }
 }

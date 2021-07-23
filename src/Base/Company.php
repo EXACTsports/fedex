@@ -4,5 +4,5 @@ namespace EXACTSports\FedEx\Base;
 
 class Company
 {
-    public string $name;    // N - Recipient’s company name
+    public string $name;    // N - Name of the contact’s company
 }

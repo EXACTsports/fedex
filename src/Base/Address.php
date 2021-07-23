@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\DeliveryOptions;
+namespace EXACTSports\FedEx\Base;
 
 class Address
 {

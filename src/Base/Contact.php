@@ -8,10 +8,10 @@ use EXACTSports\FedEx\Base\PersonName;
 
 class Contact
 {
-    public PersonName $personName;
-    public Company $company;            // N - Recipient’s company details
-    public EmailDetail $emailDetail;    // N - Contains recipient’s email address
-    public array $phoneNumberDetails;
+    public PersonName $personName;      // Y - Contains the first name and last name of the contact person
+    public Company $company;            // N - Contains the company name of the contact
+    public EmailDetail $emailDetail;    // Y - Contains the email address of the contact
+    public array $phoneNumberDetails;   // Y - Contains the phone number details of the contact
 
     public function __construct(
         PersonName $personName = null,
