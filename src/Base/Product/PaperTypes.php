@@ -13,9 +13,11 @@ class PaperTypes
         $this->choice = $choice;
     }
 
+    /**
+     * Gets 24 lb
+     */
     public function get24lb()
     {
-        $properties = [];
         $this->choice->id = "1448988661630";
         $this->choice->name = "Laser(24 lb.)";
 
@@ -40,9 +42,11 @@ class PaperTypes
         return $this->choice;       
     }
 
+    /**
+     * Gets 32 lb
+     */
     public function get32lb()
     {
-        $properties = [];
         $this->choice->id = "1448988664295";
         $this->choice->name = "Laser (32 lb.)";
 
@@ -67,9 +71,11 @@ class PaperTypes
         return $this->choice;          
     }
 
+    /**
+     * Gets 20 lb
+     */
     public function get20lb()
     {
-        $properties = [];
         $this->choice->id = "1448988666102";
         $this->choice->name = "30% Recycled";
 
@@ -94,9 +100,11 @@ class PaperTypes
         return $this->choice;          
     }
 
+    /**
+     * Gets laser 60lb
+     */
     public function getLaser60lb()
     {
-        $properties = [];
         $this->choice->id = "1448988665015";
         $this->choice->name = "Laser (60 lb.)";
 
@@ -121,9 +129,11 @@ class PaperTypes
         return $this->choice;     
     }
 
+    /**
+     * Gets gloss 100 lb
+     */
     public function getGloss100lb()
     {
-        $properties = [];
         $this->choice->id = "1448988895624";
         $this->choice->name = "Gloss Cover";
 
@@ -148,9 +158,11 @@ class PaperTypes
         return $this->choice;     
     }
 
+    /**
+     * Gets laser 80 lb
+     */
     public function getLaser80lb()
     {
-        $properties = [];
         $this->choice->id = "1448988677979";
         $this->choice->name = "Laser(80 lb.)";
 
@@ -175,9 +187,11 @@ class PaperTypes
         return $this->choice;     
     }
 
+    /**
+     * Gets gloss text 32 lb
+     */
     public function getGlossText32lb()
     {
-        $properties = [];
         $this->choice->id = "1448988666879";
         $this->choice->name = "Gloss Text";
 
@@ -202,9 +216,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets water resistant
+     */
     public function getWaterResistant()
     {
-        $properties = [];
         $this->choice->id = "1559837164426";
         $this->choice->name = "Water Resistant";
 
@@ -229,9 +245,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets ivory 65 lb
+     */
     public function getIvory65lb()
     {
-        $properties = [];
         $this->choice->id = "1450369886752";
         $this->choice->name = "Ivory";
 
@@ -256,9 +274,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets ivory 24 lb
+     */
     public function getIvory24lb()
     {
-        $properties = [];
         $this->choice->id = "1448988667606";
         $this->choice->name = "Ivory";
 
@@ -283,9 +303,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets sun yellow 24 lb
+     */
     public function getSunYellow24lb()
     {
-        $properties = [];
         $this->choice->id = "1448988671383";
         $this->choice->name = "Sun Yellow";
 
@@ -310,9 +332,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets ultra blue 24 lb
+     */
     public function getUltraBlue24lb()
     {
-        $properties = [];
         $this->choice->id = "1448988673318";
         $this->choice->name = "Bright Blue";
 
@@ -337,9 +361,11 @@ class PaperTypes
         return $this->choice;
     }
 
+    /**
+     * Gets sand stone 24 lb
+     */
     public function getSandStone24lb()
     {
-        $properties = [];
         $this->choice->id = "1448988899767";
         $this->choice->name = "Sand Stone";
 

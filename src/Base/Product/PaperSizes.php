@@ -18,7 +18,6 @@ class PaperSizes
      */
     public function get85x11()
     {
-        $properties = [];
         $this->choice->id = "1448986650332";
         $this->choice->name = "8.5x11";
 
@@ -42,7 +41,6 @@ class PaperSizes
      */
     public function get85x14()
     {
-        $properties = [];
         $this->choice->id = "1448986650652";
         $this->choice->name = "8.5x14";
 
@@ -66,7 +64,6 @@ class PaperSizes
      */
     public function get11x17()
     {
-        $properties = [];
         $this->choice->id = "1448986651164";
         $this->choice->name = "11x17";
 
