@@ -6,15 +6,18 @@
             @endforeach
         </ul>
     </div>
-    <div class="w-5/6 flex flex-col justify-center h-screen">
-        <div class="preview flex justify-center">
-            <div class="shadow-lg w-72 h-96">
-                <img src="{{isset($document['image']) ? $document['image'] : ''}}" />    
+    <div class="w-5/6">
+        <h1 class="ml-4 mt-4 text-xl font-semibold" x-text="currentDocument.documentName"></h1>
+        <div class="flex flex-col justify-center h-screen">
+            <div class="preview flex justify-center">
+                <div class="shadow-lg w-72 h-96 border-2">
+                    <img :src="currentDocument.image" />    
+                </div>
+                <div class="pagination"></div>
             </div>
-            <div class="pagination"></div>
-        </div>
-        <div class="continue-button mt-5 flex justify-end">
-            <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
+            <div class="continue-button mt-5 flex justify-end">
+                <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
+            </div>
         </div>
     </div>
 </div>

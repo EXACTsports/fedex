@@ -8,7 +8,7 @@
         showCheckout: @entangle('showCheckout'),
         showLoader: @entangle('showLoader'),
         documents: @entangle('documents'),
-        document: @entangle('document'),
+        currentDocument: @entangle('currentDocument'),
         locations: @entangle('locations'),
         showSelectLocation: @entangle('showSelectLocation'),
         showContactInformation: @entangle('showContactInformation'),

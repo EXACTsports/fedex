@@ -42,11 +42,11 @@
                                             </td>
                                             <td class="px-6 py-8 w-52 text-right text-sm font-medium">
                                                 <a href="#" class="border-2 border-indigo-900 p-3 rounded-full text-indigo-900 hover:text-indigo-900" 
-                                                    wire:click='$emit("setPrintOptions", index)'>SET PRINT OPTIONS</a>
+                                                    x-on:click='$wire.setPrintOptions(index)'>SET PRINT OPTIONS</a>
                                             </td>
                                             <td class="px-6 py-8 w-5 text-right text-sm font-medium">
                                                 <a href="#" class="border-2 border-red-600 p-3 rounded-full text-red-600 hover:text-red-600" 
-                                                    wire:click='$emit("deleteDocument", index)'>DELETE</a>
+                                                    x-on:click='$wire.deleteDocument(index)'>DELETE</a>
                                             </td>
                                         </tr>
                                     </template>

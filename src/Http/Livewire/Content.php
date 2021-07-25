@@ -28,11 +28,9 @@ class Content extends Component
     public bool $showContactInformation = false;
     public bool $showPaymentInformation = false;
     public array $documents = array();  // This array keeps all documents with its corresponding print options
-    public array $document = [];
+    public array $currentDocument = [];
     protected $listeners = [
-            'setParentDocuments', 
             'addDocument',
-            'setPrintOptions', 
             'deleteDocument', 
             'showLoader',
             'fetchLocations',
@@ -58,15 +56,7 @@ class Content extends Component
      */
     public function addDocument(array $document)
     {
-        $this->document = $document;
-        $this->documents[] = $this->document;
-    }
-
-    /**
-     * Sets parent documents.
-     */
-    public function setParentDocuments(array $document)
-    {
+        $this->currentDocument = $document;
         $this->documents[] = $document;
     }
 
@@ -77,19 +67,17 @@ class Content extends Component
     public function deleteDocument(int $index)
     {
         unset($this->documents[$index]);
-        $this->emit('updateDocuments', $this->documents);
     }
 
     /**
      * Sets print options.
      * @param int $index
      */
-    public function setPrintOptions($index)
+    public function setPrintOptions(int $index)
     {
-        $this->document = $this->documents[(int) $index];
+        $this->currentDocument = $this->documents[(int) $index];
         $this->showUploadFileComponent = false;
         $this->showSetPrintOptionsComponent = true;
-        $this->emit('updateDocument', $this->document);
     }
 
     /**
