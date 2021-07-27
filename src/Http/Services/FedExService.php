@@ -1,12 +1,12 @@
-<?php
+<?php 
 
 namespace EXACTSports\FedEx\Http\Services;
 
-use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
+use GuzzleHttp\Client;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
+use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
 
 class FedExService
 {
@@ -15,70 +15,70 @@ class FedExService
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => env('FEDEX_API_BASE_URL'),
+            'base_uri' => env("FEDEX_API_BASE_URL")
         ]);
     }
 
     /**
-     * OAuth.
+     * OAuth
      */
-    public function token()
+    public function token() 
     {
         $response = $this->client->request('POST', '/auth/oauth/v2/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
-                'client_id' => env('FEDEX_CLIENT_ID'),
-                'client_secret' => env('FEDEX_CLIENT_SECRET'),
-                'scope' => 'oob',
-            ],
+                'client_id' => env("FEDEX_CLIENT_ID"),
+                'client_secret' => env("FEDEX_CLIENT_SECRET"),
+                'scope' => 'oob'
+            ]
         ]);
 
-        $response = (string) $response->getBody();
+        $response = (string )$response->getBody();
         $response = json_decode($response);
 
         return $response;
     }
 
     /**
-     * Gets token.
+     * Gets token
      */
     private function getToken() : string
     {
-        if (Redis::exists('fedex.accessToken')) {
-            $expiresIn = Redis::get('fedex.expiresIn');
-            $expiresIn = date('Y-m-d H:i:s', $expiresIn);
-            $currentTime = date('Y-m-d H:i:s');
+        if (Redis::exists("fedex.accessToken")) {
+            $expiresIn = Redis::get("fedex.expiresIn");
+            $expiresIn = date("Y-m-d H:i:s", $expiresIn);
+            $currentTime = date("Y-m-d H:i:s");
 
             if ($currentTime < $expiresIn) {
-                return Redis::get('fedex.accessToken');
+                return Redis::get("fedex.accessToken");
             }
         }
 
         $response = $this->token();
-        $expiresIn = strtotime(date('Y-m-d H:i:s')) + $response->expires_in;
+        $expiresIn = strtotime(date("Y-m-d H:i:s")) + $response->expires_in;
         $accessToken = $response->access_token;
-
-        Redis::set('fedex.expiresIn', $expiresIn);
-        Redis::set('fedex.accessToken', $accessToken);
+        
+        Redis::set("fedex.expiresIn", $expiresIn);
+        Redis::set("fedex.accessToken", $accessToken);
 
         return $response->access_token;
     }
 
     /**
-     * Uploads document from local drive.
+     * Uploads document from local drive
      * @param string $file
      */
     public function uploadDocumentFromLocalDrive(array $documentFromLocalDrive) : object
     {
         $client = new Client([
-            'base_uri' => env('FEDEX_DOCUMENT_UPLOAD_HOSTNAME'),
+            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
         ]);
 
         $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
-            'headers' => [
-                'Content-Type' => 'multipart/form-data',
-            ],
-            'multipart' => [$documentFromLocalDrive],
+            'headers' => array(
+                "Content-Type" => "multipart/form-data"
+            ),
+            'multipart' => array($documentFromLocalDrive)
         ]);
 
         $response = (string) $response->getBody();
@@ -88,26 +88,26 @@ class FedExService
     }
 
     /**
-     * Uploads document from cloud drive.
+     * Uploads document from cloud drive
      * @param string $link
      * @param string $fileName
      */
     public function uploadDocumentFromCloudDrive(string $link, string $fileName) : object
     {
         $client = new Client([
-            'base_uri' => env('FEDEX_DOCUMENT_UPLOAD_HOSTNAME'),
+            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
         ]);
 
         $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
             'headers' => $this->getRequestHeader(),
-            'json' => [
-                'input' => [
-                    'download' => [
-                        'link' => $link,
-                        'fileName' => $fileName,
-                    ],
-                ],
-            ],
+            'json' => array(
+                "input" => array(
+                    "download" => array(
+                        "link" => $link,
+                        "fileName" => $fileName
+                    )
+                )
+            )
         ]);
 
         $response = (string) $response->getBody();
@@ -117,14 +117,14 @@ class FedExService
     }
 
     /**
-     * Converts to PDF.
+     * Converts to PDF
      * @param string $documentId
      */
     public function convertToPDF(string $documentId, array $options) : object
     {
         $response = $this->client->request('POST', '/document/fedexoffice/v1/documents/' . $documentId . '/printready', [
             'headers' => $this->getRequestHeader(),
-            'json' => $options,
+            'json' => $options
         ]);
 
         $response = (string) $response->getBody();
@@ -134,14 +134,14 @@ class FedExService
     }
 
     /**
-     * Gets document preview.
+     * Gets document preview
      * @param string $documentId
      * @param int $pageNumber
      */
     public function getDocumentPreview(string $documentId, int $pageNumber = 1) : object
     {
         $client = new Client([
-            'base_uri' => env('FEDEX_DOCUMENT_PREVIEW_HOSTNAME'),
+            'base_uri' => env("FEDEX_DOCUMENT_PREVIEW_HOSTNAME")
         ]);
 
         $response = $client->request('GET', '/document/fedexoffice/v1/documents/' . $documentId . '/preview?pageNumber=' . $pageNumber);
@@ -153,29 +153,30 @@ class FedExService
     }
 
     /**
-     * Gets rate estimate.
-     * @param array $rateRequest
+     * Gets rate estimate
+     * @param array $rateRequest 
      */
     public function getRate(array $rateRequest)
     {
         $response = $this->client->request('POST', '/rate/fedexoffice/v2/rates', [
             'headers' => $this->getRequestHeader(),
-            'json' => $rateRequest,
+            'json' => $rateRequest
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
+        $response = json_decode($response, true);
+
         return $response;
     }
 
     /**
-     * Gets delivery options pickup requiest.
+     * Gets delivery options pickup requiest
      */
     public function getDeliveryOptions(array $deliveryOptions)
     {
         $response = $this->client->request('POST', '/order/fedexoffice/v2/deliveryoptions', [
             'headers' => $this->getRequestHeader(),
-            'json' => $deliveryOptions,
+            'json' => $deliveryOptions
         ]);
 
         $response = (string) $response->getBody();
@@ -192,35 +193,35 @@ class FedExService
     {
         $response = $this->client->request('POST', '/order/fedexoffice/v2/ordersubmissions', [
             'headers' => $this->getRequestHeader(),
-            'json' => $orderSubmissionRequest,
+            'json' => $orderSubmissionRequest
         ]);
 
-        $response = (string) $response->getBody();
+        $response = (string )$response->getBody();
         $response = json_decode($response, true);
 
         return $response;
     }
 
     /**
-     * Gets request header.
+     * Gets request header
      */
     private function getRequestHeader()
     {
         $token = $this->getToken();
 
-        return [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $token,
-        ];
+        return array(
+                "Content-Type" => "application/json",
+                "Authorization" => "Bearer " . $token
+        );
     }
 
     /**
-     * Gets encription key.
+     * Gets encription key
      */
     public function encriptionKey()
     {
-        $response = $this->client->request('GET', '/payment/fedexoffice/v2/encryptionkey', [
-            'headers' => $this->getRequestHeader(),
+         $response = $this->client->request('GET', '/payment/fedexoffice/v2/encryptionkey', [
+            'headers' => $this->getRequestHeader()
         ]);
 
         $response = (string) $response->getBody();
@@ -230,23 +231,23 @@ class FedExService
     }
 
     /**
-     * Gets public key.
+     * Gets public key
      */
     private function getPublicKey() : string
     {
-        if (Redis::exists('publicKey')) {
-            return Redis::get('publicKey');
+        if (Redis::exists("publicKey")) {
+            return Redis::get("publicKey");
         }
 
         $response = $this->encriptionKey();
         $publicKey = $response->output->encryption->key;
-        Redis::set('publicKey', $publicKey);
+        Redis::set("publicKey", $publicKey);
 
         return $publicKey;
     }
 
     /**
-     * Gets encrypted data.
+     * Gets encrypted data
      * @param string $cardData
      * @return string Encrypted card data
      */
@@ -254,7 +255,6 @@ class FedExService
     {
         $key = PublicKeyLoader::load($this->getPublicKey());
         $key = $key->withPadding(RSA::ENCRYPTION_OAEP)->withHash('sha1')->withMGFHash('sha1');
-
         return base64_encode($key->encrypt($cardData));
     }
 }

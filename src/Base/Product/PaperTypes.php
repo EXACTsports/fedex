@@ -72,9 +72,38 @@ class PaperTypes
     }
 
     /**
+     * Gets laser recycled 24 lb
+     */
+    public function getLaserRecycled24lb()
+    {
+        $this->choice->id = "1448988665655";
+        $this->choice->name = "Laser Recycled(24 lb.)";
+
+        $this->property->id = "1450324098012";
+        $this->property->name = "MEDIA_TYPE";
+        $this->property->value = "LZR";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1453234015081";
+        $this->property->name = "PAPER_COLOR";
+        $this->property->value = "#FFFFFF";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1471275182312";
+        $this->property->name = "MEDIA_CATEGORY";
+        $this->property->value = "STANDARD";
+
+        $this->choice->properties[] = $this->property;
+
+        return $this->choice;          
+    }
+
+    /**
      * Gets 20 lb
      */
-    public function get20lb()
+    public function get30Recycled20lb()
     {
         $this->choice->id = "1448988666102";
         $this->choice->name = "30% Recycled";
@@ -82,6 +111,35 @@ class PaperTypes
         $this->property->id = "1450324098012";
         $this->property->name = "MEDIA_TYPE";
         $this->property->value = "WR";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1453234015081";
+        $this->property->name = "PAPER_COLOR";
+        $this->property->value = "#FFFFFF";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1471275182312";
+        $this->property->name = "MEDIA_CATEGORY";
+        $this->property->value = "STANDARD";
+
+        $this->choice->properties[] = $this->property;
+
+        return $this->choice;          
+    }
+
+    /**
+     * Gets 100% recycled 20 lb
+     */
+    public function get100Recycled20lb()
+    {
+        $this->choice->id = "1448988666494";
+        $this->choice->name = "100% Recycled";
+
+        $this->property->id = "1450324098012";
+        $this->property->name = "MEDIA_TYPE";
+        $this->property->value = "R100";
 
         $this->choice->properties[] = $this->property;
 
@@ -188,6 +246,64 @@ class PaperTypes
     }
 
     /**
+     * Gets index 110 lb
+     */
+    public function getIndex110lb()
+    {   
+        $this->choice->id = "1448988675190";
+        $this->choice->name = "110lb. Index";
+
+        $this->property->id = "1450324098012";
+        $this->property->name = "MEDIA_TYPE";
+        $this->property->value = "W110";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1453234015081";
+        $this->property->name = "PAPER_COLOR";
+        $this->property->value = "#FFFFFF";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1471275182312";
+        $this->property->name = "MEDIA_CATEGORY";
+        $this->property->value = "TEXT_GLOSS";
+
+        $this->choice->properties[] = $this->property;
+
+        return $this->choice;     
+    }
+
+    /**
+     * Gets pure white 100
+     */
+    public function getPureWhite100()
+    {
+        $this->choice->id = "1448988908744";
+        $this->choice->name = "Pure White(100% Cotton)";
+
+        $this->property->id = "1450324098012";
+        $this->property->name = "MEDIA_TYPE";
+        $this->property->value = "E1";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1453234015081";
+        $this->property->name = "PAPER_COLOR";
+        $this->property->value = "#FFFFFF";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1471275182312";
+        $this->property->name = "MEDIA_CATEGORY";
+        $this->property->value = "RESUME";
+
+        $this->choice->properties[] = $this->property;
+
+        return $this->choice;     
+    }
+
+    /**
      * Gets gloss text 32 lb
      */
     public function getGlossText32lb()
@@ -210,6 +326,35 @@ class PaperTypes
         $this->property->id = "1471275182312";
         $this->property->name = "MEDIA_CATEGORY";
         $this->property->value = "TEXT_GLOSS";
+
+        $this->choice->properties[] = $this->property;
+
+        return $this->choice;
+    }
+
+    /**
+     * Gets ultra bright white 32 lb
+     */
+    public function getUltraBrightWhite32()
+    {
+        $this->choice->id = "1448988908007";
+        $this->choice->name = "Ultra Bright White";
+
+        $this->property->id = "1450324098012";
+        $this->property->name = "MEDIA_TYPE";
+        $this->property->value = "E0";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1453234015081";
+        $this->property->name = "PAPER_COLOR";
+        $this->property->value = "#FFFFFF";
+
+        $this->choice->properties[] = $this->property;
+
+        $this->property->id = "1471275182312";
+        $this->property->name = "MEDIA_CATEGORY";
+        $this->property->value = "RESUME";
 
         $this->choice->properties[] = $this->property;
 
