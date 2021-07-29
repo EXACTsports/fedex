@@ -1,8 +1,12 @@
 <div class="set-print-options flex">
     <div class="w-1/6 relative">
-        <ul class="flex flex-col">
+        <ul class="flex flex-col" x-data="{ 
+                ...openPrintOptionPanel(), 
+                documentIndex: @entangle('documentIndex') 
+            }"
+        >
             @foreach($printOptions as $index => $printOption)
-                <livewire:fedex::print-option :printOption="$printOption" :index="$index" />
+                <livewire:fedex::print-option x-bind:documentIndex="documentIndex"  :printOption="$printOption" :index="$index" />
             @endforeach
         </ul>
     </div>
@@ -16,7 +20,9 @@
                 <div class="pagination"></div>
             </div>
             <div class="continue-button mt-5 flex justify-end">
-                <button type="button" class="bg-purple-900 text-white p-3 w-60">CONTINUE</button>
+                <button type="button" x-on:click="$wire.cancelSetPrintOptions()" class="bg-red-600 text-white p-3 w-60">CANCEL</button>
+                <button type="button" class="bg-purple-900 text-white p-3 w-60 ml-1" 
+                    x-on:click="$wire.emit('setNewPrintOptions')">SET OPTIONS</button>
             </div>
         </div>
     </div>
@@ -38,14 +44,19 @@
                 return this.$store.menuAccordion.tab === idx ? `max-height: ${this.$refs.tab.scrollHeight}px` : '';
             }
         });
-        function openPrintOptionPanel(e, value, index) {
-            let printOptionPanelLeft = e.srcElement.offsetWidth; 
 
-            if (!value) {
-                printOptionPanelLeft = 0;
+        function openPrintOptionPanel() {
+            return {
+                showPrintOption(value, index) {
+                    let printOptionPanelLeft = this.$refs.printOptions.offsetWidth; 
+
+                    if (!value) {
+                        printOptionPanelLeft = 0;
+                    }
+
+                    Livewire.emit("openPrintOptionPanel", value, printOptionPanelLeft, index);
+                }
             }
-
-            Livewire.emit("openPrintOptionPanel", value, printOptionPanelLeft, index);
         }
     </script>
 @endpush

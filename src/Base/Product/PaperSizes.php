@@ -3,37 +3,34 @@
 namespace EXACTSports\FedEx\Base\Product;
 
 use EXACTSports\FedEx\Base\Product\Choice;
+use EXACTSports\FedEx\Base\Product\Property;
 
 class PaperSizes 
 {
-    public Choice $choice; 
-    
-    public function __construct(Choice $choice)
-    {
-        $this->choice = $choice;
-    }
-
     /**
      * Gets 85x11
      */
     public function get85x11()
     {
-        $this->choice->id = "1448986650332";
-        $this->choice->name = "8.5x11";
+        $choice = new Choice();
+        $choice->id = "1448986650332";
+        $choice->name = "8.5x11";
+        
+        $property = new Property();
+        $property->id = "1449069906033";
+        $property->name = "MEDIA_HEIGHT";
+        $property->value = "11";
 
-        $this->property->id = "1449069906033";
-        $this->property->name = "MEDIA_HEIGHT";
-        $this->property->value = "11";
+        $choice->properties[] = $property;
 
-        $this->choice->properties[] = $this->property;
+        $property = new Property();
+        $property->id = "1449069908929";
+        $property->name = "MEDIA_WIDTH";
+        $property->value = "8.5";
 
-        $this->property->id = "1449069908929";
-        $this->property->name = "MEDIA_WIDTH";
-        $this->property->value = "8.5";
+        $choice->properties[] = $property;
 
-        $this->choice->properties[] = $this->property;
-
-        return $this->choice;        
+        return $choice;        
     }
 
     /**
@@ -41,22 +38,25 @@ class PaperSizes
      */
     public function get85x14()
     {
-        $this->choice->id = "1448986650652";
-        $this->choice->name = "8.5x14";
+        $choice = new Choice();
+        $choice->id = "1448986650652";
+        $choice->name = "8.5x14";
 
-        $this->property->id = "1449069906033";
-        $this->property->name = "MEDIA_HEIGHT";
-        $this->property->value = "14";
+        $property = new Property();
+        $property->id = "1449069906033";
+        $property->name = "MEDIA_HEIGHT";
+        $property->value = "14";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1449069908929";
-        $this->property->name = "MEDIA_WIDTH";
-        $this->property->value = "8.5";
+        $property = new Property();
+        $property->id = "1449069908929";
+        $property->name = "MEDIA_WIDTH";
+        $property->value = "8.5";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;        
+        return $choice;        
     }
 
     /**
@@ -64,21 +64,24 @@ class PaperSizes
      */
     public function get11x17()
     {
-        $this->choice->id = "1448986651164";
-        $this->choice->name = "11x17";
+        $choice = new Choice();
+        $choice->id = "1448986651164";
+        $choice->name = "11x17";
 
-        $this->property->id = "1449069906033";
-        $this->property->name = "MEDIA_HEIGHT";
-        $this->property->value = "17";
+        $property = new Property();
+        $property->id = "1449069906033";
+        $property->name = "MEDIA_HEIGHT";
+        $property->value = "17";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1449069908929";
-        $this->property->name = "MEDIA_WIDTH";
-        $this->property->value = "11";
+        $property = new Property();
+        $property->id = "1449069908929";
+        $property->name = "MEDIA_WIDTH";
+        $property->value = "11";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;        
+        return $choice;        
     }
 }

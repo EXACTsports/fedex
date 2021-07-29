@@ -3,43 +3,41 @@
 namespace EXACTSports\FedEx\Base\Product;
 
 use EXACTSports\FedEx\Base\Product\Choice;
+use EXACTSports\FedEx\Base\Product\Property;
 
 class PaperTypes
 {
-    public Choice $choice; 
-    
-    public function __construct(Choice $choice)
-    {
-        $this->choice = $choice;
-    }
-
     /**
      * Gets 24 lb
      */
     public function get24lb()
     {
-        $this->choice->id = "1448988661630";
-        $this->choice->name = "Laser(24 lb.)";
+        $choice = new Choice();
+        $choice->id = "1448988661630";
+        $choice->name = "Laser(24 lb.)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "LZ";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "LZ";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "PASTEL_BRIGHTS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "PASTEL_BRIGHTS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;       
+        return $choice;       
     }
 
     /**
@@ -47,28 +45,32 @@ class PaperTypes
      */
     public function get32lb()
     {
-        $this->choice->id = "1448988664295";
-        $this->choice->name = "Laser (32 lb.)";
+        $choice = new Choice();
+        $choice->id = "1448988664295";
+        $choice->name = "Laser (32 lb.)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "E32";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "E32";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "RESUME";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "RESUME";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;          
+        return $choice;          
     }
 
     /**
@@ -76,28 +78,32 @@ class PaperTypes
      */
     public function getLaserRecycled24lb()
     {
-        $this->choice->id = "1448988665655";
-        $this->choice->name = "Laser Recycled(24 lb.)";
+        $choice = new Choice();
+        $choice->id = "1448988665655";
+        $choice->name = "Laser Recycled(24 lb.)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "LZR";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "LZR";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "STANDARD";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "STANDARD";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;          
+        return $choice;          
     }
 
     /**
@@ -105,28 +111,32 @@ class PaperTypes
      */
     public function get30Recycled20lb()
     {
-        $this->choice->id = "1448988666102";
-        $this->choice->name = "30% Recycled";
+        $choice = new Choice();
+        $choice->id = "1448988666102";
+        $choice->name = "30% Recycled";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "WR";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "WR";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "STANDARD";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "STANDARD";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;          
+        return $choice;          
     }
 
     /**
@@ -134,28 +144,32 @@ class PaperTypes
      */
     public function get100Recycled20lb()
     {
-        $this->choice->id = "1448988666494";
-        $this->choice->name = "100% Recycled";
+        $choice = new Choice();
+        $choice->id = "1448988666494";
+        $choice->name = "100% Recycled";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "R100";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "R100";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "STANDARD";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "STANDARD";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;          
+        return $choice;          
     }
 
     /**
@@ -163,28 +177,32 @@ class PaperTypes
      */
     public function getLaser60lb()
     {
-        $this->choice->id = "1448988665015";
-        $this->choice->name = "Laser (60 lb.)";
+        $choice = new Choice();
+        $choice->id = "1448988665015";
+        $choice->name = "Laser (60 lb.)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "LZ60";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "LZ60";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "STANDARD";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "STANDARD";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;     
+        return $choice;     
     }
 
     /**
@@ -192,28 +210,32 @@ class PaperTypes
      */
     public function getGloss100lb()
     {
-        $this->choice->id = "1448988895624";
-        $this->choice->name = "Gloss Cover";
+        $choice = new Choice();
+        $choice->id = "1448988895624";
+        $choice->name = "Gloss Cover";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "CC2";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "CC2";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "COVER_GLOSS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "COVER_GLOSS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;     
+        return $choice;     
     }
 
     /**
@@ -221,28 +243,32 @@ class PaperTypes
      */
     public function getLaser80lb()
     {
-        $this->choice->id = "1448988677979";
-        $this->choice->name = "Laser(80 lb.)";
+        $choice = new Choice();
+        $choice->id = "1448988677979";
+        $choice->name = "Laser(80 lb.)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "LZ80";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "LZ80";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "TEXT_GLOSS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "TEXT_GLOSS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;     
+        return $choice;     
     }
 
     /**
@@ -250,28 +276,32 @@ class PaperTypes
      */
     public function getIndex110lb()
     {   
-        $this->choice->id = "1448988675190";
-        $this->choice->name = "110lb. Index";
+        $choice = new Choice();
+        $choice->id = "1448988675190";
+        $choice->name = "110lb. Index";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "W110";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "W110";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "TEXT_GLOSS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "TEXT_GLOSS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;     
+        return $choice;     
     }
 
     /**
@@ -279,28 +309,32 @@ class PaperTypes
      */
     public function getPureWhite100()
     {
-        $this->choice->id = "1448988908744";
-        $this->choice->name = "Pure White(100% Cotton)";
+        $choice = new Choice();
+        $choice->id = "1448988908744";
+        $choice->name = "Pure White(100% Cotton)";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "E1";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "E1";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "RESUME";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "RESUME";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;     
+        return $choice;     
     }
 
     /**
@@ -308,28 +342,32 @@ class PaperTypes
      */
     public function getGlossText32lb()
     {
-        $this->choice->id = "1448988666879";
-        $this->choice->name = "Gloss Text";
+        $choice = new Choice();
+        $choice->id = "1448988666879";
+        $choice->name = "Gloss Text";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "CT";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "CT";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "TEXT_GLOSS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "TEXT_GLOSS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -337,28 +375,32 @@ class PaperTypes
      */
     public function getUltraBrightWhite32()
     {
-        $this->choice->id = "1448988908007";
-        $this->choice->name = "Ultra Bright White";
+        $choice = new Choice();
+        $choice->id = "1448988908007";
+        $choice->name = "Ultra Bright White";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "E0";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "E0";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "RESUME";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "RESUME";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -366,28 +408,32 @@ class PaperTypes
      */
     public function getWaterResistant()
     {
-        $this->choice->id = "1559837164426";
-        $this->choice->name = "Water Resistant";
+        $choice = new Choice();
+        $choice->id = "1559837164426";
+        $choice->name = "Water Resistant";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "E6";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "E6";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#FFFFFF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#FFFFFF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "CARDSTOCK";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "CARDSTOCK";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -395,28 +441,32 @@ class PaperTypes
      */
     public function getIvory65lb()
     {
-        $this->choice->id = "1450369886752";
-        $this->choice->name = "Ivory";
+        $choice = new Choice();
+        $choice->id = "1450369886752";
+        $choice->name = "Ivory";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "PC1";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "PC1";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#F5EFDF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#F5EFDF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "CARDSTOCK";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "CARDSTOCK";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -424,28 +474,32 @@ class PaperTypes
      */
     public function getIvory24lb()
     {
-        $this->choice->id = "1448988667606";
-        $this->choice->name = "Ivory";
+        $choice = new Choice();
+        $choice->id = "1448988667606";
+        $choice->name = "Ivory";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "P1";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "P1";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#F5EFDF";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#F5EFDF";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "PASTEL_BRIGHTS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "PASTEL_BRIGHTS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -453,28 +507,32 @@ class PaperTypes
      */
     public function getSunYellow24lb()
     {
-        $this->choice->id = "1448988671383";
-        $this->choice->name = "Sun Yellow";
+        $choice = new Choice();
+        $choice->id = "1448988671383";
+        $choice->name = "Sun Yellow";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "B2";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "B2";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#F8D61B";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#F8D61B";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "PASTEL_BRIGHTS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "PASTEL_BRIGHTS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -482,28 +540,32 @@ class PaperTypes
      */
     public function getUltraBlue24lb()
     {
-        $this->choice->id = "1448988673318";
-        $this->choice->name = "Bright Blue";
+        $choice = new Choice();
+        $choice->id = "1448988673318";
+        $choice->name = "Bright Blue";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "B9";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "B9";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#00A9CA";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#00A9CA";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "PASTEL_BRIGHTS";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "PASTEL_BRIGHTS";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 
     /**
@@ -511,27 +573,31 @@ class PaperTypes
      */
     public function getSandStone24lb()
     {
-        $this->choice->id = "1448988899767";
-        $this->choice->name = "Sand Stone";
+        $choice = new Choice();
+        $choice->id = "1448988899767";
+        $choice->name = "Sand Stone";
 
-        $this->property->id = "1450324098012";
-        $this->property->name = "MEDIA_TYPE";
-        $this->property->value = "R2";
+        $property = new Property();
+        $property->id = "1450324098012";
+        $property->name = "MEDIA_TYPE";
+        $property->value = "R2";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1453234015081";
-        $this->property->name = "PAPER_COLOR";
-        $this->property->value = "#D9D7D4";
+        $property = new Property();
+        $property->id = "1453234015081";
+        $property->name = "PAPER_COLOR";
+        $property->value = "#D9D7D4";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471275182312";
-        $this->property->name = "MEDIA_CATEGORY";
-        $this->property->value = "RESUME";
+        $property = new Property();
+        $property->id = "1471275182312";
+        $property->name = "MEDIA_CATEGORY";
+        $property->value = "RESUME";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        return $this->choice;
+        return $choice;
     }
 }

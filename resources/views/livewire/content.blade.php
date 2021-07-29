@@ -9,6 +9,7 @@
         showLoader: @entangle('showLoader'),
         documents: @entangle('documents'),
         currentDocument: @entangle('currentDocument'),
+        documentIndex: @entangle('documentIndex'),
         locations: @entangle('locations'),
         showSelectLocation: @entangle('showSelectLocation'),
         showContactInformation: @entangle('showContactInformation'),
@@ -31,7 +32,7 @@
 
     <!-- BEGIN SET PRINT OPTIONS COMPONENT -->
     <div x-show="showSetPrintOptionsComponent">
-        <livewire:fedex::set-print-options />
+        <livewire:fedex::set-print-options x-bind:documentIndex="documentIndex" />
     </div>
     <!-- END PRINT OPTIONS COMPONENT -->
 

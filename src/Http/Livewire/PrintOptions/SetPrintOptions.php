@@ -14,7 +14,7 @@ use Livewire\Component;
 class SetPrintOptions extends Component
 {
     public array $document = [];
-    protected $listeners = ['updateDocument', 'selectDocumentPrintOption'];
+    protected $listeners = ['setNewPrintOptions'];
     public array $printOptions = [];
     public string $selectedText = '';
     public array $sizes = [
@@ -23,46 +23,16 @@ class SetPrintOptions extends Component
                 'targetWidthInInches' => '8.5',
             ],
     ];
+    public array $productFeatures = [];
+    public int $documentIndex = 0;
 
     public function mount()
     {
         $this->printOptions = PrintOptionService::$options;
     }
 
-    /**
-     * Updates document.
-     */
-    public function updateDocument(array $document)
-    {
-        $this->document = $document;
-    }
-
-    /**
-     * Selects document print option.
-     */
-    public function updatePrintOptions(string $productId, string $optionId, string $documentId)
-    {
-        // If is being updated the paper size, we convert the pdf again
-        if ($productId === '1448981549109') {
-            $size = $this->sizes[$optionId];
-            $options = new Options();
-
-            $options->input->conversionOptions->targetHeightInInches = $size['targetHeightInInches'];
-            $options->input->conversionOptions->targetWidthInInches = $size['targetWidthInInches'];
-            $options = json_decode(json_encode($options), true);
-            $options = $this->removeEmptyElements($options);
-            $response = $fedExService->convertToPdf($documentId, $options);
-        }
-        // $this->emit("updatePrintOptions", $productId, $optionId);
-    }
-
     public function render()
     {
-        return view('fedex::livewire.print_options.set_print_options',
-            [
-                'document' => $this->document,
-                'printOptions' => $this->printOptions,
-            ]
-        );
+        return view('fedex::livewire.print_options.set_print_options');
     }
 }

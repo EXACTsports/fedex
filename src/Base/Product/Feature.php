@@ -12,6 +12,10 @@ class Feature
 
     public function __construct(string $id = '', string $name = '', Choice $choice = null)
     {
+        if (is_null($choice)) {
+            $choice = new Choice();
+        }
+
         $this->id = $id;
         $this->name = $name;
         $this->choice = $choice;

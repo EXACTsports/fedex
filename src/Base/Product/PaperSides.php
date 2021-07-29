@@ -7,36 +7,30 @@ use EXACTSports\FedEx\Base\Product\Property;
 
 class PaperSides
 {
-    public Choice $choice;
-    public Property $property; 
-
-    public function __construct(Choice $choice, Property $property)
-    {
-        $this->choice = $choice;
-        $this->property = $property;
-    }
-
     /**
      * GETS single sided
      */
     public function getSingleSided()
     {
-        $this->choice->id = "1448988124560";
-        $this->choice->name = "Single-Sided";
+        $choice = new Choice();
+        $choice->id = "1448988124560";
+        $choice->name = "Single-Sided";
 
-        $this->property->id = "1461774376168";
-        $this->property->name = "SIDE";
-        $this->property->value = "SINGLE";
+        $property = new Property();
+        $property->id = "1461774376168";
+        $property->name = "SIDE";
+        $property->value = "SINGLE";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471294217799";
-        $this->property->name = "SIDE_VALUE";
-        $this->property->value = "1";
+        $property = new Property();
+        $property->id = "1471294217799";
+        $property->name = "SIDE_VALUE";
+        $property->value = "1";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
   
-        return $this->choice;       
+        return $choice;       
     }
 
     /**
@@ -44,21 +38,24 @@ class PaperSides
      */
     public function geDoubleSided()
     {
-        $this->choice->id = "1448988124807";
-        $this->choice->name = "Double-Sided";
+        $choice = new Choice();
+        $choice->id = "1448988124807";
+        $choice->name = "Double-Sided";
 
-        $this->property->id = "1461774376168";
-        $this->property->name = "SIDE";
-        $this->property->value = "DOUBLE";
+        $property = new Property();
+        $property->id = "1461774376168";
+        $property->name = "SIDE";
+        $property->value = "DOUBLE";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
 
-        $this->property->id = "1471294217799";
-        $this->property->name = "SIDE_VALUE";
-        $this->property->value = "2";
+        $property = new Property();
+        $property->id = "1471294217799";
+        $property->name = "SIDE_VALUE";
+        $property->value = "2";
 
-        $this->choice->properties[] = $this->property;
+        $choice->properties[] = $property;
   
-        return $this->choice;       
+        return $choice;       
     }
 }

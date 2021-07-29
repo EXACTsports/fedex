@@ -2,6 +2,7 @@
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
+use EXACTSports\FedEx\Http\Services\UploadFileService;
 use EXACTSports\FedEx\Base\Recipient;
 use EXACTSports\FedEx\DeliveryOptions\Delivery;
 use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
@@ -18,6 +19,7 @@ class Content extends Component
 {
     use FedExTrait;
 
+    private UploadFileService $uploadFileService;
     public bool $showUploadFileComponent = true;
     public bool $showSetPrintOptionsComponent = false;
     public bool $showCart = false;
@@ -28,7 +30,10 @@ class Content extends Component
     public bool $showContactInformation = false;
     public bool $showPaymentInformation = false;
     public array $documents = array();  // This array keeps all documents with its corresponding print options
+    public int $documentIndex = 0;
     public array $currentDocument = [];
+    public array $tempCurrentDocument = []; // This is used for keep all new set print options before apply them to the original
+    public array $productFeatures = [];
     protected $listeners = [
             'addDocument',
             'deleteDocument', 
@@ -36,9 +41,9 @@ class Content extends Component
             'fetchLocations',
             'showContactInformationForm',
             'goToPaymentInformation',
-            'placeOrder'
+            'placeOrder',
+            'updatePrintOption'
     ];
-
     /* BEGING CHECKOUT */
     public array $locations = [];
     /* END CHECKOUT */
@@ -78,6 +83,41 @@ class Content extends Component
         $this->currentDocument = $this->documents[(int) $index];
         $this->showUploadFileComponent = false;
         $this->showSetPrintOptionsComponent = true;
+    }
+
+    /**
+     * Cancels set print options action
+     */
+    public function cancelSetPrintOptions()
+    {
+        $this->showUploadFileComponent = true;
+        $this->showSetPrintOptionsComponent = false;
+    }
+
+    /**
+     * Updates print option
+     */
+    public function updatePrintOption(string $index, string $printOptionId, string $selectedOptionId, int $documentIndex)
+    {
+        $uploadFileService = new UploadFileService();
+
+        if (empty($this->tempCurrentDocument)) {
+            $this->tempCurrenDocument = $this->currenDocument;
+        }
+        
+        $updatedCurrentDocument = $uploadFileService->updatePrintOption($this->tempCurrenDocument, $printOptionId, $selectedOptionId);
+        $this->tempCurrentDocument = $updatedCurrentDocument;
+    }
+
+    /**
+     * Sets new print options
+     */
+    public function setNewPrintOptions($index)
+    {
+        $this->documents[$index] = $this->tempCurrenDocument;
+        $this->tempCurrenDocument = [];
+        $this->showUploadFileComponent = true;
+        $this->showSetPrintOptionsComponent = false;
     }
 
     /**

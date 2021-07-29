@@ -1,11 +1,16 @@
 <li class="bg-white my-2 shadow-lg"
-    x-data="{
-        selectedText: @entangle('selectedText')
-    }"
 >
-    <h2 id="printOptionHeader" @click="openPrintOptionPanel($event, true, '{{$index}}')" key="{{$index}}" 
+    <h2 
+        id="printOptionHeader" x-ref="printOptions" @click="showPrintOption(true, '{{$index}}')" key="{{$index}}" 
         class="h-20 flex flex-row justify-between items-center font-semibold p-3 cursor-pointer border-1">
-        <div class="flex flex-col">
+        <div 
+            class="flex flex-col"
+            x-data="{
+                selectedText: @entangle('selectedText'),
+                documentIndex: @entangle('documentIndex')
+            }"     
+            key="'{{ $printOption['id'] }}'"
+        >
             <span>{{ $printOption['name'] }}</span>
             <span class="text-sm text-green-600" x-text="selectedText"></span>
         </div>
@@ -18,5 +23,11 @@
             </path>
         </svg>
     </h2>
-    <livewire:fedex::print-option-panel :printOptions="$printOption['options']" :selectedProductId="$index"  />
+    <livewire:fedex::print-option-panel 
+        x-bind:documentIndex="documentIndex" 
+        :printOptions="$printOption['options']" 
+        :selectedProductId="$index" 
+        :printOptionId="$printOption['id']"  
+        :printOptionDefault="$printOption['default']"
+    />
 </li>

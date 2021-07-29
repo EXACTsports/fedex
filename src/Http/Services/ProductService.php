@@ -10,6 +10,18 @@ use EXACTSports\FedEx\Base\Product\Property;
 class ProductService
 {
     private Product $product;
+    public array $printOptionIds = [
+        "1448981549109", 
+        "1448981549741",
+        "1448981549581",
+        "1448981549269",
+        "1448984679218",
+        "1448981554101",
+        "1448984877869",
+        "1448981555573",
+        "1448981532145",
+        "1448984679442"
+    ];
 
     public function __construct()
     {

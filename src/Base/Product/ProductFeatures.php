@@ -5,29 +5,27 @@ namespace EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\Feature;
 use EXACTSports\FedEx\Base\Product\PaperSizes;
 use EXACTSports\FedEx\Base\Product\PaperTypes;
-use EXACTSports\FedEx\Base\Product\PrintColors;
+use EXACTSports\FedEx\Base\Product\PaperColors;
 use EXACTSports\FedEx\Base\Product\PaperSides;
+use EXACTSports\FedEx\Base\Product\PaperOrientations;
 
 class ProductFeatures
 {
     public Feature $feature;
     public PaperSizes $paperSizes;
     public PaperTypes $paperTypes; 
-    public PrintColors $printColors;
+    public PaperColors $paperColors;
     public PaperSides $paperSides; 
+    public PaperOrientations $paperOrientations;
 
-    public function __construct(
-        Feature $feature, 
-        PaperSizes $paperSizes,
-        PaperTypes $paperTypes, 
-        PrintColors $printColors,
-        PaperSides $paperSides)
+    public function __construct()
     {
-        $this->feature = $feature;
-        $this->paperSizes = $paperSizes;
-        $this->paperTypes = $paperTypes;
-        $this->printColors = $printColors;
-        $this->paperSides = $paperSides;
+        $this->feature = new Feature();
+        $this->paperSizes = new PaperSizes();
+        $this->paperTypes = new PaperTypes();
+        $this->paperColors = new PaperColors();
+        $this->paperSides = new PaperSides();
+        $this->paperOrientations = new PaperOrientations();
     }
 
     /**
@@ -40,9 +38,9 @@ class ProductFeatures
             "1448981549109" => array(
                 "name" => "Paper Size",
                 "choices" => array(
-                    "1448986650332" => $this->papeSizes->get85x11(),
-                    "1448986650652" => $this->papeSizes->get85x14(),
-                    "1448986651164" => $this->papeSizes->get11x17()
+                    "1448986650332" => $this->paperSizes->get85x11(),
+                    "1448986650652" => $this->paperSizes->get85x14(),
+                    "1448986651164" => $this->paperSizes->get11x17()
                 ) 
                 ),
             "1448981549741" => array(
@@ -71,9 +69,9 @@ class ProductFeatures
             "1448981549581" => array(
                 "name" => "Print Color",
                 "choices" => array(
-                    "1448988600611" => $this->printColors->getFullColor(),
-                    "1448988600931" => $this->printColors->getBlackWhite(),
-                    "1448988601203" => $this->printColors->getFirstPageColorRemainBlackWhite()
+                    "1448988600611" => $this->paperColors->getFullColor(),
+                    "1448988600931" => $this->paperColors->getBlackWhite(),
+                    "1448988601203" => $this->paperColors->getFirstPageColorRemainBlackWhite()
                 )
             ),
             "1448981549269" => array(

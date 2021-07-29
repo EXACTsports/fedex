@@ -1,19 +1,75 @@
 <div 
     style="{{ $openPrintOptionPanelStyle }}"  
-    class="print-option-panel  print-option-panel absolute bg-gray-100 w-72 min-h-3/4 top-0 -z-10 shadow-lg"
+    class="print-option-panel absolute bg-gray-100 w-72 min-h-3/4 top-1 -z-10 shadow-lg"
 >
-    <ul class="bg-white">
+    <ul class="bg-white"
+        x-data="{
+            documentIndex: @entangle('documentIndex'),
+            selectedOption: @entangle('selectedOption')
+        }"
+    >
         @foreach($printOptions as $key => $printOption)
             @if($key != 'withMenu')
                 <li :optionId="'{{$key}}'" key="'{{$key}}'" 
-                    class="cursor-pointer border-b-2 {{$optionMenuClass}}" wire:click="selectPrintOption('{{$key}}', '{{$printOption}}')">
-                        {{ $printOption }}
+                    class="cursor-pointer border-b-2 {{$optionMenuClass}}" 
+                    wire:click="selectPrintOption('{{$key}}', '{{$printOption}}', '{{$printOptionId}}', {{$documentIndex}})">
+                    <div class="flex justify-between items-center">
+                        <span class="">{{ $printOption }}</span>
+                        <template x-if="selectedOption === '{{$key}}'">
+                            <svg class="w-7" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2;" xml:space="preserve">
+                                <circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6"/>
+                                <path style="fill:#0AA06E;" d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z"/>
+                                <g>
+                                    <path style="fill:#FFFFFF;" d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8
+                                        c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z"/>
+                                    <path style="fill:#FFFFFF;" d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2
+                                        c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z"/>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                                <g>
+                                </g>
+                            </svg>
+                        </template>
+                    </div>    
                 </li>
             @else 
                 <li>
                     <ul class="menu-with-items bg-white flex flex-col">
                         @foreach ($printOption as $index => $menu) 
-                            <li class="py-2 shadow-lg" x-data="menuAccordion({{$index + 1}})">
+                            <li class="py-2 shadow-lg" 
+                                x-data="{ ...menuAccordion({{$index + 1}}), 
+                                    documentIndex: @entangle('documentIndex'),
+                                    selectedOption: @entangle('selectedOption')
+                                }"
+                            >
                                 <h2 
                                     @click="handleClick()"
                                     class="h-20 flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
@@ -34,7 +90,55 @@
                                 <div x-ref="tab" :style="handleToggle()" class="border-l-2 border-purple-700 overflow-hidden max-h-0 duration-500 transition-all">
                                     <ul>
                                         @foreach($menu["options"] as $key => $option) 
-                                            <li class="p-2 cursor-pointer ml-2" wire:click="selectPrintOption('{{$key}}', '{{$option}}')">{{ $option }}</li>
+                                            <li class="p-2 cursor-pointer ml-2" 
+                                                wire:click="selectPrintOption('{{$key}}', '{{$option}}', '{{$printOptionId}}', '{{$documentIndex}}')">
+                                                <div class="flex justify-between items-center">
+                                                    <span>{{ $option }}</span>
+                                                    <template x-if="selectedOption === '{{$key}}'">
+                                                        <svg class="w-7" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                            viewBox="0 0 507.2 507.2" style="enable-background:new 0 0 507.2 507.2;" xml:space="preserve">
+                                                        <circle style="fill:#32BA7C;" cx="253.6" cy="253.6" r="253.6"/>
+                                                        <path style="fill:#0AA06E;" d="M188.8,368l130.4,130.4c108-28.8,188-127.2,188-244.8c0-2.4,0-4.8,0-7.2L404.8,152L188.8,368z"/>
+                                                        <g>
+                                                            <path style="fill:#FFFFFF;" d="M260,310.4c11.2,11.2,11.2,30.4,0,41.6l-23.2,23.2c-11.2,11.2-30.4,11.2-41.6,0L93.6,272.8
+                                                                c-11.2-11.2-11.2-30.4,0-41.6l23.2-23.2c11.2-11.2,30.4-11.2,41.6,0L260,310.4z"/>
+                                                            <path style="fill:#FFFFFF;" d="M348.8,133.6c11.2-11.2,30.4-11.2,41.6,0l23.2,23.2c11.2,11.2,11.2,30.4,0,41.6l-176,175.2
+                                                                c-11.2,11.2-30.4,11.2-41.6,0l-23.2-23.2c-11.2-11.2-11.2-30.4,0-41.6L348.8,133.6z"/>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        <g>
+                                                        </g>
+                                                        </svg>
+                                                    </template>
+                                                </div>
+                                            </li>
                                         @endforeach
                                     </ul>            
                                 </div>       

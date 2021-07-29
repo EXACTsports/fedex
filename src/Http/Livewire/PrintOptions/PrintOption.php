@@ -10,20 +10,21 @@ class PrintOption extends Component
     public string $index = '';
     public string $selectedText = '';
     protected $listeners = ['selectText'];
+    public int $documentIndex = 0;
 
     public function mount(array $printOption = [], string $index = '')
     {
         $this->printOption = $printOption;
         $this->index = $index;
-
+        
         // Options
         foreach ($printOption['options'] as $key => $option) {
             if ($key != 'withMenu') {
                 $this->selectedText = $option;
             } else {
                 foreach ($option as $menuOption) {
-                    if (isset($menuOption['default'])) {
-                        $this->selectedText = $menuOption['default'];
+                    if (isset($menuOption['defaultText'])) {
+                        $this->selectedText = $menuOption['defaultText'];
                     }
                 }
             }
