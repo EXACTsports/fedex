@@ -1,8 +1,11 @@
 <li class="bg-white my-2 shadow-lg"
 >
     <h2 
-        id="printOptionHeader" x-ref="printOptions" @click="showPrintOption(true, '{{$index}}')" key="{{$index}}" 
-        class="h-20 flex flex-row justify-between items-center font-semibold p-3 cursor-pointer border-1">
+        id="printOptionHeader" x-ref="printOptions" 
+            @click="showPrintOption(true, '{{$index}}')" 
+            key="{{$index}}" 
+            class="h-20 flex flex-row justify-between items-center font-semibold p-3 cursor-pointer border-1"
+    >
         <div 
             class="flex flex-col"
             x-data="{

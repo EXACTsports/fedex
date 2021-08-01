@@ -12,7 +12,8 @@ use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\Rates\RatesRequest; 
-use EXACTSports\FedEx\Http\Services\CheckoutService;
+use EXACTSports\FedEx\Http\Services\UploadConversion\UploadConversionService;
+
 use Livewire\Component;
 
 class Content extends Component
@@ -99,13 +100,20 @@ class Content extends Component
      */
     public function updatePrintOption(string $index, string $printOptionId, string $selectedOptionId, int $documentIndex)
     {
-        $uploadFileService = new UploadFileService();
+        $uploadConversionService = new UploadConversionService();
 
         if (empty($this->tempCurrentDocument)) {
-            $this->tempCurrenDocument = $this->currenDocument;
+            $this->tempCurrenDocument = $this->currentDocument;
+        }
+
+        $updatedCurrentDocument = $uploadConversionService->updatePrintOption($this->tempCurrenDocument, $printOptionId, $selectedOptionId);
+
+        if (in_array($printOptionId, $uploadConversionService->convertToPdfIds)) {
+            $updatedCurrentDocument = $uploadConversionService->reconvertToPdf(
+                $updatedCurrentDocument["parentDocumentId"], $printOptionId, $selectedOptionId
+            );
         }
         
-        $updatedCurrentDocument = $uploadFileService->updatePrintOption($this->tempCurrenDocument, $printOptionId, $selectedOptionId);
         $this->tempCurrentDocument = $updatedCurrentDocument;
     }
 

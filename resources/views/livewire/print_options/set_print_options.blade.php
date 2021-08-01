@@ -55,6 +55,9 @@
                     }
 
                     Livewire.emit("openPrintOptionPanel", value, printOptionPanelLeft, index);
+                },
+                closePrintOption(value, index) {
+                    console.log(value, index);
                 }
             }
         }

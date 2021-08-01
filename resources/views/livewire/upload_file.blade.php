@@ -31,8 +31,14 @@
                                                             <span class="px-2" x-text="document.documentName"></span>
                                                             <div class="print-options text-xs">
                                                                 <ul class="ml-4">
-                                                                    <template x-for="key of Object.keys(document.selectedPrintOptions)">
-                                                                        <li><span x-text="key"></span>: <span x-text="document.selectedPrintOptions[key]"></span></li>
+                                                                    <template x-for="[key, value] of Object.entries(document.selectedPrintOptions)">
+                                                                        <div class="options">
+                                                                            <template x-for="[k, v] of Object.entries(value)">
+                                                                                <li>
+                                                                                    <span x-text="k"></span>: <span x-text="v"></span>
+                                                                                </li>
+                                                                            </template>
+                                                                        </div>
                                                                     </template>
                                                                 </ul>
                                                             </div>

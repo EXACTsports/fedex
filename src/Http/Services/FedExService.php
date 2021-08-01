@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
-use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
+use EXACTSports\FedEx\FedExTrait;
 
 class FedExService
 {
     private Client $client;
-
+    
     public function __construct()
     {
         $this->client = new Client([

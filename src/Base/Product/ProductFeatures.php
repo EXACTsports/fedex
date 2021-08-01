@@ -42,7 +42,7 @@ class ProductFeatures
                     "1448986650652" => $this->paperSizes->get85x14(),
                     "1448986651164" => $this->paperSizes->get11x17()
                 ) 
-                ),
+            ),
             "1448981549741" => array(
                 "name" => "Paper Type",
                 "choices" => array(
