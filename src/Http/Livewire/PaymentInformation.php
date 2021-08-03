@@ -25,7 +25,8 @@ class PaymentInformation extends Component
             "cardNumber" => $this->cardNumber,
             "securityCode" => $this->securityCode,
             "month" => $this->month,
-            "year" => $this->year
+            "year" => $this->year,
+            "type" => "VISA"
         );
 
         $this->emit("placeOrder", $paymentInformation);

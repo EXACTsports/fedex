@@ -196,8 +196,8 @@ class FedExService
             'json' => $orderSubmissionRequest
         ]);
 
-        $response = (string )$response->getBody();
-        $response = json_decode($response, true);
+        $response = (string) $response->getBody();
+        $response = json_decode($response);
 
         return $response;
     }

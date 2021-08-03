@@ -13,6 +13,7 @@ use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\Rates\RatesRequest; 
 use EXACTSports\FedEx\Http\Services\UploadConversion\UploadConversionService;
+use EXACTSports\FedEx\Http\Services\CheckoutService;
 
 use Livewire\Component;
 
@@ -29,6 +30,7 @@ class Content extends Component
     public bool $showLoader = false;
     public bool $showSelectLocation = true;
     public bool $showContactInformation = false;
+    public array $contactInformation;
     public bool $showPaymentInformation = false;
     public array $documents = array();  // This array keeps all documents with its corresponding print options
     public int $documentIndex = 0;
@@ -47,6 +49,7 @@ class Content extends Component
     ];
     /* BEGING CHECKOUT */
     public array $locations = [];
+    public string $locationId = "";
     /* END CHECKOUT */
     
     /**
@@ -151,10 +154,7 @@ class Content extends Component
      */
     public function showContactInformationForm(string $locationId)
     {
-        // Get rate 
-        $checkoutService = new CheckoutService();
-        $rateDetails = $checkoutService->getDocumentsRate($this->documents, $locationId);
-
+        $this->locationId = $locationId;
         $this->showSelectLocation = false; 
         $this->showContactInformation = true; 
         $this->showPaymentInformation = false; 
@@ -177,7 +177,9 @@ class Content extends Component
      */
     public function placeOrder(array $paymentInformation)
     {
-        $response = CheckoutService::submitOrder($this->documents, $this->contactInformation, $paymentInformation);
+        $checkoutService = new CheckoutService();
+        $response = $checkoutService->submitOrder($this->documents, $this->contactInformation, $paymentInformation, $this->locationId);
+        dd($response);
     }
 
     /**

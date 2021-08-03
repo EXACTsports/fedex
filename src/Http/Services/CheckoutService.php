@@ -11,6 +11,7 @@ use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\Rates\RatesRequest;
 use EXACTSports\FedEx\Base\Recipient;
 use EXACTSports\FedEx\FedExTrait;
+use EXACTSports\FedEx\Http\Services\OrderSubmission;
 
 class CheckoutService
 {
@@ -108,11 +109,19 @@ class CheckoutService
      * @param array $contactInformation
      * @param array $paymentInformation
      */
-    public static function submitOrder(array $documents, array $contactInformation, array $paymentInformation)
+    public function submitOrder(array $documents, array $contactInformation, array $paymentInformation, string $locationId)
     {
         $cardData = "M" . 
             $paymentInformation["cardNumber"] . "=" . substr($paymentInformation["year"], -2) . 
             $paymentInformation["month"] . ":" . $paymentInformation["securityCode"];
         $encryptedData = $this->getEncryptedData($cardData);
+        $paymentInformation["encryptedData"] = $encryptedData;
+
+        $orderSubmission = new OrderSubmission();
+        $request = $orderSubmission->getRequest($documents, $contactInformation, $paymentInformation, $locationId);
+
+        $response = (new FedExService)->orderSubmisions($request);
+
+        return $response;
     }
 }

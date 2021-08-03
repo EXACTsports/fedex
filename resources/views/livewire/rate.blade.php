@@ -12,6 +12,7 @@
                                 <div class="document-name p-5">
                                     <p x-text="document.name"></p>
                                     <p x-text="document.documentName"></p>
+                                    <p x-text="document.rate.totalAmount"></p>
                                 </div>
                             </div>
                         </div>
