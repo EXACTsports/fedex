@@ -11,7 +11,8 @@ use EXACTSports\FedEx\Conversion\Options;
 use EXACTSports\FedEx\Http\Services\UploadConversion\UploadDocumentFromLocalDrive;
 use EXACTSports\FedEx\Http\Services\UploadConversion\Conversion;
 use EXACTSports\FedEx\Http\Services\UploadConversion\PreviewConvertedDocument;
-
+use EXACTSports\FedEx\Http\Services\UploadConversion\Rate;
+use EXACTSports\FedEx\Http\Services\FedExService;
 use Illuminate\Support\Collection;
 
 class UploadConversionService
@@ -21,6 +22,8 @@ class UploadConversionService
     private PreviewConvertedDocument $previewConvertedDocument;
     private ProductService $productService;
     private ProductFeatures $productFeatures;
+    private FedExService $fedExService;
+    private Rate $rate;
     private array $features = [];
     public array $selectedPrintOptions = [
         "1448981549109" => array(
@@ -58,15 +61,19 @@ class UploadConversionService
         )
     ];
     public array $convertToPdfIds = ["1448981549109", "1448984679218"];
+    public Product $baseProduct;
 
     public function __construct()
     {
+        $this->fedExService = new FedExService();
         $this->uploadDocumentFromLocalDrive = new UploadDocumentFromLocalDrive();
         $this->conversion = new Conversion();
         $this->previewConvertedDocument = new PreviewConvertedDocument();
+        $this->rate = new Rate();
         $this->productFeatures = new ProductFeatures();
         $this->features = $this->productFeatures->get();
         $this->productService = new ProductService();
+        $this->baseProduct = $this->productService->getBaseProduct();
     }
 
     /**
@@ -91,10 +98,18 @@ class UploadConversionService
     {
         // Convert to pdf
         $document = $this->convertToPdf($documentId, $options);
-        
+    
         // Document preview
         $image = $this->getDocumentPreview($document->documentId);
         $document->image = $image;
+
+        $this->baseProduct->userProductName = $document->originalDocumentName; 
+        $this->baseProduct->contentAssociations[] = $this->getContentAssociation($document);
+        $document->product = $this->baseProduct;
+
+        // Get rate
+        $rate = $this->getRate($document);
+        $document->rate = $rate;
         
         $documentArray = [];
         $documentArray = $this->setDocumentArray($document);
@@ -103,14 +118,34 @@ class UploadConversionService
     }
 
     /**
+     * Gets content association
+     * @param object $document
+     * @return ContentAssociation
+     */
+    public function getContentAssociation($document) : ContentAssociation
+    {
+        return $this->productService->getContentAssociation($document);
+    }
+
+    /**
+     * Gets document rate
+     */
+    public function getRate(object $document) : object
+    {
+        $rateRequest = $this->rate->getRateRequest($this->baseProduct);
+        $response = $this->fedExService->getRate($rateRequest);
+        
+        return $response->output->rate->rateDetails[0];
+    }
+
+    /**
      * Sets document array
      */
     public function setDocumentArray(object $document) : array
     {
-        $product = $this->productService->getBaseProduct();
         $documentArray = [];
-        
         $documentArray['name'] = "Multi Sheet";
+        $documentArray['quantity'] = 1;
         $documentArray['documentName'] = $document->originalDocumentName;
         $documentArray['parentDocumentId'] = $document->parentDocumentId;
         $documentArray['documentId'] = $document->documentId;
@@ -118,24 +153,8 @@ class UploadConversionService
         $documentArray['totalAmount'] = 0;
         $documentArray['metrics'] = $document->metrics;
         $documentArray['selectedPrintOptions'] = $this->selectedPrintOptions;
-
-        $pageGroup = new PageGroup();
-        $pageGroup->start = $document->metrics->pageGroups[0]->startPageNum;
-        $pageGroup->end = $document->metrics->pageGroups[0]->endPageNum;
-        $pageGroup->width = $document->metrics->pageGroups[0]->pageWidthInches;
-        $pageGroup->height = $document->metrics->pageGroups[0]->pageHeightInches;
-
-        $product->userProductName = $document->originalDocumentName;
-        $contentAssociation = new ContentAssociation();
-        $contentAssociation->parentContentReference = $document->parentDocumentId;
-        $contentAssociation->contentReference = $document->documentId;
-        $contentAssociation->contentType = $document->documentType;
-        $contentAssociation->fileName = $document->originalDocumentName;
-        $contentAssociation->pageGroups[] = $pageGroup;
-
-        $product->contentAssociations[] = $contentAssociation;
-
-        $documentArray['product'] = $product;
+        $documentArray['product'] = $document->product;
+        $documentArray['rate'] = $document->rate;
 
         return $documentArray;
     }

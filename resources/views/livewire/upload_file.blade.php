@@ -46,6 +46,14 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td class="px-6 py-8 w-32 text-center text-sm font-medium">
+                                                <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                                                    <input type="number" x-bind:value="document.quantity" class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value="0" />
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-8 w-32 text-right text-sm font-medium">
+                                                <span x-text="document.rate.totalAmount"></span>
+                                            </td>
                                             <td class="px-6 py-8 w-52 text-right text-sm font-medium">
                                                 <a href="#" class="border-2 border-indigo-900 p-3 rounded-full text-indigo-900 hover:text-indigo-900" 
                                                     x-on:click='$wire.setPrintOptions(index)'>SET PRINT OPTIONS</a>

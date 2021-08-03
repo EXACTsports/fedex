@@ -4,7 +4,7 @@ namespace EXACTSports\FedEx\Rates;
 
 use EXACTSports\FedEx\Rates\RateRequest;
 
-class RatesRequest
+class Request
 {
     public RateRequest $rateRequest;
 

@@ -3,13 +3,16 @@
 namespace EXACTSports\FedEx\Http\Services;
 
 use EXACTSports\FedEx\Base\Product;
+use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product\Choice;
 use EXACTSports\FedEx\Base\Product\Feature;
 use EXACTSports\FedEx\Base\Product\Property;
+use EXACTSports\FedEx\Base\Product\ContentAssociation;
 
 class ProductService
 {
     private Product $product;
+    private ContentAssociation $contentAssociation;
     public array $printOptionIds = [
         "1448981549109", 
         "1448981549741",
@@ -26,6 +29,7 @@ class ProductService
     public function __construct()
     {
         $this->product = new Product();
+        $this->contentAssociation = new ContentAssociation();
         $this->setBaseProduct();
     }
 
@@ -144,5 +148,27 @@ class ProductService
     public function getBaseProduct() : Product
     {
         return $this->product;
+    }
+
+    /**
+     * Gets content association
+     * @param object $document in question
+     */
+    public function getContentAssociation(object $document) : ContentAssociation 
+    {
+        $pageGroup = new PageGroup();
+        $pageGroup->start = $document->metrics->pageGroups[0]->startPageNum;
+        $pageGroup->end = $document->metrics->pageGroups[0]->endPageNum;
+        $pageGroup->width = $document->metrics->pageGroups[0]->pageWidthInches;
+        $pageGroup->height = $document->metrics->pageGroups[0]->pageHeightInches;
+
+        $contentAssociation = new ContentAssociation();
+        $contentAssociation->parentContentReference = $document->parentDocumentId;
+        $contentAssociation->contentReference = $document->documentId;
+        $contentAssociation->contentType = $document->documentType;
+        $contentAssociation->fileName = $document->originalDocumentName;
+        $contentAssociation->pageGroups[] = $pageGroup;
+
+        return $contentAssociation;
     }
 }
