@@ -87,7 +87,13 @@ class ProductFeatures
                     "1449000016192" => $this->paperOrientations->getVertical(),
                     "1449000016327" => $this->paperOrientations->getHorizontal()
                 )
-                ),
+            ),
+            "1448981554101" => array(
+                "name" => "Prints Per Page",
+                "choices" => array(
+                    "1448990257151" => $this->binding->getPrintsPerPageOne()
+                ) 
+            ),
             "1448981554597" => array(
                 "name" => "Binding",
                 "choices" => array(
