@@ -87,6 +87,12 @@ class ProductFeatures
                     "1449000016192" => $this->paperOrientations->getVertical(),
                     "1449000016327" => $this->paperOrientations->getHorizontal()
                 )
+                ),
+            "1448981554597" => array(
+                "name" => "Binding",
+                "choices" => array(
+                    "1452632212741" => $this->binding->getTopLeftStaple()
+                ) 
             )
         );
 
