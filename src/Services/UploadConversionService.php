@@ -73,20 +73,20 @@ class UploadConversionService
         $this->productFeatures = new ProductFeatures();
         $this->features = $this->productFeatures->get();
         $this->productService = new ProductService();
-        $this->baseProduct = $this->productService->getBaseProduct();
     }
 
     /**
      * Uploads file to FedEx
      * @param string $contents
      * @param string $fileName
+     * @param int $quantity
      */
-    public function uploadFile(string $contents, string $fileName)
+    public function uploadFile(string $contents, string $fileName, int $quantity = 1)
     {
         // Upload document
         $document = $this->uploadDocumentFromLocalDrive->uploadDocument($contents, $fileName);
         $documentId = $document->documentId;
-        $document = $this->processDocument($documentId);
+        $document = $this->processDocument($documentId, $quantity);
        
         return $document;
     }
@@ -95,19 +95,26 @@ class UploadConversionService
      * Processes document
      * @param string $documentId
      */
-    public function processDocument(string $documentId, $options = null)
+    public function processDocument(string $documentId, int $quantity = 1, $options = null)
     {
+        $this->baseProduct = (new ProductService())->getBaseProduct();
+
         // Convert to pdf
         $document = $this->convertToPdf($documentId, $options);
-    
+
         // Document preview
         $image = $this->getDocumentPreview($document->documentId);
         $document->image = $image;
+        $document->quantity = $quantity;
+        
+        if ($quantity > 1) {
+            $this->baseProduct->qty = $quantity;
+        }
 
         $this->baseProduct->userProductName = $document->originalDocumentName; 
         $this->baseProduct->contentAssociations[] = $this->getContentAssociation($document);
         $document->product = $this->baseProduct;
-
+        
         // Get rate
         $rate = $this->getRate($document);
         $document->rate = $rate;
@@ -146,7 +153,7 @@ class UploadConversionService
     {
         $documentArray = [];
         $documentArray['name'] = "Multi Sheet";
-        $documentArray['quantity'] = 1;
+        $documentArray['quantity'] = $document->quantity;
         $documentArray['documentName'] = $document->originalDocumentName;
         $documentArray['parentDocumentId'] = $document->parentDocumentId;
         $documentArray['documentId'] = $document->documentId;
