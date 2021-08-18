@@ -1,6 +1,6 @@
 <?php 
 
-namespace EXACTSports\FedEx\Http\Services;
+namespace EXACTSports\FedEx\Services;
 
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
@@ -33,7 +33,7 @@ class FedExService
             ]
         ]);
 
-        $response = (string )$response->getBody();
+        $response = (string) $response->getBody();
         $response = json_decode($response);
 
         return $response;

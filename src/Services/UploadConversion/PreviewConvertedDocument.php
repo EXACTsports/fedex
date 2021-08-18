@@ -1,8 +1,8 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services\UploadConversion;
+namespace EXACTSports\FedEx\Services\UploadConversion;
 
-use EXACTSports\FedEx\Http\Services\FedExService;
+use EXACTSports\FedEx\Services\FedExService;
 
 class PreviewConvertedDocument
 {

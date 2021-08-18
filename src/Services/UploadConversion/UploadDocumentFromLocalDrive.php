@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services\UploadConversion;
+namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
@@ -18,14 +18,15 @@ class UploadDocumentFromLocalDrive
 
     /**
      * Uploads document
-     * @param file $file
+     * @param string $contents
+     * @param string $fileName
      */
-    public function uploadDocument($file)
+    public function uploadDocument(string $contents, string $fileName) : object
     {
-        $this->documentFromLocalDrive->contents = file_get_contents($file->getRealPath());
-        $this->documentFromLocalDrive->filename = $file->getClientOriginalName();
+        $this->documentFromLocalDrive->contents = $contents;
+        $this->documentFromLocalDrive->filename = $fileName;
         $response = $this->fedExService->uploadDocumentFromLocalDrive((array) $this->documentFromLocalDrive);
 
-        return $response;
+        return $response->output->document;
     }
 }

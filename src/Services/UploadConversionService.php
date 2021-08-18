@@ -1,18 +1,18 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services\UploadConversion;
+namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
-use EXACTSports\FedEx\Http\Services\ProductService;
+use EXACTSports\FedEx\Services\ProductService;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
 use EXACTSports\FedEx\Conversion\Options;
-use EXACTSports\FedEx\Http\Services\UploadConversion\UploadDocumentFromLocalDrive;
-use EXACTSports\FedEx\Http\Services\UploadConversion\Conversion;
-use EXACTSports\FedEx\Http\Services\UploadConversion\PreviewConvertedDocument;
-use EXACTSports\FedEx\Http\Services\UploadConversion\Rate;
-use EXACTSports\FedEx\Http\Services\FedExService;
+use EXACTSports\FedEx\Services\UploadConversion\UploadDocumentFromLocalDrive;
+use EXACTSports\FedEx\Services\UploadConversion\Conversion;
+use EXACTSports\FedEx\Services\UploadConversion\PreviewConvertedDocument;
+use EXACTSports\FedEx\Services\UploadConversion\Rate;
+use EXACTSports\FedEx\Services\FedExService;
 use Illuminate\Support\Collection;
 
 class UploadConversionService
@@ -78,13 +78,15 @@ class UploadConversionService
 
     /**
      * Uploads file to FedEx
-     * @param $file File
+     * @param string $contents
+     * @param string $fileName
      */
-    public function uploadFile($file)
+    public function uploadFile(string $contents, string $fileName)
     {
         // Upload document
-        $response = $this->uploadDocumentFromLocalDrive->uploadDocument($file);
-        $documentId = $response->output->document->documentId;
+        $document = $this->uploadDocumentFromLocalDrive->uploadDocument($contents, $fileName);
+        dd($document);
+        $documentId = $document->documentId;
         $document = $this->processDocument($documentId);
        
         return $document;

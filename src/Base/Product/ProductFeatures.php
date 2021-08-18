@@ -8,6 +8,8 @@ use EXACTSports\FedEx\Base\Product\PaperTypes;
 use EXACTSports\FedEx\Base\Product\PaperColors;
 use EXACTSports\FedEx\Base\Product\PaperSides;
 use EXACTSports\FedEx\Base\Product\PaperOrientations;
+use EXACTSports\FedEx\Base\Product\PrintsPerPage;
+use EXACTSports\FedEx\Base\Product\Binding;
 
 class ProductFeatures
 {
@@ -17,6 +19,8 @@ class ProductFeatures
     public PaperColors $paperColors;
     public PaperSides $paperSides; 
     public PaperOrientations $paperOrientations;
+    public PrintsPerPage $printsPerPage;
+    public Binding $binding;
 
     public function __construct()
     {
@@ -26,6 +30,8 @@ class ProductFeatures
         $this->paperColors = new PaperColors();
         $this->paperSides = new PaperSides();
         $this->paperOrientations = new PaperOrientations();
+        $this->printsPerPage = new PrintsPerPage();
+        $this->binding = new Binding();
     }
 
     /**
@@ -91,7 +97,7 @@ class ProductFeatures
             "1448981554101" => array(
                 "name" => "Prints Per Page",
                 "choices" => array(
-                    "1448990257151" => $this->binding->getPrintsPerPageOne()
+                    "1448990257151" => $this->printsPerPage->getPrintsPerPageOne()
                 ) 
             ),
             "1448981554597" => array(

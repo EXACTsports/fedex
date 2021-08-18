@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services\UploadConversion;
+namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Rates\Request;

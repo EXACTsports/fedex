@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services;
+namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\PageGroup;

@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services;
+namespace EXACTSports\FedEx\Services;
 
 class PrintOptionService
 {

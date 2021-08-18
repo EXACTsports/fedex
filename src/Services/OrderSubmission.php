@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services;
+namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\OrderSubmissions\Request;
 use EXACTSports\FedEx\Base\Contact;

@@ -12,8 +12,8 @@ use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
 use EXACTSports\FedEx\Rates\RatesRequest; 
-use EXACTSports\FedEx\Http\Services\UploadConversion\UploadConversionService;
-use EXACTSports\FedEx\Http\Services\CheckoutService;
+use EXACTSports\FedEx\Services\UploadConversion\UploadConversionService;
+use EXACTSports\FedEx\Services\CheckoutService;
 
 use Livewire\Component;
 

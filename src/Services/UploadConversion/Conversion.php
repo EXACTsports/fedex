@@ -1,9 +1,9 @@
 <?php
 
-namespace EXACTSports\FedEx\Http\Services\UploadConversion;
+namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\Conversion\Options;
-use EXACTSports\FedEx\Http\Services\FedExService;
+use EXACTSports\FedEx\Services\FedExService;
 use EXACTSports\FedEx\FedExTrait;
 
 class Conversion
@@ -32,6 +32,6 @@ class Conversion
         $options = $this->removeEmptyElements($options);
         $response = $this->fedExService->convertToPdf($documentId, $options);
 
-        return $response;
+        return $response->output->document;
     }
 }
