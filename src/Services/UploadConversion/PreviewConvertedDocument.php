@@ -16,10 +16,10 @@ class PreviewConvertedDocument
     /**
      * Gets preview document
      */
-    public function getPreview(string $documentId, int $pageNumber = 1)
+    public function getPreview(string $documentId, int $pageNumber = 1) : string
     {
         $response = $this->fedExService->getDocumentPreview($documentId, $pageNumber);
         
-        return $response;
+        return $response->output->imageByteStream;
     }
 }

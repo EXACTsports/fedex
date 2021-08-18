@@ -85,7 +85,6 @@ class UploadConversionService
     {
         // Upload document
         $document = $this->uploadDocumentFromLocalDrive->uploadDocument($contents, $fileName);
-        dd($document);
         $documentId = $document->documentId;
         $document = $this->processDocument($documentId);
        
@@ -166,9 +165,7 @@ class UploadConversionService
      */
     public function convertToPdf(string $documentId, $options = null)
     {
-        $response = $this->conversion->convertToPdf($documentId, $options);
-
-        return $response->output->document;
+        return $this->conversion->convertToPdf($documentId, $options);
     }
 
     /**
@@ -202,11 +199,9 @@ class UploadConversionService
      * @param string $documentId
      * @param int $pageNumber
      */
-    public function getDocumentPreview(string $documentId, int $pageNumber = 1)
+    public function getDocumentPreview(string $documentId, int $pageNumber = 1) : string
     {
-        $response = $this->previewConvertedDocument->getPreview($documentId, $pageNumber);
-
-        return $response->output->imageByteStream;
+        return $this->previewConvertedDocument->getPreview($documentId, $pageNumber);
     }
 
     /**

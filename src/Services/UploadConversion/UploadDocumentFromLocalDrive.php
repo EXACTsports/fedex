@@ -2,7 +2,7 @@
 
 namespace EXACTSports\FedEx\Services\UploadConversion;
 
-use EXACTSports\FedEx\Http\Services\FedExService;
+use EXACTSports\FedEx\Services\FedExService;
 use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
 
 class UploadDocumentFromLocalDrive
