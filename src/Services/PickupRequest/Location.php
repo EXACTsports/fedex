@@ -60,6 +60,6 @@ class Location
       (array) $doRequest
       ));
 
-      return $response['output']['deliveryOptions'][0]['pickupOptions'];
+      return $response->output->deliveryOptions[0]->pickupOptions;
     }
 }

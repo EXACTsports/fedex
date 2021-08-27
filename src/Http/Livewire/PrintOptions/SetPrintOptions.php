@@ -5,9 +5,9 @@ namespace EXACTSports\FedEx\Http\Livewire\PrintOptions;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\ProductAssociation;
 use EXACTSports\FedEx\Base\Recipient;
-use EXACTSports\FedEx\Http\Services\PrintOptionService;
-use EXACTSports\FedEx\Http\Services\FedExService;
-use EXACTSports\FedEx\Http\Services\ProductService;
+use EXACTSports\FedEx\Services\PrintOptionService;
+use EXACTSports\FedEx\Services\FedExService;
+use EXACTSports\FedEx\Services\ProductService;
 use EXACTSports\FedEx\Rates\RateRequest;
 use Livewire\Component;
 
