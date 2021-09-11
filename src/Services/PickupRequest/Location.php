@@ -62,4 +62,16 @@ class Location
 
       return $response->output->deliveryOptions[0]->pickupOptions;
     }
+
+    /**
+     * Gets location details. This methos makes a call to api v1
+     * @param int $id
+     * @param string $startDate
+     */
+    public function getDetails(int $id, string $startDate = "")
+    {
+      $response = (new FedexService())->getLocationDetails($id, $startDate);
+
+      return !empty($response->output->location) ? $response->output->location : null;
+    }
 }

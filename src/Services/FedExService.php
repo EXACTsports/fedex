@@ -257,4 +257,28 @@ class FedExService
         $key = $key->withPadding(RSA::ENCRYPTION_OAEP)->withHash('sha1')->withMGFHash('sha1');
         return base64_encode($key->encrypt($cardData));
     }
+
+    /**
+     * Gets location details. This methos makes a call to api v1
+     * @param int $id
+     * @param string $startDate
+     */
+    public function getLocationDetails(int $id, string $startDate = "")
+    {   
+        if (empty($startDate)) {
+            $startDate = date("Y-m-d", time());
+        }
+
+        $response = $this->client->request('GET', 
+            '/location/fedexoffice/v1/locations/' . $id . '?startDate='. $startDate,
+            [
+                'headers' => $this->getRequestHeader()
+            ]
+        );
+
+        $response = (string) $response->getBody();
+        $response = json_decode($response);
+
+        return $response;
+    }
 }
