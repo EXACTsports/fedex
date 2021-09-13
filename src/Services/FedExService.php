@@ -263,14 +263,14 @@ class FedExService
      * @param int $id
      * @param string $startDate
      */
-    public function getLocationDetails(int $id, string $startDate = "")
+    public function getLocationDetails(int $id)
     {   
         if (empty($startDate)) {
             $startDate = date("Y-m-d", time());
         }
 
         $response = $this->client->request('GET', 
-            '/location/fedexoffice/v1/locations/' . $id . '?startDate='. $startDate,
+            '/location/fedexoffice/v1/locations/' . $id,
             [
                 'headers' => $this->getRequestHeader()
             ]
