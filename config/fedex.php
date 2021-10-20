@@ -9,5 +9,6 @@ return [
     'apiBaseUrl' => env('FEDEX_API_BASE_URL'),
     'clientId' => env('FEDEX_CLIENT_ID'),
     'clientSecret' => env('FEDEX_CLIENT_SECRET'),
-    'documentUploadHostname' => env('FEDEX_DOCUMENT_UPLOAD_HOSTNAME')
+    'documentUploadHostname' => env('FEDEX_DOCUMENT_UPLOAD_HOSTNAME'),
+    'document-preview-hostname' => env('FEDEX_DOCUMENT_PREVIEW_HOSTNAME'),
 ];
