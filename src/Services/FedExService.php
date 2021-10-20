@@ -2,11 +2,10 @@
 
 namespace EXACTSports\FedEx\Services;
 
+use Illuminate\Support\Facades\Cache;
 use GuzzleHttp\Client;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
-use EXACTSports\FedEx\FedExTrait;
-use Illuminate\Support\Facades\Cache;
 
 class FedExService
 {
@@ -15,7 +14,7 @@ class FedExService
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => env("FEDEX_API_BASE_URL")
+            'base_uri' => config("fedex.apiBaseUrl"),
         ]);
     }
 
@@ -27,9 +26,9 @@ class FedExService
         $response = $this->client->request('POST', '/auth/oauth/v2/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
-                'client_id' => env("FEDEX_CLIENT_ID"),
-                'client_secret' => env("FEDEX_CLIENT_SECRET"),
-                'scope' => 'oob'
+                'client_id' => config('fedex.clientId'),
+                'client_secret' => config('fedex.clientSecret'),
+                'scope' => 'oob',
             ]
         ]);
 
@@ -58,8 +57,8 @@ class FedExService
         $expiresIn = strtotime(date("Y-m-d H:i:s")) + $response->expires_in;
         $accessToken = $response->access_token;
         
-        Cache::put("fedex.expiresIn", $expiresIn);
-        Cache::put("fedex.accessToken", $accessToken);
+        Cache::rememberForever("fedex.expiresIn", fn() => $expiresIn);
+        Cache::rememberForever("fedex.accessToken",fn() => $accessToken);
 
         return $response->access_token;
     }
@@ -71,7 +70,7 @@ class FedExService
     public function uploadDocumentFromLocalDrive(array $documentFromLocalDrive) : object
     {
         $client = new Client([
-            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
+            'base_uri' => config('fedex.documentUploadHostname'),
         ]);
 
         $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
@@ -95,7 +94,7 @@ class FedExService
     public function uploadDocumentFromCloudDrive(string $link, string $fileName) : object
     {
         $client = new Client([
-            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
+            'base_uri' => config('fedex.documentUploadHostname'),
         ]);
 
         $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
@@ -141,7 +140,7 @@ class FedExService
     public function getDocumentPreview(string $documentId, int $pageNumber = 1) : object
     {
         $client = new Client([
-            'base_uri' => env("FEDEX_DOCUMENT_PREVIEW_HOSTNAME")
+            'base_uri' => config('fedex.document-preview-hostname')
         ]);
 
         $response = $client->request('GET', '/document/fedexoffice/v1/documents/' . $documentId . '/preview?pageNumber=' . $pageNumber);
@@ -241,7 +240,7 @@ class FedExService
 
         $response = $this->encriptionKey();
         $publicKey = $response->output->encryption->key;
-        Cache::put("publicKey", $publicKey);
+        Cache::rememberForever("publicKey", fn() => $publicKey);
 
         return $publicKey;
     }
