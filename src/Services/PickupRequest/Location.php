@@ -20,11 +20,10 @@ class Location
      * @param string $distance
      * @param string $address
      */
-    public function search(array $documents, string $distance, string $address)
+    public function search(array $documents, string $distance, array $address)
     {
-      $addressArr = array_map(function ($value) {
-        return trim($value);
-      }, explode(',', $address));
+
+
 
       $products = [];
       $productAssociations = [];
@@ -40,12 +39,12 @@ class Location
       }
 
       $delivery = new Delivery();
-      $delivery->address->streetLines[] = $addressArr[0];
-      $delivery->address->city = $addressArr[1];
-      $delivery->address->stateOrProvinceCode = $addressArr[2];
-      $delivery->address->postalCode = $addressArr[3];
-      $delivery->address->countryCode = 'US';
-      $delivery->address->addressClassification = 'HOME';
+      $delivery->address->streetLines[] = data_get($address, 'street');
+      $delivery->address->city = data_get($address, 'city');
+      $delivery->address->stateOrProvinceCode = data_get($address, 'state');
+      $delivery->address->postalCode = data_get($address, 'zip');
+      $delivery->address->countryCode = data_get($address, 'country');
+      $delivery->address->addressClassification = data_get($address, 'type');
 
       $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
       $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
@@ -56,9 +55,10 @@ class Location
       $doRequest->deliveryOptionsRequest->products = $products;
       $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
 
-      $response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements(
-      (array) $doRequest
-      ));
+
+
+
+      $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
 
       return $response->output->deliveryOptions[0]->pickupOptions;
     }

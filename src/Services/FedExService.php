@@ -23,6 +23,7 @@ class FedExService
      */
     public function token() 
     {
+
         $response = $this->client->request('POST', '/auth/oauth/v2/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
@@ -33,9 +34,7 @@ class FedExService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
-
-        return $response;
+        return json_decode($response);
     }
 
     /**
@@ -173,12 +172,14 @@ class FedExService
      */
     public function getDeliveryOptions(array $deliveryOptions)
     {
+
         $response = $this->client->request('POST', '/order/fedexoffice/v2/deliveryoptions', [
             'headers' => $this->getRequestHeader(),
-            'json' => $deliveryOptions
+            'json' => $deliveryOptions,
         ]);
 
         $response = (string) $response->getBody();
+
         $response = json_decode($response);
 
         return $response;
