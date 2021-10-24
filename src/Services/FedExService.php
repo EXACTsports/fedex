@@ -2,11 +2,11 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use Illuminate\Support\Facades\Redis;
 use GuzzleHttp\Client;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
 use EXACTSports\FedEx\FedExTrait;
+use Illuminate\Support\Facades\Cache;
 
 class FedExService
 {
@@ -44,13 +44,13 @@ class FedExService
      */
     private function getToken() : string
     {
-        if (Redis::exists("fedex.accessToken")) {
-            $expiresIn = Redis::get("fedex.expiresIn");
+        if (Cache::has("fedex.accessToken")) {
+            $expiresIn = Cache::get("fedex.expiresIn");
             $expiresIn = date("Y-m-d H:i:s", $expiresIn);
             $currentTime = date("Y-m-d H:i:s");
 
             if ($currentTime < $expiresIn) {
-                return Redis::get("fedex.accessToken");
+                return Cache::get("fedex.accessToken");
             }
         }
 
@@ -58,8 +58,8 @@ class FedExService
         $expiresIn = strtotime(date("Y-m-d H:i:s")) + $response->expires_in;
         $accessToken = $response->access_token;
         
-        Redis::set("fedex.expiresIn", $expiresIn);
-        Redis::set("fedex.accessToken", $accessToken);
+        Cache::put("fedex.expiresIn", $expiresIn);
+        Cache::put("fedex.accessToken", $accessToken);
 
         return $response->access_token;
     }
@@ -235,13 +235,13 @@ class FedExService
      */
     private function getPublicKey() : string
     {
-        if (Redis::exists("publicKey")) {
-            return Redis::get("publicKey");
+        if (Cache::has("publicKey")) {
+            return Cache::get("publicKey");
         }
 
         $response = $this->encriptionKey();
         $publicKey = $response->output->encryption->key;
-        Redis::set("publicKey", $publicKey);
+        Cache::put("publicKey", $publicKey);
 
         return $publicKey;
     }
