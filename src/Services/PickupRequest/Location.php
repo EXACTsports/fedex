@@ -22,9 +22,6 @@ class Location
      */
     public function search(array $documents, string $distance, array $address)
     {
-
-
-
       $products = [];
       $productAssociations = [];
 
@@ -39,7 +36,7 @@ class Location
       }
 
       $delivery = new Delivery();
-      $delivery->address->streetLines[] = data_get($address, 'street');
+      $delivery->address->streetLines = data_get($address, 'street');
       $delivery->address->city = data_get($address, 'city');
       $delivery->address->stateOrProvinceCode = data_get($address, 'state');
       $delivery->address->postalCode = data_get($address, 'zip');
@@ -51,15 +48,12 @@ class Location
       $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = 'MILES';
       $delivery->productAssociations = $productAssociations;
 
-      $doRequest = new Request('deliveryOptions');
+      $doRequest = new Request();
       $doRequest->deliveryOptionsRequest->products = $products;
       $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
 
-
-
-
       $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
-
+      
       return $response->output->deliveryOptions[0]->pickupOptions;
     }
 
