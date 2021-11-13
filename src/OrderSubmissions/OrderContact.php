@@ -10,6 +10,6 @@ class OrderContact
 
     public function __construct()
     {
-        $this->contact = new Contact();    
+        $this->contact = new Contact();
     }
 }

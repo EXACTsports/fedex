@@ -2,15 +2,15 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use EXACTSports\FedEx\OrderSubmissions\Request;
 use EXACTSports\FedEx\Base\Contact;
 use EXACTSports\FedEx\Base\PhoneNumberDetail;
 use EXACTSports\FedEx\Base\Recipient;
-use EXACTSports\FedEx\OrderSubmissions\Payment;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\FedExTrait;
+use EXACTSports\FedEx\OrderSubmissions\Payment;
+use EXACTSports\FedEx\OrderSubmissions\Request;
 
-class OrderSubmission 
+class OrderSubmission
 {
     use FedExTrait;
 
@@ -28,20 +28,19 @@ class OrderSubmission
     }
 
     /**
-     * Gets order submission request
+     * Gets order submission request.
      */
-    public function getRequest(array $documents, 
-        array $contactInformation, 
-        array $paymentInformation, 
+    public function getRequest(array $documents,
+        array $contactInformation,
+        array $paymentInformation,
         string $locationId
-    )
-    {
-        $this->phoneNumberDetail->phoneNumber->number = $contactInformation["phone"];
+    ) {
+        $this->phoneNumberDetail->phoneNumber->number = $contactInformation['phone'];
 
-        $this->contact->company->name = $contactInformation["company"];
-        $this->contact->emailDetail->emailAddress = $contactInformation["email"];
-        $this->contact->personName->firstName = $contactInformation["firstName"];
-        $this->contact->personName->lastName = $contactInformation["lastName"];
+        $this->contact->company->name = $contactInformation['company'];
+        $this->contact->emailDetail->emailAddress = $contactInformation['email'];
+        $this->contact->personName->firstName = $contactInformation['firstName'];
+        $this->contact->personName->lastName = $contactInformation['lastName'];
         $this->contact->phoneNumberDetails[] = $this->phoneNumberDetail;
 
         // Order contact
@@ -50,7 +49,7 @@ class OrderSubmission
         $productAssociations = [];
         // Products
         foreach ($documents as $document) {
-            $this->request->orderSubmissionRequest->products[] = $document["product"];
+            $this->request->orderSubmissionRequest->products[] = $document['product'];
 
             $productAssociation = new ProductAssociation();
             $productAssociation->id = $document['product']['instanceId'];
@@ -64,28 +63,28 @@ class OrderSubmission
 
         $this->recipient->productAssociations = $productAssociations;
 
-        // Recipients 
+        // Recipients
         $this->request->orderSubmissionRequest->recipients[] = $this->recipient;
 
         $payment = new Payment();
-        
-        $payment->creditCard->billingAddress->city = "Baltimore";
-        $payment->creditCard->billingAddress->countryCode = "US";
-        $payment->creditCard->billingAddress->postalCode = "21218";
-        $payment->creditCard->billingAddress->stateOrProvinceCode = "MD";
-        $payment->creditCard->billingAddress->streetLines[] = "3614 Delverne Rd";
 
-        $payment->creditCard->cardHolderName = "Test card";
-        $payment->creditCard->encryptedCreditCard = $paymentInformation["encryptedData"];
-        $payment->creditCard->expirationMonth = $paymentInformation["month"];
-        $payment->creditCard->expirationYear = $paymentInformation["year"];
-        $payment->creditCard->type = $paymentInformation["type"];
+        $payment->creditCard->billingAddress->city = 'Baltimore';
+        $payment->creditCard->billingAddress->countryCode = 'US';
+        $payment->creditCard->billingAddress->postalCode = '21218';
+        $payment->creditCard->billingAddress->stateOrProvinceCode = 'MD';
+        $payment->creditCard->billingAddress->streetLines[] = '3614 Delverne Rd';
 
-        // Payments 
+        $payment->creditCard->cardHolderName = 'Test card';
+        $payment->creditCard->encryptedCreditCard = $paymentInformation['encryptedData'];
+        $payment->creditCard->expirationMonth = $paymentInformation['month'];
+        $payment->creditCard->expirationYear = $paymentInformation['year'];
+        $payment->creditCard->type = $paymentInformation['type'];
+
+        // Payments
         $this->request->orderSubmissionRequest->payments[] = $payment;
 
         $request = $this->removeEmptyElements($this->objectToArray($this->request));
-        
+
         return $request;
-    }   
+    }
 }

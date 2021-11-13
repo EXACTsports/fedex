@@ -7,29 +7,29 @@ use Livewire\Component;
 
 class PaymentInformation extends Component
 {
-    public string $nameOnCard = "";
-    public string $cardNumber = "";
-    public string $securityCode = "";
-    public string $month = "";
-    public string $year = "";
+    public string $nameOnCard = '';
+    public string $cardNumber = '';
+    public string $securityCode = '';
+    public string $month = '';
+    public string $year = '';
 
-    protected $listeners = ["setPaymentInformation"];
+    protected $listeners = ['setPaymentInformation'];
 
     /**
-     * Sets payment information
+     * Sets payment information.
      */
     public function setPaymentInformation()
     {
-        $paymentInformation = array(
-            "nameOnCard" => $this->nameOnCard,
-            "cardNumber" => $this->cardNumber,
-            "securityCode" => $this->securityCode,
-            "month" => $this->month,
-            "year" => $this->year,
-            "type" => "VISA"
-        );
+        $paymentInformation = [
+            'nameOnCard' => $this->nameOnCard,
+            'cardNumber' => $this->cardNumber,
+            'securityCode' => $this->securityCode,
+            'month' => $this->month,
+            'year' => $this->year,
+            'type' => 'VISA',
+        ];
 
-        $this->emit("placeOrder", $paymentInformation);
+        $this->emit('placeOrder', $paymentInformation);
     }
 
     public function render()

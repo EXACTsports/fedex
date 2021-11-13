@@ -3,22 +3,22 @@
 namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\Conversion\Options;
-use EXACTSports\FedEx\Services\FedExService;
 use EXACTSports\FedEx\FedExTrait;
+use EXACTSports\FedEx\Services\FedExService;
 
 class Conversion
 {
     public FedExService $fedExService;
 
     use FedExTrait;
-    
+
     public function __construct()
     {
         $this->fedExService = new FedExService();
     }
 
     /**
-     * Converts uploaded document to pdf
+     * Converts uploaded document to pdf.
      * @param string $documentId
      * @param Options $options
      */

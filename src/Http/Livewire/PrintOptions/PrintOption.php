@@ -16,7 +16,7 @@ class PrintOption extends Component
     {
         $this->printOption = $printOption;
         $this->index = $index;
-        
+
         // Options
         foreach ($printOption['options'] as $key => $option) {
             if ($key != 'withMenu') {

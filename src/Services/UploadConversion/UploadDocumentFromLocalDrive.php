@@ -2,8 +2,8 @@
 
 namespace EXACTSports\FedEx\Services\UploadConversion;
 
-use EXACTSports\FedEx\Services\FedExService;
 use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
+use EXACTSports\FedEx\Services\FedExService;
 
 class UploadDocumentFromLocalDrive
 {
@@ -17,7 +17,7 @@ class UploadDocumentFromLocalDrive
     }
 
     /**
-     * Uploads document
+     * Uploads document.
      * @param string $contents
      * @param string $fileName
      */

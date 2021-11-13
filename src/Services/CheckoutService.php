@@ -2,23 +2,22 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use EXACTSports\FedEx\Rates\RatesRequest;
 use EXACTSports\FedEx\Base\Recipient;
+use EXACTSports\FedEx\Rates\RatesRequest;
 use EXACTSports\FedEx\Services\OrderSubmission;
 use EXACTSports\FedEx\Services\PickupRequest\Location;
 
 class CheckoutService
 {
-    public Location $location; 
+    public Location $location;
 
     public function __construct()
     {
         $this->location = new Location();
     }
 
-
     /**
-     * Gets locations
+     * Gets locations.
      * @param array $documents
      * @param string $distance
      * @param string $address
@@ -29,11 +28,11 @@ class CheckoutService
     }
 
     /**
-     * Gets documents rate
+     * Gets documents rate.
      * @param array $documents
      * @param string $idLocation
      */
-    public function getDocumentsRate(array $documents = [], string $idLocation = "")
+    public function getDocumentsRate(array $documents = [], string $idLocation = '')
     {
         $ratesRequest = new RatesRequest();
         $products = [];
@@ -61,7 +60,7 @@ class CheckoutService
     }
 
     /**
-     * Encrypts data
+     * Encrypts data.
      */
     public function getEncryptedData(string $cardData)
     {
@@ -69,18 +68,18 @@ class CheckoutService
     }
 
     /**
-     * Submits order
+     * Submits order.
      * @param array $documents
      * @param array $contactInformation
      * @param array $paymentInformation
      */
     public function submitOrder(array $documents, array $contactInformation, array $paymentInformation, string $locationId)
     {
-        $cardData = "M" . 
-            $paymentInformation["cardNumber"] . "=" . substr($paymentInformation["year"], -2) . 
-            $paymentInformation["month"] . ":" . $paymentInformation["securityCode"];
+        $cardData = 'M' .
+            $paymentInformation['cardNumber'] . '=' . substr($paymentInformation['year'], -2) .
+            $paymentInformation['month'] . ':' . $paymentInformation['securityCode'];
         $encryptedData = $this->getEncryptedData($cardData);
-        $paymentInformation["encryptedData"] = $encryptedData;
+        $paymentInformation['encryptedData'] = $encryptedData;
 
         $orderSubmission = new OrderSubmission();
         $request = $orderSubmission->getRequest($documents, $contactInformation, $paymentInformation, $locationId);

@@ -6,7 +6,7 @@ use EXACTSports\FedEx\OrderSubmissions\OrderSubmissionRequest;
 
 class Request
 {
-    public OrderSubmissionRequest $orderSubmissionRequest; 
+    public OrderSubmissionRequest $orderSubmissionRequest;
 
     public function __construct()
     {

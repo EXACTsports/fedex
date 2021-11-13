@@ -5,10 +5,10 @@ namespace EXACTSports\FedEx\Http\Livewire\PrintOptions;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\ProductAssociation;
 use EXACTSports\FedEx\Base\Recipient;
-use EXACTSports\FedEx\Services\PrintOptionService;
-use EXACTSports\FedEx\Services\FedExService;
-use EXACTSports\FedEx\Services\ProductService;
 use EXACTSports\FedEx\Rates\RateRequest;
+use EXACTSports\FedEx\Services\FedExService;
+use EXACTSports\FedEx\Services\PrintOptionService;
+use EXACTSports\FedEx\Services\ProductService;
 use Livewire\Component;
 
 class SetPrintOptions extends Component

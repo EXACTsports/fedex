@@ -2,9 +2,9 @@
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
+use EXACTSports\FedEx\Http\Services\UploadConversion\UploadConversionService;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use EXACTSports\FedEx\Http\Services\UploadConversion\UploadConversionService;
 
 class UploadFile extends Component
 {
@@ -18,15 +18,15 @@ class UploadFile extends Component
     public function setDocument(array $document)
     {
         $this->emit('showLoader', false);
-        $this->emit("addDocument", $document);
+        $this->emit('addDocument', $document);
     }
 
     /**
-     * Adds document
+     * Adds document.
      */
     public function addDocument(array $document)
     {
-        $this->emit("addDocument", $document);
+        $this->emit('addDocument', $document);
     }
 
     public function goToCheckout()

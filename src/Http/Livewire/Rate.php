@@ -9,7 +9,7 @@ class Rate extends Component
 {
     public array $rateDetails = [];
     public bool $showRatesInfo;
-    protected $listeners = ['setRates'];    
+    protected $listeners = ['setRates'];
     public array $documents = [];
 
     /**

@@ -15,13 +15,12 @@ class PrintOptionPanel extends Component
     public string $printOptionId = '';
     public string $optionMenuClass = 'p-7';
     public int $documentIndex = 0;
-    public string $selectedOption = "";
-    
-    public function mount(array $printOptions = [], string $selectedProductId = '', 
+    public string $selectedOption = '';
+
+    public function mount(array $printOptions = [], string $selectedProductId = '',
         string $printOptionId = '',
-        string $printOptionDefault = ""
-    )
-    {
+        string $printOptionDefault = ''
+    ) {
         $this->printOptions = $printOptions;
         $this->selectedProductId = $selectedProductId;
         $this->printOptionId = $printOptionId;
