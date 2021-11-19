@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\FedEx\Services;
+namespace EXACTSports\FedEx\Services\OrderRequest;
 
 use EXACTSports\FedEx\Base\Contact;
 use EXACTSports\FedEx\Base\PhoneNumberDetail;
@@ -32,17 +32,29 @@ class OrderSubmission
      */
     public function getRequest(array $documents,
         array $contactInformation,
+        array $billingInformation,
         array $paymentInformation,
         string $locationId
     ) {
-        $this->phoneNumberDetail->phoneNumber->number = $contactInformation['phone'];
-
         $this->contact->company->name = $contactInformation['company'];
         $this->contact->emailDetail->emailAddress = $contactInformation['email'];
         $this->contact->personName->firstName = $contactInformation['firstName'];
         $this->contact->personName->lastName = $contactInformation['lastName'];
-        $this->contact->phoneNumberDetails[] = $this->phoneNumberDetail;
 
+        if (isset($contactInformation["phoneNumber"])) {
+            foreach ($contactInformation["phoneNumber"] as $phoneNumber) {
+                $phoneNumberDetail = new PhoneNumberDetail();
+                $phoneNumberDetail->phoneNumber->number = $phoneNumber["number"];
+                $phoneNumberDetail->phoneNumber->extension = $phoneNumber["extension"];
+
+                if (isset($phoneNumber["usage"])) {
+                    $phoneNumberDetail->usage = $phoneNumber["usage"];
+                }
+
+                $this->contact->phoneNumberDetails[] = $phoneNumberDetail;
+            }
+        }
+        
         // Order contact
         $this->request->orderSubmissionRequest->orderContact->contact = $this->contact;
 
@@ -68,13 +80,13 @@ class OrderSubmission
 
         $payment = new Payment();
 
-        $payment->creditCard->billingAddress->city = 'Baltimore';
-        $payment->creditCard->billingAddress->countryCode = 'US';
-        $payment->creditCard->billingAddress->postalCode = '21218';
-        $payment->creditCard->billingAddress->stateOrProvinceCode = 'MD';
-        $payment->creditCard->billingAddress->streetLines[] = '3614 Delverne Rd';
+        $payment->creditCard->billingAddress->city = $billingInformation["city"];
+        $payment->creditCard->billingAddress->countryCode = $billingInformation["countryCode"];
+        $payment->creditCard->billingAddress->postalCode = $billingInformation["postalCode"];
+        $payment->creditCard->billingAddress->stateOrProvinceCode = $billingInformation["stateOrProvinceCode"];
+        $payment->creditCard->billingAddress->streetLines[] = $billingInformation["streetLines"];
 
-        $payment->creditCard->cardHolderName = 'Test card';
+        $payment->creditCard->cardHolderName = $paymentInformation["cardHolderName"];
         $payment->creditCard->encryptedCreditCard = $paymentInformation['encryptedData'];
         $payment->creditCard->expirationMonth = $paymentInformation['month'];
         $payment->creditCard->expirationYear = $paymentInformation['year'];

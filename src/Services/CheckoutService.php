@@ -4,7 +4,7 @@ namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\Base\Recipient;
 use EXACTSports\FedEx\Rates\RatesRequest;
-use EXACTSports\FedEx\Services\OrderSubmission;
+use EXACTSports\FedEx\Services\OrderRequest\OrderSubmission;
 use EXACTSports\FedEx\Services\PickupRequest\Location;
 
 class CheckoutService
@@ -73,19 +73,22 @@ class CheckoutService
      * @param array $contactInformation
      * @param array $paymentInformation
      */
-    public function submitOrder(array $documents, array $contactInformation, array $paymentInformation, string $locationId)
+    public function submitOrder(array $documents, array $contactInformation, 
+        array $billingInformation,
+        array $paymentInformation, 
+        string $locationId)
     {
         $cardData = 'M' .
-            $paymentInformation['cardNumber'] . '=' . substr($paymentInformation['year'], -2) .
+            trim($paymentInformation['cardNumber']) . '=' . substr($paymentInformation['year'], -2) .
             $paymentInformation['month'] . ':' . $paymentInformation['securityCode'];
         $encryptedData = $this->getEncryptedData($cardData);
+        
         $paymentInformation['encryptedData'] = $encryptedData;
 
         $orderSubmission = new OrderSubmission();
-        $request = $orderSubmission->getRequest($documents, $contactInformation, $paymentInformation, $locationId);
-
-        $response = (new FedExService)->orderSubmisions($request);
-
-        return $response;
+        
+        $request = $orderSubmission->getRequest($documents, $contactInformation, $billingInformation, $paymentInformation, $locationId);
+        
+        return (new FedExService)->orderSubmisions($request);
     }
 }
