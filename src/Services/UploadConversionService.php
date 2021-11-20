@@ -69,7 +69,6 @@ class UploadConversionService
         $this->uploadDocumentFromLocalDrive = new UploadDocumentFromLocalDrive();
         $this->conversion = new Conversion();
         $this->previewConvertedDocument = new PreviewConvertedDocument();
-        $this->rate = new Rate();
         $this->productFeatures = new ProductFeatures();
         $this->features = $this->productFeatures->get();
         $this->productService = new ProductService();
@@ -144,7 +143,8 @@ class UploadConversionService
      */
     public function getRate(object $document) : object
     {
-        $rateRequest = $this->rate->getRateRequest($this->baseProduct);
+        $rate = new Rate();
+        $rateRequest = $rate->getRateRequest($this->baseProduct);
         $response = $this->fedExService->getRate($rateRequest);
         return $response->output->rate->rateDetails[0];
     }
