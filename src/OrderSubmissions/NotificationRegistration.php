@@ -10,6 +10,6 @@ class NotificationRegistration
 
     public function __construct()
     {
-        $this->webhook = new Webhook();    
+        $this->webhook = new Webhook();
     }
 }

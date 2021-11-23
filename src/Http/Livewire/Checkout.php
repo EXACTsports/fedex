@@ -15,9 +15,9 @@ use Livewire\Component;
 
 class Checkout extends Component
 {
-   use FedExTrait;
+    use FedExTrait;
 
-   /**
+    /**
      * Order submission.
      */
     public function orderSubmission(array $contentAssociations)
@@ -298,9 +298,8 @@ class Checkout extends Component
         die;
     }
 
-
-   public function render()
-   {
-      return view('fedex::livewire.checkout');
-   }
+    public function render()
+    {
+        return view('fedex::livewire.checkout');
+    }
 }

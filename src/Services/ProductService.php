@@ -2,34 +2,37 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\PageGroup;
+use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\Choice;
+use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\Product\Feature;
 use EXACTSports\FedEx\Base\Product\Property;
-use EXACTSports\FedEx\Base\Product\ContentAssociation;
+use EXACTSports\FedEx\Base\Product\ProductFeatures;
 
 class ProductService
 {
     private Product $product;
     private ContentAssociation $contentAssociation;
+    private ProductFeatures $productFeatures;
     public array $printOptionIds = [
-        "1448981549109", 
-        "1448981549741",
-        "1448981549581",
-        "1448981549269",
-        "1448984679218",
-        "1448981554101",
-        "1448984877869",
-        "1448981555573",
-        "1448981532145",
-        "1448984679442"
+        '1448981549109',
+        '1448981549741',
+        '1448981549581',
+        '1448981549269',
+        '1448984679218',
+        '1448981554101',
+        '1448984877869',
+        '1448981555573',
+        '1448981532145',
+        '1448984679442',
     ];
 
     public function __construct()
     {
         $this->product = new Product();
         $this->contentAssociation = new ContentAssociation();
+        $this->productFeatures = new ProductFeatures();
         $this->setBaseProduct();
     }
 
@@ -45,80 +48,9 @@ class ProductService
         $this->product->userProductName = '';
         $this->product->qty = 1;
         $this->product->properties = $this->getBaseProperties();
-        $this->product->features = $this->getBaseFeatures();
+        $this->product->features = $this->productFeatures->getBaseFeatures();
         $this->product->pageExceptions = [];
         $this->product->contentAssociations = [];
-    }
-
-    /**
-     * Gets base features.
-     */
-    public function getBaseFeatures()
-    {
-        $features = [];
-
-        // Paper size
-        $properties = [];
-        $properties[] = new Property('1449069906033', 'MEDIA_HEIGHT', '11');
-        $properties[] = new Property('1449069908929', 'MEDIA_WIDTH', '8.5');
-        $choice = new Choice('1448986650332', '8.5x11', $properties);
-        $features[] = new Feature('1448981549109', 'Paper Size', $choice);
-
-        // Paper type
-        $properties = [];
-        $properties[] = new Property('1450324098012', 'MEDIA_TYPE', 'E32');
-        $properties[] = new Property('1453234015081', 'PAPER_COLOR', '#FFFFFF');
-        $properties[] = new Property('1471275182312', 'MEDIA_CATEGORY', 'RESUME');
-        $choice = new Choice('1448988664295', 'Laser (32 lb.)', $properties);
-        $features[] = new Feature('1448981549741', 'Paper Type', $choice);
-
-        // Print color
-        $properties = [];
-        $properties[] = new Property('1453242778807', 'PRINT_COLOR', 'COLOR');
-        $choice = new Choice('1448988600611', 'Full Color', $properties);
-        $features[] = new Feature('1448981549581', 'Print Color', $choice);
-
-        // Sides
-        $properties = [];
-        $properties[] = new Property('1461774376168', 'SIDE', 'SINGLE');
-        $properties[] = new Property('1471294217799', 'SIDE_VALUE', '1');
-        $choice = new Choice('1448988124560', 'Single-Sided', $properties);
-        $features[] = new Feature('1448981549269', 'Sides', $choice);
-
-        // Orientation
-        $properties = [];
-        $properties[] = new Property('1453260266287', 'PAGE_ORIENTATION', 'PORTRAIT');
-        $choice = new Choice('1449000016192', 'Vertical', $properties);
-        $features[] = new Feature('1448984679218', 'Orientation', $choice);
-
-        // Prints per page
-        $properties = [];
-        $properties[] = new Property('1455387404922', 'PRINTS_PER_PAGE', 'ONE');
-        $choice = new Choice('1448990257151', 'One', $properties);
-        $features[] = new Feature('1448981554101', 'Prints Per Page', $choice);
-
-        // Cutting
-        $properties = [];
-        $choice = new Choice('1448999392195', 'None', []);
-        $features[] = new Feature('1448984877869', 'Cutting', $choice);
-
-        // Hole punching
-        $properties = [];
-        $choice = new Choice('1448999902070', 'None', []);
-        $features[] = new Feature('1448981555573', 'Hole Punching', $choice);
-
-        // Collation
-        $properties = [];
-        $properties[] = new Property('1449069945785', 'COLLATION_TYPE', 'MACHINE');
-        $choice = new Choice('1448986654687', 'Collated', $properties);
-        $features[] = new Feature('1448981532145', 'Collation', $choice);
-
-        // Lamination
-        $properties = [];
-        $choice = new Choice('1448999458409', 'None', []);
-        $features[] = new Feature('1448984679442', 'Lamination', $choice);
-
-        return $features;
     }
 
     /**
@@ -151,10 +83,10 @@ class ProductService
     }
 
     /**
-     * Gets content association
+     * Gets content association.
      * @param object $document in question
      */
-    public function getContentAssociation(object $document) : ContentAssociation 
+    public function getContentAssociation(object $document) : ContentAssociation
     {
         $pageGroup = new PageGroup();
         $pageGroup->start = $document->metrics->pageGroups[0]->startPageNum;

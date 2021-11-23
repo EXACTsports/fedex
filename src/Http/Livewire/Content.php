@@ -2,7 +2,6 @@
 
 namespace EXACTSports\FedEx\Http\Livewire;
 
-use EXACTSports\FedEx\Http\Services\UploadFileService;
 use EXACTSports\FedEx\Base\Recipient;
 use EXACTSports\FedEx\DeliveryOptions\Delivery;
 use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
@@ -11,10 +10,10 @@ use EXACTSports\FedEx\DeliveryOptions\Request;
 use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Http\Services\FedExService;
-use EXACTSports\FedEx\Rates\RatesRequest; 
-use EXACTSports\FedEx\Services\UploadConversion\UploadConversionService;
+use EXACTSports\FedEx\Http\Services\UploadFileService;
+use EXACTSports\FedEx\Rates\RatesRequest;
 use EXACTSports\FedEx\Services\CheckoutService;
-
+use EXACTSports\FedEx\Services\UploadConversion\UploadConversionService;
 use Livewire\Component;
 
 class Content extends Component
@@ -32,26 +31,26 @@ class Content extends Component
     public bool $showContactInformation = false;
     public array $contactInformation;
     public bool $showPaymentInformation = false;
-    public array $documents = array();  // This array keeps all documents with its corresponding print options
+    public array $documents = [];  // This array keeps all documents with its corresponding print options
     public int $documentIndex = 0;
     public array $currentDocument = [];
     public array $tempCurrentDocument = []; // This is used for keep all new set print options before apply them to the original
     public array $productFeatures = [];
     protected $listeners = [
             'addDocument',
-            'deleteDocument', 
+            'deleteDocument',
             'showLoader',
             'fetchLocations',
             'showContactInformationForm',
             'goToPaymentInformation',
             'placeOrder',
-            'updatePrintOption'
+            'updatePrintOption',
     ];
     /* BEGING CHECKOUT */
     public array $locations = [];
-    public string $locationId = "";
+    public string $locationId = '';
     /* END CHECKOUT */
-    
+
     /**
      * Shows loader.
      */
@@ -61,7 +60,7 @@ class Content extends Component
     }
 
     /**
-     * Adds document
+     * Adds document.
      */
     public function addDocument(array $document)
     {
@@ -90,7 +89,7 @@ class Content extends Component
     }
 
     /**
-     * Cancels set print options action
+     * Cancels set print options action.
      */
     public function cancelSetPrintOptions()
     {
@@ -99,7 +98,7 @@ class Content extends Component
     }
 
     /**
-     * Updates print option
+     * Updates print option.
      */
     public function updatePrintOption(string $index, string $printOptionId, string $selectedOptionId, int $documentIndex)
     {
@@ -113,15 +112,15 @@ class Content extends Component
 
         if (in_array($printOptionId, $uploadConversionService->convertToPdfIds)) {
             $updatedCurrentDocument = $uploadConversionService->reconvertToPdf(
-                $updatedCurrentDocument["parentDocumentId"], $printOptionId, $selectedOptionId
+                $updatedCurrentDocument['parentDocumentId'], $printOptionId, $selectedOptionId
             );
         }
-        
+
         $this->tempCurrentDocument = $updatedCurrentDocument;
     }
 
     /**
-     * Sets new print options
+     * Sets new print options.
      */
     public function setNewPrintOptions($index)
     {
@@ -132,10 +131,10 @@ class Content extends Component
     }
 
     /**
-     * Goes to checkout page
+     * Goes to checkout page.
      */
     public function goToCheckout()
-    {    
+    {
         $this->showUploadFileComponent = false;
         $this->showCheckout = true;
     }
@@ -150,29 +149,29 @@ class Content extends Component
     }
 
     /**
-     * Goes to contact information
+     * Goes to contact information.
      */
     public function showContactInformationForm(string $locationId)
     {
         $this->locationId = $locationId;
-        $this->showSelectLocation = false; 
-        $this->showContactInformation = true; 
-        $this->showPaymentInformation = false; 
+        $this->showSelectLocation = false;
+        $this->showContactInformation = true;
+        $this->showPaymentInformation = false;
     }
 
     /**
-     * Goes to payment information
+     * Goes to payment information.
      */
     public function goToPaymentInformation($contactInformation)
     {
         $this->contactInformation = $contactInformation;
-        $this->showSelectLocation = false; 
-        $this->showContactInformation = false; 
-        $this->showPaymentInformation = true; 
+        $this->showSelectLocation = false;
+        $this->showContactInformation = false;
+        $this->showPaymentInformation = true;
     }
 
     /**
-     * Places order
+     * Places order.
      * @param array $paymentInformation
      */
     public function placeOrder(array $paymentInformation)
@@ -183,13 +182,13 @@ class Content extends Component
     }
 
     /**
-     * Get back to select location
+     * Get back to select location.
      */
     public function getBackToSelectLocation()
     {
-        $this->showSelectLocation = true; 
-        $this->showContactInformation = false; 
-        $this->showPaymentInformation = false; 
+        $this->showSelectLocation = true;
+        $this->showContactInformation = false;
+        $this->showPaymentInformation = false;
     }
 
     public function render()

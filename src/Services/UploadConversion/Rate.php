@@ -2,14 +2,14 @@
 
 namespace EXACTSports\FedEx\Services\UploadConversion;
 
+use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Rates\Request;
-use EXACTSports\FedEx\Base\Product;
 
 class Rate
 {
     use FedExTrait;
-    public Request $request; 
+    public Request $request;
 
     public function __construct()
     {
@@ -17,12 +17,12 @@ class Rate
     }
 
     /**
-     * Gets rate request
+     * Gets rate request.
      */
     public function getRateRequest(Product $product) : array
     {
         $this->request->rateRequest->products[] = $product;
-        
+
         return $this->removeEmptyElements($this->objectToArray($this->request));
     }
 }
