@@ -202,7 +202,7 @@ class FedExService
      * Allows the API user to submit the print order and remit payment for it.
      * @param array $orderSubmissionRequest
      */
-    public function orderSubmisions(array $orderSubmissionRequest)
+    public function orderSubmissions(array $orderSubmissionRequest)
     {
         try {
             $response = $this->client->request('POST', '/order/fedexoffice/v2/ordersubmissions', [
