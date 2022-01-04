@@ -142,8 +142,14 @@ class UploadConversionService
     {
         $rateRequest = $this->rate->getRateRequest($this->baseProduct);
         $response = $this->fedExService->getRate($rateRequest);
-        
-        return $response->output->rate->rateDetails[0];
+        $rateDetail = $response->output->rate->rateDetails[0];
+
+        if (isset($response->output->alerts)) {
+            $rateDetail->hasAlerts = 1;
+            $rateDetail->alerts = $response->output->alerts; 
+        }
+
+        return $rateDetail;
     }
 
     /**

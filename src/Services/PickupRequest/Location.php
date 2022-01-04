@@ -22,49 +22,47 @@ class Location
      */
     public function search(array $documents, string $distance, string $address)
     {
-      $addressArr = array_map(function ($value) {
-        return trim($value);
-      }, explode(',', $address));
+        $addressArr = array_map(function ($value) {
+            return trim($value);
+        }, explode(',', $address));
 
-      $products = [];
-      $productAssociations = [];
+        $products = [];
+        $productAssociations = [];
 
-      foreach ($documents as $document) {
-          $products[] = $document['product'];
+        foreach ($documents as $document) {
+            $products[] = $document['product'];
 
-          $productAssociation = new ProductAssociation();
-          $productAssociation->id = $document['product']['instanceId'];
-          $productAssociation->quantity = $document['product']['qty'];
+            $productAssociation = new ProductAssociation();
+            $productAssociation->id = $document['product']['instanceId'];
+            $productAssociation->quantity = $document['product']['qty'];
 
-          $productAssociations[] = $productAssociation;
-      }
+            $productAssociations[] = $productAssociation;
+        }
 
-      $delivery = new Delivery();
-      $delivery->address->streetLines[] = $addressArr[0];
-      $delivery->address->city = $addressArr[1];
-      $delivery->address->stateOrProvinceCode = $addressArr[2];
-      $delivery->address->postalCode = $addressArr[3];
-      $delivery->address->countryCode = 'US';
-      $delivery->address->addressClassification = 'HOME';
+        $delivery = new Delivery();
+        $delivery->address->streetLines[] = $addressArr[0];
+        $delivery->address->city = $addressArr[1];
+        $delivery->address->stateOrProvinceCode = $addressArr[2];
+        $delivery->address->postalCode = $addressArr[3];
+        $delivery->address->countryCode = 'US';
+        $delivery->address->addressClassification = 'HOME';
 
-      $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
-      $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
-      $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = 'MILES';
-      $delivery->productAssociations = $productAssociations;
+        $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
+        $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
+        $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = 'MILES';
+        $delivery->productAssociations = $productAssociations;
 
-      $doRequest = new Request('deliveryOptions');
-      $doRequest->deliveryOptionsRequest->products = $products;
-      $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
+        $doRequest = new Request();
+        $doRequest->deliveryOptionsRequest->products = $products;
+        $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
+        
+        $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
 
-      $response = (new FedexService())->getDeliveryOptions($this->removeEmptyElements(
-      (array) $doRequest
-      ));
-
-      return $response->output->deliveryOptions[0]->pickupOptions;
+        return $response->output->deliveryOptions[0]->pickupOptions;
     }
 
     /**
-     * Gets location details. This methos makes a call to api v1
+     * Gets location details. This method makes a call to api v1.
      * @param int $id
      * @param string $startDate
      */

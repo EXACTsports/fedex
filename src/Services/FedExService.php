@@ -70,21 +70,25 @@ class FedExService
      */
     public function uploadDocumentFromLocalDrive(array $documentFromLocalDrive) : object
     {
-        $client = new Client([
-            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
-        ]);
+        try {
+            $client = new Client([
+                'base_uri' => config('fedex.documentUploadHostname'),
+            ]);
 
-        $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
-            'headers' => array(
-                "Content-Type" => "multipart/form-data"
-            ),
-            'multipart' => array($documentFromLocalDrive)
-        ]);
+            $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
+                'headers' => [
+                    'Content-Type' => 'multipart/form-data',
+                ],
+                'multipart' => [$documentFromLocalDrive],
+            ]);
 
-        $response = (string) $response->getBody();
-        $response = json_decode($response);
+            $response = (string) $response->getBody();
+            $response = json_decode($response);
 
-        return $response;
+            return $response;
+        } catch (ClientException $e) {
+            return json_decode((string) $e->getResponse()->getBody());
+        } 
     }
 
     /**
@@ -94,26 +98,30 @@ class FedExService
      */
     public function uploadDocumentFromCloudDrive(string $link, string $fileName) : object
     {
-        $client = new Client([
-            'base_uri' => env("FEDEX_DOCUMENT_UPLOAD_HOSTNAME")
-        ]);
+        try {
+            $client = new Client([
+                'base_uri' => config('fedex.documentUploadHostname'),
+            ]);
 
-        $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
-            'headers' => $this->getRequestHeader(),
-            'json' => array(
-                "input" => array(
-                    "download" => array(
-                        "link" => $link,
-                        "fileName" => $fileName
-                    )
-                )
-            )
-        ]);
+            $response = $client->request('POST', '/document/fedexoffice/v1/documents', [
+                'headers' => $this->getRequestHeader(),
+                'json' => [
+                    'input' => [
+                        'download' => [
+                            'link' => $link,
+                            'fileName' => $fileName,
+                        ],
+                    ],
+                ],
+            ]);
 
-        $response = (string) $response->getBody();
-        $response = json_decode($response);
+            $response = (string) $response->getBody();
+            $response = json_decode($response);
 
-        return $response;
+            return $response;
+        } catch (ClientException $e) {
+            return json_decode((string) $e->getResponse()->getBody());
+        } 
     }
 
     /**
@@ -191,15 +199,19 @@ class FedExService
      */
     public function orderSubmisions(array $orderSubmissionRequest)
     {
-        $response = $this->client->request('POST', '/order/fedexoffice/v2/ordersubmissions', [
-            'headers' => $this->getRequestHeader(),
-            'json' => $orderSubmissionRequest
-        ]);
+        try {
+            $response = $this->client->request('POST', '/order/fedexoffice/v2/ordersubmissions', [
+                'headers' => $this->getRequestHeader(),
+                'json' => $orderSubmissionRequest,
+            ]);
 
-        $response = (string) $response->getBody();
-        $response = json_decode($response);
+            $response = (string) $response->getBody();
+            $response = json_decode($response);
 
-        return $response;
+            return $response;
+        } catch (ClientException $e) {
+            return json_decode((string) $e->getResponse()->getBody());
+        }
     }
 
     /**
