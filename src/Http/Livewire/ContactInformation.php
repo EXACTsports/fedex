@@ -7,34 +7,34 @@ use Livewire\Component;
 
 class ContactInformation extends Component
 {
-    public string $firstName = "";
-    public string $lastName = "";
-    public string $company = "";
-    public string $phone = "";
-    public string $phoneExt = "";
-    public string $alternatePhone = "";
-    public string $altPhoneExt = "";
-    public string $email = "";
+    public string $firstName = '';
+    public string $lastName = '';
+    public string $company = '';
+    public string $phone = '';
+    public string $phoneExt = '';
+    public string $alternatePhone = '';
+    public string $altPhoneExt = '';
+    public string $email = '';
 
-    protected $listeners = ["setContactInformation"];
+    protected $listeners = ['setContactInformation'];
 
     /**
-     * Sets contact information
+     * Sets contact information.
      */
     public function setContactInformation()
     {
-        $contactInformation = array(
-            "firstName" => $this->firstName,
-            "lastName" => $this->lastName,
-            "company" => $this->company,
-            "phone" => $this->phone,
-            "phoneExt" => $this->phoneExt,
-            "alternatePhone" => $this->alternatePhone,
-            "altPhoneExt" => $this->altPhoneExt,
-            "email" => $this->email
-        );
+        $contactInformation = [
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'company' => $this->company,
+            'phone' => $this->phone,
+            'phoneExt' => $this->phoneExt,
+            'alternatePhone' => $this->alternatePhone,
+            'altPhoneExt' => $this->altPhoneExt,
+            'email' => $this->email,
+        ];
 
-        $this->emit("goToPaymentInformation", $contactInformation);
+        $this->emit('goToPaymentInformation', $contactInformation);
     }
 
     public function render()

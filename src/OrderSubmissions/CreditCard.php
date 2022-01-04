@@ -16,9 +16,9 @@ class CreditCard
     public BillingAddress $billingAddress;                      // Y - Contains billing address details for the credit card
                                                                 //  If siteprovided flag is false, billingAddress must be present in request
     public NotificationRegistration $notificationRegistration;  // N - Contains the webhook information for any notifications
-    
+
     public function __construct()
     {
-        $this->billingAddress = new BillingAddress();    
+        $this->billingAddress = new BillingAddress();
     }
 }

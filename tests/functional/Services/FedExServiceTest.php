@@ -324,7 +324,6 @@ class FedExServiceTest extends TestCase
 
         $this->assertTrue(true);
     }
-
     
     public function testGetDeliveryOptions()
     {

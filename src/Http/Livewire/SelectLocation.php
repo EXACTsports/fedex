@@ -9,20 +9,20 @@ class SelectLocation extends Component
 {
     public string $distance = '5-Miles';
     public string $address = '';
-    public string $locationId = "";
+    public string $locationId = '';
 
-    protected $listeners = ["searchLocations", "setLocationId", "goToContactInformation"];
+    protected $listeners = ['searchLocations', 'setLocationId', 'goToContactInformation'];
 
     /**
-     * Search locations
+     * Search locations.
      */
     public function searchLocations()
     {
-        $this->emit("fetchLocations", $this->distance, $this->address);
+        $this->emit('fetchLocations', $this->distance, $this->address);
     }
 
     /**
-     * Sets locations id
+     * Sets locations id.
      */
     public function setLocationId(string $locationId)
     {
@@ -30,11 +30,11 @@ class SelectLocation extends Component
     }
 
     /**
-     * Goes to contact information
+     * Goes to contact information.
      */
     public function goToContactInformation()
     {
-        $this->emit("showContactInformationForm", $this->locationId);
+        $this->emit('showContactInformationForm', $this->locationId);
     }
 
     public function render()
