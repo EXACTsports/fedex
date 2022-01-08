@@ -13,6 +13,8 @@ class ProductService
 {
     private Product $product;
 
+
+
     private ProductFeatures $productFeatures;
 
     public array $printOptionIds = [
@@ -28,19 +30,14 @@ class ProductService
         '1448984679442',
     ];
 
-
     public function __construct()
     {
-
         $this->product = new Product();
         $this->productFeatures = new ProductFeatures();
         $this->setBaseProduct();
     }
 
-    /**
-     * Sets base product.
-     */
-    public function setBaseProduct()
+    public function setBaseProduct(): void
     {
         $this->product->id = '1456773326927'; // This is the base id, it is used for custom document
         $this->product->name = 'Multi Sheet';
@@ -73,14 +70,10 @@ class ProductService
         return $properties;
     }
 
-    /**
-     * Gets base product.
-     */
     public function getBaseProduct() : Product
     {
         return $this->product;
     }
-
 
     #[Pure]
     public function getContentAssociation(object $document) : ContentAssociation

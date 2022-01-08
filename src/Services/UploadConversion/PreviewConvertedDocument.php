@@ -14,9 +14,6 @@ class PreviewConvertedDocument
         $this->fedExService = new FedExService();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function getPreview(string $documentId, int $pageNumber = 1) : string
     {
         $response = $this->fedExService->getDocumentPreview($documentId, $pageNumber);

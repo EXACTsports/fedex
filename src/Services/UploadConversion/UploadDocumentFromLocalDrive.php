@@ -18,9 +18,6 @@ class UploadDocumentFromLocalDrive
         $this->documentFromLocalDrive = new DocumentFromLocalDrive();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function uploadDocument(string $contents, string $fileName) : object
     {
         $this->documentFromLocalDrive->contents = $contents;

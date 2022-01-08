@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class Binding
 {
-    /**
-     * Gets top left staple.
-     */
-    public function getTopLeftStaple()
+    public function getTopLeftStaple(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1452632212741';

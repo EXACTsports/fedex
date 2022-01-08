@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class PrintsPerPage
 {
-    /**
-     * Gets prints per page one.
-     */
-    public function getPrintsPerPageOne()
+    public function getPrintsPerPageOne(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448990257151';

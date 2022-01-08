@@ -30,15 +30,12 @@ class OrderSubmission
         $this->recipient = new Recipient();
     }
 
-    /**
-     * Gets order submission request.
-     */
     public function getRequest(array $documents,
         array $contactInformation,
         array $billingInformation,
         array $paymentInformation,
         string $locationId
-    ) {
+    ): array {
         $this->contact->company->name = $contactInformation['company'];
         $this->contact->emailDetail->emailAddress = $contactInformation['email'];
         $this->contact->personName->firstName = $contactInformation['firstName'];

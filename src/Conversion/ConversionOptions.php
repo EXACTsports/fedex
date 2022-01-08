@@ -2,9 +2,6 @@
 
 namespace EXACTSports\FedEx\Conversion;
 
-/**
- * Contains the parameters that specify the properties for the PDF.
- */
 class ConversionOptions
 {
     public string $marginWidthInInches = '';                // N - Width of the margin for pages in the PDF

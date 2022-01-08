@@ -70,10 +70,8 @@ class FedExServiceTest extends TestCase
 
     /**
      * A basic test example.
-     *
-     * @return void
      */
-    public function testGetProductsRate()
+    public function testGetProductsRate(): void
     {
         $fedexService = new FedExService();
         $request = [
@@ -328,7 +326,7 @@ class FedExServiceTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testGetDeliveryOptions()
+    public function testGetDeliveryOptions(): void
     {
         $delivery = new Delivery();
         $delivery->address->streetLines = ['17976 West Big Oaks Road'];
@@ -350,7 +348,7 @@ class FedExServiceTest extends TestCase
         $response = (new FedexService())->getDeliveryOptions((array) $request);
     }
 
-    public function testOrderSubmission()
+    public function testOrderSubmission(): void
     {
         $request = new OSRequest();
         $contact = new Contact();

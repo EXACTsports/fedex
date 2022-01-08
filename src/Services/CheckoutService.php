@@ -16,22 +16,11 @@ class CheckoutService
         $this->location = new Location();
     }
 
-    /**
-     * Gets locations.
-     * @param array $documents
-     * @param string $distance
-     * @param string $address
-     */
-    public function getLocations(array $documents, string $distance, string $address)
+    public function getLocations(array $documents, string $distance, string $address): void
     {
         $locations = $this->location->search($documents, $distance, $address);
     }
 
-    /**
-     * Gets documents rate.
-     * @param array $documents
-     * @param string $idLocation
-     */
     public function getDocumentsRate(array $documents = [], string $idLocation = '')
     {
         $ratesRequest = new RatesRequest();
@@ -59,20 +48,11 @@ class CheckoutService
         return $response->output->rate->rateDetails;
     }
 
-    /**
-     * Encrypts data.
-     */
-    public function getEncryptedData(string $cardData)
+    public function getEncryptedData(string $cardData): string
     {
         return (new FedexService())->getEncryptedData($cardData);
     }
 
-    /**
-     * Submits order.
-     * @param array $documents
-     * @param array $contactInformation
-     * @param array $paymentInformation
-     */
     public function submitOrder(array $documents, array $contactInformation,
         array $billingInformation,
         array $paymentInformation,

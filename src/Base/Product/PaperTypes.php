@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class PaperTypes
 {
-    /**
-     * Gets 24 lb.
-     */
-    public function get24lb()
+    public function get24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988661630';
@@ -37,10 +34,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 32 lb.
-     */
-    public function get32lb()
+    public function get32lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988664295';
@@ -70,10 +64,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser recycled 24 lb.
-     */
-    public function getLaserRecycled24lb()
+    public function getLaserRecycled24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988665655';
@@ -103,10 +94,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 20 lb.
-     */
-    public function get30Recycled20lb()
+    public function get30Recycled20lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666102';
@@ -136,10 +124,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 100% recycled 20 lb.
-     */
-    public function get100Recycled20lb()
+    public function get100Recycled20lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666494';
@@ -169,10 +154,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser 60lb.
-     */
-    public function getLaser60lb()
+    public function getLaser60lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988665015';
@@ -202,10 +184,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets gloss 100 lb.
-     */
-    public function getGloss100lb()
+    public function getGloss100lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988895624';
@@ -235,10 +214,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser 80 lb.
-     */
-    public function getLaser80lb()
+    public function getLaser80lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988677979';
@@ -268,10 +244,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets index 110 lb.
-     */
-    public function getIndex110lb()
+    public function getIndex110lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988675190';
@@ -301,10 +274,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets pure white 100.
-     */
-    public function getPureWhite100()
+    public function getPureWhite100(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988908744';
@@ -334,10 +304,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets gloss text 32 lb.
-     */
-    public function getGlossText32lb()
+    public function getGlossText32lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666879';
@@ -367,10 +334,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ultra bright white 32 lb.
-     */
-    public function getUltraBrightWhite32()
+    public function getUltraBrightWhite32(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988908007';
@@ -400,10 +364,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets water resistant.
-     */
-    public function getWaterResistant()
+    public function getWaterResistant(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1559837164426';
@@ -433,10 +394,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ivory 65 lb.
-     */
-    public function getIvory65lb()
+    public function getIvory65lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1450369886752';
@@ -466,10 +424,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ivory 24 lb.
-     */
-    public function getIvory24lb()
+    public function getIvory24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988667606';
@@ -499,10 +454,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets sun yellow 24 lb.
-     */
-    public function getSunYellow24lb()
+    public function getSunYellow24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988671383';
@@ -532,10 +484,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ultra blue 24 lb.
-     */
-    public function getUltraBlue24lb()
+    public function getUltraBlue24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988673318';
@@ -565,10 +514,7 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets sand stone 24 lb.
-     */
-    public function getSandStone24lb()
+    public function getSandStone24lb(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988899767';

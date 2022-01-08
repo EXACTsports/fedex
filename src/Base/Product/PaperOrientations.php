@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class PaperOrientations
 {
-    /**
-     * Gets vertical.
-     */
-    public function getVertical()
+    public function getVertical(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016192';
@@ -23,10 +20,7 @@ class PaperOrientations
         return $choice;
     }
 
-    /**
-     * Gets horizontal.
-     */
-    public function getHorizontal()
+    public function getHorizontal(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016327';

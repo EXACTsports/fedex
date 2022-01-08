@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class PaperSides
 {
-    /**
-     * GETS single sided.
-     */
-    public function getSingleSided()
+    public function getSingleSided(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988124560';
@@ -30,10 +27,7 @@ class PaperSides
         return $choice;
     }
 
-    /**
-     * Gets double sided.
-     */
-    public function geDoubleSided()
+    public function geDoubleSided(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988124807';

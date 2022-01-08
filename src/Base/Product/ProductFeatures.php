@@ -32,10 +32,7 @@ class ProductFeatures
         $this->binding = new Binding();
     }
 
-    /**
-     * Get all product features.
-     */
-    public function get()
+    public function get(): array
     {
         $features = [];
         $features = [
@@ -109,10 +106,7 @@ class ProductFeatures
         return $features;
     }
 
-    /**
-     * Gets base features.
-     */
-    public function getBaseFeatures(array $options = [])
+    public function getBaseFeatures(array $options = []): array
     {
         $features = [];
         $allFeatures = $this->get();

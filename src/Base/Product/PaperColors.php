@@ -4,10 +4,7 @@ namespace EXACTSports\FedEx\Base\Product;
 
 class PaperColors
 {
-    /**
-     * Gets full color.
-     */
-    public function getFullColor()
+    public function getFullColor(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988600611';
@@ -23,10 +20,7 @@ class PaperColors
         return $choice;
     }
 
-    /**
-     * Gets black & white.
-     */
-    public function getBlackWhite()
+    public function getBlackWhite(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988600931';
@@ -42,10 +36,7 @@ class PaperColors
         return $choice;
     }
 
-    /**
-     * Gets first page color, remaining pages black & white.
-     */
-    public function getFirstPageColorRemainBlackWhite()
+    public function getFirstPageColorRemainBlackWhite(): \EXACTSports\FedEx\Base\Product\Choice
     {
         $choice = new Choice();
         $choice->id = '1448988601203';

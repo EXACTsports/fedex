@@ -18,7 +18,7 @@ abstract class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             FedExProvider::class,
