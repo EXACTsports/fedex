@@ -17,9 +17,6 @@ class Rate
         $this->request = new Request();
     }
 
-    /**
-     * Gets rate request.
-     */
     public function getRateRequest(Product $product) : array
     {
         $this->request->rateRequest->products[] = $product;

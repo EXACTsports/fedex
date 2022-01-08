@@ -13,6 +13,8 @@ use EXACTSports\FedEx\Services\UploadConversion\UploadDocumentFromLocalDrive;
 
 class UploadConversionService
 {
+    // TODO: Is this class used? It does not appear to be. Delete if not.
+
     private UploadDocumentFromLocalDrive $uploadDocumentFromLocalDrive;
 
     private Conversion $conversion;
@@ -24,8 +26,6 @@ class UploadConversionService
     private ProductFeatures $productFeatures;
 
     private FedExService $fedExService;
-
-    private Rate $rate;
 
     private array $features = [];
 
@@ -85,6 +85,8 @@ class UploadConversionService
      * @param string $contents
      * @param string $fileName
      * @param int $quantity
+     * @param array $options
+     * @return array
      */
     public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = []): array
     {
@@ -97,16 +99,12 @@ class UploadConversionService
             $this->baseProduct->features = $this->productFeatures->getBaseFeatures($options);
         }
 
-        $document = $this->processDocument($documentId, $quantity);
+        return $this->processDocument($documentId, $quantity);
 
-        return $document;
     }
 
-    /**
-     * Processes document.
-     * @param string $documentId
-     */
-    public function processDocument(string $documentId, int $quantity = 1, $options = null)
+
+    public function processDocument(string $documentId, int $quantity = 1, ?Options $options = null): array
     {
         // Convert to pdf
         $document = $this->convertToPdf($documentId, $options);

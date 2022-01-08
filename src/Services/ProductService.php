@@ -7,12 +7,11 @@ use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
 use EXACTSports\FedEx\Base\Product\Property;
+use JetBrains\PhpStorm\Pure;
 
 class ProductService
 {
     private Product $product;
-
-    private ContentAssociation $contentAssociation;
 
     private ProductFeatures $productFeatures;
 
@@ -29,10 +28,11 @@ class ProductService
         '1448984679442',
     ];
 
+
     public function __construct()
     {
+
         $this->product = new Product();
-        $this->contentAssociation = new ContentAssociation();
         $this->productFeatures = new ProductFeatures();
         $this->setBaseProduct();
     }
@@ -54,9 +54,7 @@ class ProductService
         $this->product->contentAssociations = [];
     }
 
-    /**
-     * Gets base properties.
-     */
+    #[Pure]
     public function getBaseProperties() : array
     {
         $properties = [];
@@ -83,10 +81,8 @@ class ProductService
         return $this->product;
     }
 
-    /**
-     * Gets content association.
-     * @param object $document in question
-     */
+
+    #[Pure]
     public function getContentAssociation(object $document) : ContentAssociation
     {
         $pageGroup = new PageGroup();

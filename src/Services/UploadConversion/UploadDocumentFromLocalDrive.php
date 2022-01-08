@@ -4,6 +4,7 @@ namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\DocumentUpload\DocumentFromLocalDrive;
 use EXACTSports\FedEx\Services\FedExService;
+use GuzzleHttp\Exception\GuzzleException;
 
 class UploadDocumentFromLocalDrive
 {
@@ -18,9 +19,7 @@ class UploadDocumentFromLocalDrive
     }
 
     /**
-     * Uploads document.
-     * @param string $contents
-     * @param string $fileName
+     * @throws GuzzleException
      */
     public function uploadDocument(string $contents, string $fileName) : object
     {

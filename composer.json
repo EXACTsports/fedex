@@ -12,10 +12,8 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": "^8.0",
+    "php": "^8.0|^8.1",
     "illuminate/support": "^8.0",
-    "ext-soap": "*",
-    "livewire/livewire": "^2.4",
     "phpseclib/phpseclib": "~3.0",
     "guzzlehttp/guzzle": "^7.4"
   },
