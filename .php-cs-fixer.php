@@ -1,13 +1,12 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'tests')
-    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'src')
-    ->exclude('_wdsl')
-    ->append(['.php_cs']);
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
 $rules = [
+    'array_indentation' => true,
     'array_syntax' => ['syntax' => 'short'],
+    'assign_null_coalescing_to_coalesce_equal' => true,
     'binary_operator_spaces' => [
         'default' => 'single_space',
         'operators' => ['=>' => null],
@@ -20,12 +19,22 @@ $rules = [
     'braces' => true,
     'cast_spaces' => true,
     'class_attributes_separation' => [
-        'elements' => ['method'],
+        'elements' => [
+            'const' => 'one',
+            'method' => 'one',
+            'property' => 'one',
+            'trait_import' => 'none',
+        ],
     ],
-    'class_definition' => true,
+    'class_definition' => [
+        'multi_line_extends_each_single_line' => true,
+        'single_item_single_line' => true,
+        'single_line' => true,
+    ],
     'concat_space' => [
         'spacing' => 'one',
     ],
+    'constant_case' => ['case' => 'lower'],
     'declare_equal_normalize' => true,
     'elseif' => true,
     'encoding' => true,
@@ -33,27 +42,37 @@ $rules = [
     'fully_qualified_strict_types' => true, // added by Shift
     'function_declaration' => true,
     'function_typehint_space' => true,
+    'general_phpdoc_tag_rename' => true,
+    'global_namespace_import' => [
+        'import_constants' => true,
+        'import_functions' => true,
+        'import_classes' => true,
+    ],
     'heredoc_to_nowdoc' => true,
     'include' => true,
-    'increment_style' => ['style' => 'post'],
+    'increment_style' => ['style' => 'pre'],
     'indentation_type' => true,
     'linebreak_after_opening_tag' => true,
     'line_ending' => true,
     'lowercase_cast' => true,
-    'lowercase_constants' => true,
     'lowercase_keywords' => true,
     'lowercase_static_reference' => true, // added from Symfony
     'magic_method_casing' => true, // added from Symfony
     'magic_constant_casing' => true,
-    'method_argument_space' => true,
+    'method_argument_space' => [
+        'on_multiline' => 'ignore',
+    ],
+    'multiline_whitespace_before_semicolons' => [
+        'strategy' => 'no_multi_line',
+    ],
     'native_function_casing' => true,
+    'new_with_braces' => true,
     'no_alias_functions' => true,
     'no_extra_blank_lines' => [
         'tokens' => [
             'extra',
             'throw',
             'use',
-            'use_trait',
         ],
     ],
     'no_blank_lines_after_class_opening' => true,
@@ -67,46 +86,51 @@ $rules = [
         'use' => 'echo',
     ],
     'no_multiline_whitespace_around_double_arrow' => true,
-    'multiline_whitespace_before_semicolons' => [
-        'strategy' => 'no_multi_line',
-    ],
     'no_short_bool_cast' => true,
     'no_singleline_whitespace_before_semicolons' => true,
     'no_spaces_after_function_name' => true,
-    'no_spaces_around_offset' => true,
+    'no_spaces_around_offset' => [
+        'positions' => ['inside', 'outside'],
+    ],
     'no_spaces_inside_parenthesis' => true,
     'no_trailing_comma_in_list_call' => true,
     'no_trailing_comma_in_singleline_array' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
-    'no_unneeded_control_parentheses' => true,
+    'no_unneeded_control_parentheses' => [
+        'statements' => ['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield'],
+    ],
     'no_unreachable_default_argument_value' => true,
+    'no_unused_imports' => true,
     'no_useless_return' => true,
     'no_whitespace_before_comma_in_array' => true,
     'no_whitespace_in_blank_line' => true,
     'normalize_index_brace' => true,
     'not_operator_with_successor_space' => true,
     'object_operator_without_whitespace' => true,
-    'ordered_imports' => ['sortAlgorithm' => 'alpha'],
+    'ordered_imports' => ['sort_algorithm' => 'alpha'],
+    'psr_autoloading' => true,
     'phpdoc_indent' => true,
-    'phpdoc_inline_tag' => true,
+    'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_no_access' => true,
     'phpdoc_no_package' => true,
     'phpdoc_no_useless_inheritdoc' => true,
     'phpdoc_scalar' => true,
     'phpdoc_single_line_var_spacing' => true,
-    'phpdoc_summary' => true,
-    'phpdoc_to_comment' => true,
+    'phpdoc_summary' => false,
+    'phpdoc_to_comment' => false, // override to preserve user preference
+    'phpdoc_tag_type' => true,
     'phpdoc_trim' => true,
     'phpdoc_types' => true,
     'phpdoc_var_without_name' => true,
-    'psr4' => true,
     'self_accessor' => true,
     'short_scalar_cast' => true,
-    'simplified_null_return' => false, // disabled by Shift
+    'simplified_null_return' => false, // disabled as "risky"
     'single_blank_line_at_eof' => true,
     'single_blank_line_before_namespace' => true,
-    'single_class_element_per_statement' => true,
+    'single_class_element_per_statement' => [
+        'elements' => ['const', 'property'],
+    ],
     'single_import_per_statement' => true,
     'single_line_after_imports' => true,
     'single_line_comment_style' => [
@@ -118,7 +142,7 @@ $rules = [
     'switch_case_semicolon_to_colon' => true,
     'switch_case_space' => true,
     'ternary_operator_spaces' => true,
-    'trailing_comma_in_multiline_array' => true,
+    'trailing_comma_in_multiline' => ['elements' => ['arrays']],
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
     'visibility_required' => [
@@ -127,10 +151,20 @@ $rules = [
     'whitespace_after_comma_in_array' => true,
 ];
 
-$rules['increment_style'] = ['style' => 'post'];
 
-return PhpCsFixer\Config::create()
-    ->setUsingCache(true)
+$finder = Finder::create()
+    ->in([
+        __DIR__ . '/src',
+        __DIR__ . '/config',
+        __DIR__ . '/tests',
+    ])
+    ->name('*.php')
+    ->notName('*.blade.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
+
+return (new Config)
+    ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
-    ->setFinder($finder);
+    ->setUsingCache(true);

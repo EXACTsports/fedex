@@ -4,19 +4,20 @@ namespace EXACTSports\FedEx;
 
 use EXACTSports\FedEx\Base\Interfaces\ClientDetailInterface;
 use EXACTSports\FedEx\Base\Interfaces\WebAuthenticationDetailInterface;
-use EXACTSports\FedEx\Base\OrderRecipient;
 use EXACTSports\FedEx\Base\RequestedOfficeOrder;
-use EXACTSports\FedEx\Base\Response;
 use EXACTSports\FedEx\Base\TransactionDetail;
 use EXACTSports\FedEx\Base\Version;
-use EXACTSports\FedEx\Client;
 
 trait FedExTrait
 {
     public WebAuthenticationDetailInterface $webAuthenticationDetail;
+
     public ClientDetailInterface $clientDetail;
+
     public TransactionDetail $transactionDetail;
+
     public Version $version;
+
     public RequestedOfficeOrder $requestedOfficeOrder;
 
     /**

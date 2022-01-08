@@ -3,10 +3,8 @@
 namespace EXACTSports\FedEx\Services\PickupRequest;
 
 use EXACTSports\FedEx\DeliveryOptions\Delivery;
-use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\DeliveryOptions\Request;
-use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Services\FedExService;
 
@@ -51,7 +49,7 @@ class Location
         $doRequest = new Request();
         $doRequest->deliveryOptionsRequest->products = $products;
         $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
-        
+
         $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
 
         return $response->output->deliveryOptions[0]->pickupOptions;

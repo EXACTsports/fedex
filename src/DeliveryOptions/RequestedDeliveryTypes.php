@@ -2,8 +2,6 @@
 
 namespace EXACTSports\FedEx\DeliveryOptions;
 
-use EXACTSports\FedEx\DeliveryOptions\RequestedPickup;
-
 class RequestedDeliveryTypes
 {
     public RequestedPickup $requestedPickup;

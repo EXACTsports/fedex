@@ -8,12 +8,13 @@ use EXACTSports\FedEx\Services\FedExService;
 class UploadDocumentFromLocalDrive
 {
     private FedExService $fedExService;
+
     private DocumentFromLocalDrive $documentFromLocalDrive;
 
     public function __construct()
     {
         $this->fedExService = new FedExService();
-        $this->documentFromLocalDrive = new DocumentFromLocalDrive;
+        $this->documentFromLocalDrive = new DocumentFromLocalDrive();
     }
 
     /**

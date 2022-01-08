@@ -2,8 +2,6 @@
 
 namespace EXACTSports\FedEx\Rates;
 
-use EXACTSports\FedEx\Rates\RateRequest;
-
 class Request
 {
     public RateRequest $rateRequest;

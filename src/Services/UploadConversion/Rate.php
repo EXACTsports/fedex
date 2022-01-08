@@ -9,6 +9,7 @@ use EXACTSports\FedEx\Rates\Request;
 class Rate
 {
     use FedExTrait;
+
     public Request $request;
 
     public function __construct()

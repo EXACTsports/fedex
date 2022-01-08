@@ -2,8 +2,6 @@
 
 namespace EXACTSports\FedEx\DeliveryOptions;
 
-use EXACTSports\FedEx\DeliveryOptions\DeliveryOptionsRequest;
-
 class Request
 {
     public DeliveryOptionsRequest $deliveryOptionsRequest;

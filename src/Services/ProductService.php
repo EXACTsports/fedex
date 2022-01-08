@@ -4,17 +4,18 @@ namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product;
-use EXACTSports\FedEx\Base\Product\Choice;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
-use EXACTSports\FedEx\Base\Product\Feature;
-use EXACTSports\FedEx\Base\Product\Property;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
+use EXACTSports\FedEx\Base\Product\Property;
 
 class ProductService
 {
     private Product $product;
+
     private ContentAssociation $contentAssociation;
+
     private ProductFeatures $productFeatures;
+
     public array $printOptionIds = [
         '1448981549109',
         '1448981549741',

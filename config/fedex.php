@@ -2,7 +2,7 @@
 
 return [
     'api_key' => env('FEDEX_API_KEY'),
-    
+
     'location' => env('FEDEX_API_URL', 'https://wsbeta.fedex.com:443/web-services/office'),
     'trace' => env('FEDEX_TRACE', true),
     'exceptions' => env('FEDEX_EXCEPTIONS', true),
@@ -21,5 +21,5 @@ return [
     'billingInformationCountryCode' => env('EXACTSPORTS_BILLING_INFORMATION_COUNTRY_CODE'),
     'billingInformationPostalCode' => env('EXACTSPORTS_BILLING_INFORMATION_POSTAL_CODE'),
     'billingInformationStateOrProvinceCode' => env('EXACTSPORTS_BILLING_INFORMATION_STATE_OR_PROVINCE_CODE'),
-    'billingInformationStreetLines' => env('EXACTSPORTS_BILLING_INFORMATION_STREET_LINES')
+    'billingInformationStreetLines' => env('EXACTSPORTS_BILLING_INFORMATION_STREET_LINES'),
 ];

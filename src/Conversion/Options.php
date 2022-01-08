@@ -2,8 +2,6 @@
 
 namespace EXACTSports\FedEx\Conversion;
 
-use EXACTSports\FedEx\Conversion\Input;
-
 class Options
 {
     public Input $input;

@@ -73,22 +73,22 @@ class CheckoutService
      * @param array $contactInformation
      * @param array $paymentInformation
      */
-    public function submitOrder(array $documents, array $contactInformation, 
+    public function submitOrder(array $documents, array $contactInformation,
         array $billingInformation,
-        array $paymentInformation, 
+        array $paymentInformation,
         string $locationId)
     {
         $cardData = 'M' .
             trim($paymentInformation['cardNumber']) . '=' . substr($paymentInformation['year'], -2) .
             $paymentInformation['month'] . ':' . $paymentInformation['securityCode'];
         $encryptedData = $this->getEncryptedData($cardData);
-        
+
         $paymentInformation['encryptedData'] = $encryptedData;
 
         $orderSubmission = new OrderSubmission();
-        
+
         $request = $orderSubmission->getRequest($documents, $contactInformation, $billingInformation, $paymentInformation, $locationId);
-        
-        return (new FedExService)->orderSubmissions($request);
+
+        return (new FedExService())->orderSubmissions($request);
     }
 }

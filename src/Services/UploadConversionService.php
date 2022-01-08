@@ -2,29 +2,33 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
 use EXACTSports\FedEx\Conversion\Options;
-use EXACTSports\FedEx\Services\FedExService;
-use EXACTSports\FedEx\Services\ProductService;
 use EXACTSports\FedEx\Services\UploadConversion\Conversion;
 use EXACTSports\FedEx\Services\UploadConversion\PreviewConvertedDocument;
 use EXACTSports\FedEx\Services\UploadConversion\Rate;
 use EXACTSports\FedEx\Services\UploadConversion\UploadDocumentFromLocalDrive;
-use Illuminate\Support\Collection;
 
 class UploadConversionService
 {
     private UploadDocumentFromLocalDrive $uploadDocumentFromLocalDrive;
+
     private Conversion $conversion;
+
     private PreviewConvertedDocument $previewConvertedDocument;
+
     private ProductService $productService;
+
     private ProductFeatures $productFeatures;
+
     private FedExService $fedExService;
+
     private Rate $rate;
+
     private array $features = [];
+
     public array $selectedPrintOptions = [
         '1448981549109' => [
             'Size' => '8.5x11',
@@ -60,7 +64,9 @@ class UploadConversionService
             'Lamination' => 'None',
         ],
     ];
+
     public array $convertToPdfIds = ['1448981549109', '1448984679218'];
+
     public Product $baseProduct;
 
     public function __construct()
@@ -80,17 +86,17 @@ class UploadConversionService
      * @param string $fileName
      * @param int $quantity
      */
-    public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = [])
+    public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = []): array
     {
         // Upload document
         $document = $this->uploadDocumentFromLocalDrive->uploadDocument($contents, $fileName);
         $documentId = $document->documentId;
         $this->baseProduct = (new ProductService())->getBaseProduct();
-    
+
         if (count($options) > 0) {
             $this->baseProduct->features = $this->productFeatures->getBaseFeatures($options);
         }
-    
+
         $document = $this->processDocument($documentId, $quantity);
 
         return $document;
@@ -150,7 +156,7 @@ class UploadConversionService
 
         if (isset($response->output->alerts)) {
             $rateDetail->hasAlerts = 1;
-            $rateDetail->alerts = $response->output->alerts; 
+            $rateDetail->alerts = $response->output->alerts;
         }
 
         return $rateDetail;
@@ -189,7 +195,7 @@ class UploadConversionService
      * Reconverts to pdf.
      * @param string $documentId
      */
-    public function reconvertToPdf(string $documentId, string $printOptionId, string $optionId)
+    public function reconvertToPdf(string $documentId, string $printOptionId, string $optionId): array
     {
         $options = new Options();
 
@@ -206,9 +212,7 @@ class UploadConversionService
             $options->input->conversionOptions->orientation = $choice->properties[0]->value;
         }
 
-        $document = $this->processDocument($documentId, $options);
-
-        return $document;
+        return $this->processDocument($documentId, 1, $options);
     }
 
     /**

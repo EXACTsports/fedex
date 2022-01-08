@@ -2,7 +2,6 @@
 
 namespace EXACTSports\FedEx\OrderSubmissions;
 
-use EXACTSports\FedEx\Base\Address;
 use EXACTSports\FedEx\Base\Contact;
 
 class BillingAddress

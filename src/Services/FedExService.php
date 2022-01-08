@@ -3,7 +3,6 @@
 namespace EXACTSports\FedEx\Services;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Cache;
 use phpseclib3\Crypt\PublicKeyLoader;
@@ -88,7 +87,7 @@ class FedExService
             return $response;
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
-        } 
+        }
     }
 
     /**
@@ -121,7 +120,7 @@ class FedExService
             return $response;
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
-        } 
+        }
     }
 
     /**
@@ -227,8 +226,8 @@ class FedExService
         $token = $this->getToken();
 
         return [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $token,
         ];
     }
 

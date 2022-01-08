@@ -15,8 +15,11 @@ class OrderSubmission
     use FedExTrait;
 
     public Request $request;
+
     public Contact $contact;
+
     public PhoneNumberDetail $phoneNumberDetail;
+
     public Recipient $recipient;
 
     public function __construct()
@@ -41,20 +44,20 @@ class OrderSubmission
         $this->contact->personName->firstName = $contactInformation['firstName'];
         $this->contact->personName->lastName = $contactInformation['lastName'];
 
-        if (isset($contactInformation["phoneNumber"])) {
-            foreach ($contactInformation["phoneNumber"] as $phoneNumber) {
+        if (isset($contactInformation['phoneNumber'])) {
+            foreach ($contactInformation['phoneNumber'] as $phoneNumber) {
                 $phoneNumberDetail = new PhoneNumberDetail();
-                $phoneNumberDetail->phoneNumber->number = $phoneNumber["number"];
-                $phoneNumberDetail->phoneNumber->extension = $phoneNumber["extension"];
+                $phoneNumberDetail->phoneNumber->number = $phoneNumber['number'];
+                $phoneNumberDetail->phoneNumber->extension = $phoneNumber['extension'];
 
-                if (isset($phoneNumber["usage"])) {
-                    $phoneNumberDetail->usage = $phoneNumber["usage"];
+                if (isset($phoneNumber['usage'])) {
+                    $phoneNumberDetail->usage = $phoneNumber['usage'];
                 }
 
                 $this->contact->phoneNumberDetails[] = $phoneNumberDetail;
             }
         }
-        
+
         // Order contact
         $this->request->orderSubmissionRequest->orderContact->contact = $this->contact;
 
@@ -80,13 +83,13 @@ class OrderSubmission
 
         $payment = new Payment();
 
-        $payment->creditCard->billingAddress->city = $billingInformation["city"];
-        $payment->creditCard->billingAddress->countryCode = $billingInformation["countryCode"];
-        $payment->creditCard->billingAddress->postalCode = $billingInformation["postalCode"];
-        $payment->creditCard->billingAddress->stateOrProvinceCode = $billingInformation["stateOrProvinceCode"];
-        $payment->creditCard->billingAddress->streetLines[] = $billingInformation["streetLines"];
+        $payment->creditCard->billingAddress->city = $billingInformation['city'];
+        $payment->creditCard->billingAddress->countryCode = $billingInformation['countryCode'];
+        $payment->creditCard->billingAddress->postalCode = $billingInformation['postalCode'];
+        $payment->creditCard->billingAddress->stateOrProvinceCode = $billingInformation['stateOrProvinceCode'];
+        $payment->creditCard->billingAddress->streetLines[] = $billingInformation['streetLines'];
 
-        $payment->creditCard->cardHolderName = $paymentInformation["cardHolderName"];
+        $payment->creditCard->cardHolderName = $paymentInformation['cardHolderName'];
         $payment->creditCard->encryptedCreditCard = $paymentInformation['encryptedData'];
         $payment->creditCard->expirationMonth = $paymentInformation['month'];
         $payment->creditCard->expirationYear = $paymentInformation['year'];
