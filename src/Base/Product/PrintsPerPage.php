@@ -2,9 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class PrintsPerPage
 {
-    public function getPrintsPerPageOne(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function getPrintsPerPageOne(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448990257151';

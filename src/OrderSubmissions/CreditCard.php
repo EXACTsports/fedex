@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\OrderSubmissions;
 
+use JetBrains\PhpStorm\Pure;
+
 class CreditCard
 {
     public bool $siteProvided = false;                          // N - Refers to the card on file that is set up to pay for orders
@@ -22,6 +24,7 @@ class CreditCard
     //  If siteprovided flag is false, billingAddress must be present in request
     public NotificationRegistration $notificationRegistration;  // N - Contains the webhook information for any notifications
 
+    #[Pure]
     public function __construct()
     {
         $this->billingAddress = new BillingAddress();

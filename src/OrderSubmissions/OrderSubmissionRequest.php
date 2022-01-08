@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\OrderSubmissions;
 
+use JetBrains\PhpStorm\Pure;
+
 class OrderSubmissionRequest
 {
     public string $fedexAccountNumber = '';                     // N - FedEx account number to be used to pay for the order.
@@ -21,6 +23,7 @@ class OrderSubmissionRequest
 
     public NotificationRegistration $notificationRegistration;  // N - Contains the webhook information for any notifications
 
+    #[Pure]
     public function __construct()
     {
         $this->orderContact = new OrderContact();

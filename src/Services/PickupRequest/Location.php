@@ -13,6 +13,9 @@ class Location
 {
     use FedExTrait;
 
+    /**
+     * @throws GuzzleException
+     */
     public function search(array $documents, string $distance, array $address)
     {
         $products = [];
@@ -50,9 +53,12 @@ class Location
         return $response->output->deliveryOptions[0]->pickupOptions;
     }
 
-    public function getDetails(int $id, string $startDate = '')
+    /**
+     * @throws GuzzleException
+     */
+    public function getDetails(int $id)
     {
-        $response = (new FedexService())->getLocationDetails($id, $startDate);
+        $response = (new FedexService())->getLocationDetails($id);
 
         return ! empty($response->output->location) ? $response->output->location : null;
     }

@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Cache;
+use JetBrains\PhpStorm\ArrayShape;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA;
 
@@ -20,6 +21,9 @@ class FedExService
         ]);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function token()
     {
         $response = $this->client->request('POST', '/auth/oauth/v2/token', [
@@ -36,6 +40,9 @@ class FedExService
         return json_decode($response);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     private function getToken() : string
     {
         if (Cache::has('fedex.accessToken')) {
@@ -58,7 +65,9 @@ class FedExService
         return $response->access_token;
     }
 
-
+    /**
+     * @throws GuzzleException
+     */
     public function uploadDocumentFromLocalDrive(array $documentFromLocalDrive) : object
     {
         try {
@@ -74,9 +83,8 @@ class FedExService
             ]);
 
             $response = (string) $response->getBody();
-            $response = json_decode($response);
 
-            return $response;
+            return json_decode($response);
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
         }
@@ -102,14 +110,18 @@ class FedExService
             ]);
 
             $response = (string) $response->getBody();
-            $response = json_decode($response);
 
-            return $response;
+            return json_decode($response);
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
+        } catch (GuzzleException $e) {
+            return json_decode($e->getMessage());
         }
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function convertToPDF(string $documentId, array $options) : object
     {
         $response = $this->client->request('POST', '/document/fedexoffice/v1/documents/' . $documentId . '/printready', [
@@ -118,11 +130,13 @@ class FedExService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
 
-        return $response;
+        return json_decode($response);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getDocumentPreview(string $documentId, int $pageNumber = 1) : object
     {
         $client = new Client([
@@ -132,11 +146,13 @@ class FedExService
         $response = $client->request('GET', '/document/fedexoffice/v1/documents/' . $documentId . '/preview?pageNumber=' . $pageNumber);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
 
-        return $response;
+        return json_decode($response);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getRate(array $rateRequest)
     {
         try {
@@ -146,14 +162,16 @@ class FedExService
             ]);
 
             $response = (string) $response->getBody();
-            $response = json_decode($response);
 
-            return $response;
+            return json_decode($response);
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
         }
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getDeliveryOptions(array $deliveryOptions)
     {
         $response = $this->client->request('POST', '/order/fedexoffice/v2/deliveryoptions', [
@@ -163,11 +181,12 @@ class FedExService
 
         $response = (string) $response->getBody();
 
-        $response = json_decode($response);
-
-        return $response;
+        return json_decode($response);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function orderSubmissions(array $orderSubmissionRequest)
     {
         try {
@@ -177,14 +196,17 @@ class FedExService
             ]);
 
             $response = (string) $response->getBody();
-            $response = json_decode($response);
 
-            return $response;
+            return json_decode($response);
         } catch (ClientException $e) {
             return json_decode((string) $e->getResponse()->getBody());
         }
     }
 
+    /**
+     * @throws GuzzleException
+     */
+    #[ArrayShape(['Content-Type' => 'string', 'Authorization' => 'string'])]
     private function getRequestHeader(): array
     {
         $token = $this->getToken();
@@ -195,6 +217,9 @@ class FedExService
         ];
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function encriptionKey()
     {
         $response = $this->client->request('GET', '/payment/fedexoffice/v2/encryptionkey', [
@@ -202,11 +227,13 @@ class FedExService
         ]);
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
 
-        return $response;
+        return json_decode($response);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     private function getPublicKey() : string
     {
         if (Cache::has('publicKey')) {
@@ -220,6 +247,9 @@ class FedExService
         return $publicKey;
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getEncryptedData(string $cardData) : string
     {
         $key = PublicKeyLoader::load($this->getPublicKey());
@@ -228,6 +258,9 @@ class FedExService
         return base64_encode($key->encrypt($cardData));
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getLocationDetails(int $id)
     {
         if (empty($startDate)) {
@@ -242,8 +275,7 @@ class FedExService
         );
 
         $response = (string) $response->getBody();
-        $response = json_decode($response);
 
-        return $response;
+        return json_decode($response);
     }
 }

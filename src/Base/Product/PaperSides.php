@@ -2,9 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class PaperSides
 {
-    public function getSingleSided(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function getSingleSided(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988124560';
@@ -27,7 +30,8 @@ class PaperSides
         return $choice;
     }
 
-    public function geDoubleSided(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function geDoubleSided(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988124807';

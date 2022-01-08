@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class Feature
 {
     public string $id;          // N - Unique ID of the product feature
@@ -10,6 +12,7 @@ class Feature
 
     public Choice $choice;       // N - Contains the user selection for a particular feature
 
+    #[Pure]
     public function __construct(string $id = '', string $name = '', Choice $choice = null)
     {
         if (is_null($choice)) {

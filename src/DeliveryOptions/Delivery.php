@@ -3,6 +3,7 @@
 namespace EXACTSports\FedEx\DeliveryOptions;
 
 use EXACTSports\FedEx\Base\Address;
+use JetBrains\PhpStorm\Pure;
 
 class Delivery
 {
@@ -16,6 +17,7 @@ class Delivery
 
     public array $productAssociations;                          // Y - Product association ID and product association quantity
 
+    #[Pure]
     public function __construct()
     {
         $this->address = new Address();

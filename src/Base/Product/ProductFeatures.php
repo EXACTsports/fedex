@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class ProductFeatures
 {
     public Feature $feature;
@@ -20,6 +22,7 @@ class ProductFeatures
 
     public Binding $binding;
 
+    #[Pure]
     public function __construct()
     {
         $this->feature = new Feature();
@@ -32,10 +35,10 @@ class ProductFeatures
         $this->binding = new Binding();
     }
 
+    #[Pure]
     public function get(): array
     {
-        $features = [];
-        $features = [
+        return [
             '1448981549109' => [
                 'name' => 'Paper Size',
                 'choices' => [
@@ -102,10 +105,9 @@ class ProductFeatures
                 ],
             ],
         ];
-
-        return $features;
     }
 
+    #[Pure]
     public function getBaseFeatures(array $options = []): array
     {
         $features = [];

@@ -18,6 +18,9 @@ class Conversion
         $this->fedExService = new FedExService();
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function convertToPdf(string $documentId, Options $options = null)
     {
         if ($options == null) {

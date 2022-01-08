@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\Base;
 
+use JetBrains\PhpStorm\Pure;
+
 class Contact
 {
     public PersonName $personName;      // Y - Contains the first name and last name of the contact person
@@ -12,6 +14,7 @@ class Contact
 
     public array $phoneNumberDetails;   // Y - Contains the phone number details of the contact
 
+    #[Pure]
     public function __construct(
         PersonName $personName = null,
         Company $company = null,

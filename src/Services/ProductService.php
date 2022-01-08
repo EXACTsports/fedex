@@ -13,8 +13,6 @@ class ProductService
 {
     private Product $product;
 
-
-
     private ProductFeatures $productFeatures;
 
     public array $printOptionIds = [

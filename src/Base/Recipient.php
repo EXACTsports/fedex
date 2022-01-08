@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\Base;
 
+use JetBrains\PhpStorm\Pure;
+
 class Recipient
 {
     public string | null $reference = '';     // N - User-provided unique recipient reference to be used to relate delivery charges in the response
@@ -12,6 +14,7 @@ class Recipient
 
     public array $productAssociations;      // N - Associates the product instance in a request with its recipient
 
+    #[Pure]
     public function __construct()
     {
         $this->contact = new Contact();

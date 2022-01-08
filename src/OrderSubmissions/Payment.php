@@ -2,6 +2,8 @@
 
 namespace EXACTSports\FedEx\OrderSubmissions;
 
+use JetBrains\PhpStorm\Pure;
+
 class Payment
 {
     public string $poNumber;            // N - Purchase Order number
@@ -13,6 +15,7 @@ class Payment
 
     public CreditCard $creditCard;      // Y - Contains the credit card information to be used for payment
 
+    #[Pure]
     public function __construct()
     {
         $this->creditCard = new CreditCard();

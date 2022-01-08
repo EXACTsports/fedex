@@ -10,6 +10,8 @@ use EXACTSports\FedEx\Services\UploadConversion\Conversion;
 use EXACTSports\FedEx\Services\UploadConversion\PreviewConvertedDocument;
 use EXACTSports\FedEx\Services\UploadConversion\Rate;
 use EXACTSports\FedEx\Services\UploadConversion\UploadDocumentFromLocalDrive;
+use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\Pure;
 
 class UploadConversionService
 {
@@ -25,9 +27,7 @@ class UploadConversionService
 
     private FedExService $fedExService;
 
-    private Rate $rate;
-
-    private array $features = [];
+    private array $features;
 
     public array $selectedPrintOptions = [
         '1448981549109' => [
@@ -80,6 +80,9 @@ class UploadConversionService
         $this->productService = new ProductService();
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = []): array
     {
         // Upload document
@@ -91,11 +94,12 @@ class UploadConversionService
             $this->baseProduct->features = $this->productFeatures->getBaseFeatures($options);
         }
 
-        $document = $this->processDocument($documentId, $quantity);
-
-        return $document;
+        return $this->processDocument($documentId, $quantity);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function processDocument(string $documentId, int $quantity = 1, $options = null): array
     {
         // Convert to pdf
@@ -119,16 +123,19 @@ class UploadConversionService
         $document->rate = $rate;
 
         $documentArray = [];
-        $documentArray = $this->setDocumentArray($document);
 
-        return $documentArray;
+        return $this->setDocumentArray($document);
     }
 
+    #[Pure]
     public function getContentAssociation($document) : ContentAssociation
     {
         return $this->productService->getContentAssociation($document);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getRate(object $document) : object
     {
         $rate = new Rate();
@@ -162,11 +169,17 @@ class UploadConversionService
         return $documentArray;
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function convertToPdf(string $documentId, $options = null)
     {
         return $this->conversion->convertToPdf($documentId, $options);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function reconvertToPdf(string $documentId, string $printOptionId, string $optionId): array
     {
         $options = new Options();
@@ -187,6 +200,9 @@ class UploadConversionService
         return $this->processDocument($documentId, 1, $options);
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function getDocumentPreview(string $documentId, int $pageNumber = 1) : string
     {
         return $this->previewConvertedDocument->getPreview($documentId, $pageNumber);
@@ -201,9 +217,7 @@ class UploadConversionService
 
     public function getChoice(string $printOptionId, string $optionId)
     {
-        $selectedChoice = $this->features[$printOptionId]['choices'][$optionId];
-
-        return $selectedChoice;
+        return $this->features[$printOptionId]['choices'][$optionId];
     }
 
     public function updatePrintOption(array $currentDocument, string $printOptionId, string $optionId): array

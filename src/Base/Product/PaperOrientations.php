@@ -2,9 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class PaperOrientations
 {
-    public function getVertical(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function getVertical(): Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016192';
@@ -20,7 +23,8 @@ class PaperOrientations
         return $choice;
     }
 
-    public function getHorizontal(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function getHorizontal(): Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016327';

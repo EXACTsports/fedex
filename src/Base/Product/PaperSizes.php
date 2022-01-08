@@ -2,9 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
+use JetBrains\PhpStorm\Pure;
+
 class PaperSizes
 {
-    public function get85x11(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function get85x11(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448986650332';
@@ -27,7 +30,8 @@ class PaperSizes
         return $choice;
     }
 
-    public function get85x14(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function get85x14(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448986650652';
@@ -50,7 +54,8 @@ class PaperSizes
         return $choice;
     }
 
-    public function get11x17(): \EXACTSports\FedEx\Base\Product\Choice
+    #[Pure]
+    public function get11x17(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448986651164';

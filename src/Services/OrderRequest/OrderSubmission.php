@@ -9,6 +9,7 @@ use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\OrderSubmissions\Payment;
 use EXACTSports\FedEx\OrderSubmissions\Request;
+use JetBrains\PhpStorm\Pure;
 
 class OrderSubmission
 {
@@ -22,6 +23,7 @@ class OrderSubmission
 
     public Recipient $recipient;
 
+    #[Pure]
     public function __construct()
     {
         $this->request = new Request();
@@ -95,8 +97,6 @@ class OrderSubmission
         // Payments
         $this->request->orderSubmissionRequest->payments[] = $payment;
 
-        $request = $this->removeEmptyElements($this->objectToArray($this->request));
-
-        return $request;
+        return $this->removeEmptyElements($this->objectToArray($this->request));
     }
 }

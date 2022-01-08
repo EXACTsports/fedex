@@ -5,6 +5,7 @@ namespace EXACTSports\FedEx\Services\UploadConversion;
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Rates\Request;
+use JetBrains\PhpStorm\Pure;
 
 class Rate
 {
@@ -12,6 +13,7 @@ class Rate
 
     public Request $request;
 
+    #[Pure]
     public function __construct()
     {
         $this->request = new Request();
