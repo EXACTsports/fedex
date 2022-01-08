@@ -3,6 +3,7 @@
 namespace EXACTSports\FedEx\Services\UploadConversion;
 
 use EXACTSports\FedEx\Services\FedExService;
+use GuzzleHttp\Exception\GuzzleException;
 
 class PreviewConvertedDocument
 {
@@ -14,7 +15,7 @@ class PreviewConvertedDocument
     }
 
     /**
-     * Gets preview document.
+     * @throws GuzzleException
      */
     public function getPreview(string $documentId, int $pageNumber = 1) : string
     {

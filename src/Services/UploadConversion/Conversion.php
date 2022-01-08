@@ -5,6 +5,7 @@ namespace EXACTSports\FedEx\Services\UploadConversion;
 use EXACTSports\FedEx\Conversion\Options;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Services\FedExService;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Conversion
 {
@@ -18,9 +19,7 @@ class Conversion
     }
 
     /**
-     * Converts uploaded document to pdf.
-     * @param string $documentId
-     * @param Options $options
+     * @throws GuzzleException
      */
     public function convertToPdf(string $documentId, Options $options = null)
     {

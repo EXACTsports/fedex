@@ -2,12 +2,13 @@
 
 namespace EXACTSports\FedEx\DeliveryOptions;
 
-use EXACTSports\FedEx\DeliveryOptions\DeliveryOptionsRequest;
+use JetBrains\PhpStorm\Pure;
 
 class Request
 {
     public DeliveryOptionsRequest $deliveryOptionsRequest;
 
+    #[Pure]
     public function __construct()
     {
         $this->deliveryOptionsRequest = new DeliveryOptionsRequest();

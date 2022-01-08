@@ -2,12 +2,13 @@
 
 namespace EXACTSports\FedEx\Conversion;
 
-use EXACTSports\FedEx\Conversion\ConversionOptions;
+use JetBrains\PhpStorm\Pure;
 
 class Input
 {
     public ConversionOptions $conversionOptions;
 
+    #[Pure]
     public function __construct()
     {
         $this->conversionOptions = new ConversionOptions();

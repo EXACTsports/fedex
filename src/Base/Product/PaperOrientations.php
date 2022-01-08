@@ -2,15 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
-use EXACTSports\FedEx\Base\Product\Choice;
-use EXACTSports\FedEx\Base\Product\Property;
+use JetBrains\PhpStorm\Pure;
 
 class PaperOrientations
 {
-    /**
-     * Gets vertical.
-     */
-    public function getVertical()
+    #[Pure]
+    public function getVertical(): Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016192';
@@ -26,10 +23,8 @@ class PaperOrientations
         return $choice;
     }
 
-    /**
-     * Gets horizontal.
-     */
-    public function getHorizontal()
+    #[Pure]
+    public function getHorizontal(): Choice
     {
         $choice = new Choice();
         $choice->id = '1449000016327';

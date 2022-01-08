@@ -2,12 +2,13 @@
 
 namespace EXACTSports\FedEx\DeliveryOptions;
 
-use EXACTSports\FedEx\DeliveryOptions\RequestedPickup;
+use JetBrains\PhpStorm\Pure;
 
 class RequestedDeliveryTypes
 {
     public RequestedPickup $requestedPickup;
 
+    #[Pure]
     public function __construct()
     {
         $this->requestedPickup = new RequestedPickup();

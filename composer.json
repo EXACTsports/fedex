@@ -12,16 +12,14 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": "^8.0",
+    "php": "^8.0|^8.1",
     "illuminate/support": "^8.0",
-    "ext-soap": "*",
-    "livewire/livewire": "^2.4",
     "phpseclib/phpseclib": "~3.0",
     "guzzlehttp/guzzle": "^7.4"
   },
   "require-dev": {
     "orchestra/testbench": "^6.0",
-    "friendsofphp/php-cs-fixer": "^2.18"
+    "friendsofphp/php-cs-fixer": "^3.4"
   },
   "autoload": {
     "psr-4": {

@@ -2,26 +2,27 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
-use EXACTSports\FedEx\Base\Product\Binding;
-use EXACTSports\FedEx\Base\Product\Feature;
-use EXACTSports\FedEx\Base\Product\PaperColors;
-use EXACTSports\FedEx\Base\Product\PaperOrientations;
-use EXACTSports\FedEx\Base\Product\PaperSides;
-use EXACTSports\FedEx\Base\Product\PaperSizes;
-use EXACTSports\FedEx\Base\Product\PaperTypes;
-use EXACTSports\FedEx\Base\Product\PrintsPerPage;
+use JetBrains\PhpStorm\Pure;
 
 class ProductFeatures
 {
     public Feature $feature;
+
     public PaperSizes $paperSizes;
+
     public PaperTypes $paperTypes;
+
     public PaperColors $paperColors;
+
     public PaperSides $paperSides;
+
     public PaperOrientations $paperOrientations;
+
     public PrintsPerPage $printsPerPage;
+
     public Binding $binding;
 
+    #[Pure]
     public function __construct()
     {
         $this->feature = new Feature();
@@ -34,13 +35,10 @@ class ProductFeatures
         $this->binding = new Binding();
     }
 
-    /**
-     * Get all product features.
-     */
-    public function get()
+    #[Pure]
+    public function get(): array
     {
-        $features = [];
-        $features = [
+        return [
             '1448981549109' => [
                 'name' => 'Paper Size',
                 'choices' => [
@@ -107,163 +105,146 @@ class ProductFeatures
                 ],
             ],
         ];
-
-        return $features;
     }
 
-    /**
-     * Gets base features.
-     */
-    public function getBaseFeatures(array $options = [])
+    #[Pure]
+    public function getBaseFeatures(array $options = []): array
     {
         $features = [];
         $allFeatures = $this->get();
 
         // Paper size
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448981549109", $options) || !isset($options["1448981549109"]["selected"])) {
+        if (! array_key_exists('1448981549109', $options) || ! isset($options['1448981549109']['selected'])) {
             $properties[] = new Property('1449069906033', 'MEDIA_HEIGHT', '11');
             $properties[] = new Property('1449069908929', 'MEDIA_WIDTH', '8.5');
             $choice = new Choice('1448986650332', '8.5x11', $properties);
         } else {
-            $choice = $allFeatures["1448981549109"]["choices"][$options["1448981549109"]["selected"]];
+            $choice = $allFeatures['1448981549109']['choices'][$options['1448981549109']['selected']];
         }
 
         $features[] = new Feature('1448981549109', 'Paper Size', $choice);
-        
+
         // Paper type
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448981549741", $options) || !isset($options["1448981549109"]["selected"])) {
+        if (! array_key_exists('1448981549741', $options) || ! isset($options['1448981549109']['selected'])) {
             $properties[] = new Property('1450324098012', 'MEDIA_TYPE', 'E32');
             $properties[] = new Property('1453234015081', 'PAPER_COLOR', '#FFFFFF');
             $properties[] = new Property('1471275182312', 'MEDIA_CATEGORY', 'RESUME');
             $choice = new Choice('1448988664295', 'Laser (32 lb.)', $properties);
         } else {
-            $choice = $allFeatures["1448981549741"]["choices"][$options["1448981549741"]["selected"]];
+            $choice = $allFeatures['1448981549741']['choices'][$options['1448981549741']['selected']];
         }
 
         $features[] = new Feature('1448981549741', 'Paper Type', $choice);
 
         // Print color
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448981549581", $options) || !isset($options["1448981549581"]["selected"])) {
+        if (! array_key_exists('1448981549581', $options) || ! isset($options['1448981549581']['selected'])) {
             $properties[] = new Property('1453242778807', 'PRINT_COLOR', 'COLOR');
             $choice = new Choice('1448988600611', 'Full Color', $properties);
         } else {
-            $choice = $allFeatures["1448981549581"]["choices"][$options["1448981549581"]["selected"]];
+            $choice = $allFeatures['1448981549581']['choices'][$options['1448981549581']['selected']];
         }
 
         $features[] = new Feature('1448981549581', 'Print Color', $choice);
 
         // Sides
         $properties = [];
-        $choice;
 
-        if (!array_key_exists("1448981549269", $options) || !isset($options["1448981549269"]["selected"])) {
+        if (! array_key_exists('1448981549269', $options) || ! isset($options['1448981549269']['selected'])) {
             $properties[] = new Property('1461774376168', 'SIDE', 'SINGLE');
             $properties[] = new Property('1471294217799', 'SIDE_VALUE', '1');
             $choice = new Choice('1448988124560', 'Single-Sided', $properties);
         } else {
-            $choice = $allFeatures["1448981549269"]["choices"][$options["1448981549269"]["selected"]];
+            $choice = $allFeatures['1448981549269']['choices'][$options['1448981549269']['selected']];
         }
 
         $features[] = new Feature('1448981549269', 'Sides', $choice);
 
         // Orientation
         $properties = [];
-        $choice;
 
-        if (!array_key_exists("1448984679218", $options) || !isset($options["1448984679218"]["selected"])) {
+        if (! array_key_exists('1448984679218', $options) || ! isset($options['1448984679218']['selected'])) {
             $properties[] = new Property('1453260266287', 'PAGE_ORIENTATION', 'PORTRAIT');
             $choice = new Choice('1449000016192', 'Vertical', $properties);
         } else {
-            $choice = $allFeatures["1448984679218"]["choices"][$options["1448984679218"]["selected"]];
+            $choice = $allFeatures['1448984679218']['choices'][$options['1448984679218']['selected']];
         }
 
         $features[] = new Feature('1448984679218', 'Orientation', $choice);
 
         // Prints per page
         $properties = [];
-        $choice;
 
-        if (!array_key_exists("1448981554101", $options) || !isset($options["1448981554101"]["selected"])) { 
+        if (! array_key_exists('1448981554101', $options) || ! isset($options['1448981554101']['selected'])) {
             $properties[] = new Property('1455387404922', 'PRINTS_PER_PAGE', 'ONE');
             $choice = new Choice('1448990257151', 'One', $properties);
         } else {
-            $choice = $allFeatures["1448981554101"]["choices"][$options["1448981554101"]["selected"]];
+            $choice = $allFeatures['1448981554101']['choices'][$options['1448981554101']['selected']];
         }
 
         $features[] = new Feature('1448981554101', 'Prints Per Page', $choice);
 
         // Cutting
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448984877869", $options) || !isset($options["1448984877869"]["selected"])) {
+        if (! array_key_exists('1448984877869', $options) || ! isset($options['1448984877869']['selected'])) {
             $choice = new Choice('1448999392195', 'None', []);
         } else {
-            $choice = $allFeatures["1448984877869"]["choices"][$options["1448984877869"]["selected"]];
+            $choice = $allFeatures['1448984877869']['choices'][$options['1448984877869']['selected']];
         }
-        
+
         $features[] = new Feature('1448984877869', 'Cutting', $choice);
 
         // Hole punching
         $properties = [];
-        $choice;
 
-        if (!array_key_exists("1448981555573", $options) || !isset($options["1448981555573"]["selected"])) {
+        if (! array_key_exists('1448981555573', $options) || ! isset($options['1448981555573']['selected'])) {
             $choice = new Choice('1448999902070', 'None', []);
         } else {
-            $choice = $allFeatures["1448981555573"]["choices"][$options["1448981555573"]["selected"]];
+            $choice = $allFeatures['1448981555573']['choices'][$options['1448981555573']['selected']];
         }
 
         $features[] = new Feature('1448981555573', 'Hole Punching', $choice);
 
         // Collation
         $properties = [];
-        $choice;
 
-        if (!array_key_exists("1448981532145", $options) || !isset($options["1448981532145"]["selected"])) {
+        if (! array_key_exists('1448981532145', $options) || ! isset($options['1448981532145']['selected'])) {
             $properties[] = new Property('1449069945785', 'COLLATION_TYPE', 'MACHINE');
             $choice = new Choice('1448986654687', 'Collated', $properties);
         } else {
-            $choice = $allFeatures["1448981532145"]["choices"][$options["1448981532145"]["selected"]];
+            $choice = $allFeatures['1448981532145']['choices'][$options['1448981532145']['selected']];
         }
 
         $features[] = new Feature('1448981532145', 'Collation', $choice);
 
-        // Binding 
+        // Binding
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448981554597", $options) || !isset($options["1448981554597"]["selected"])) {
-            $choice = new Choice("1448997199553", "None", []);
+        if (! array_key_exists('1448981554597', $options) || ! isset($options['1448981554597']['selected'])) {
+            $choice = new Choice('1448997199553', 'None', []);
         } else {
-            $choice = $allFeatures["1448981554597"]["choices"][$options["1448981554597"]["selected"]];
+            $choice = $allFeatures['1448981554597']['choices'][$options['1448981554597']['selected']];
         }
 
         $features[] = new Feature('1448981554597', 'Binding', $choice);
-  
 
         // Lamination
         $properties = [];
-        $choice; 
 
-        if (!array_key_exists("1448984679442", $options) || !isset($options["1448984679442"]["selected"])) {
+        if (! array_key_exists('1448984679442', $options) || ! isset($options['1448984679442']['selected'])) {
             $choice = new Choice('1448999458409', 'None', []);
         } else {
-            $choice = $allFeatures["1448984679442"]["choices"][$options["1448984679442"]["selected"]];
+            $choice = $allFeatures['1448984679442']['choices'][$options['1448984679442']['selected']];
         }
 
         $features[] = new Feature('1448984679442', 'Lamination', $choice);
 
         return $features;
     }
-
 }

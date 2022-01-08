@@ -2,29 +2,33 @@
 
 namespace EXACTSports\FedEx\Services;
 
-use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
 use EXACTSports\FedEx\Conversion\Options;
-use EXACTSports\FedEx\Services\FedExService;
-use EXACTSports\FedEx\Services\ProductService;
 use EXACTSports\FedEx\Services\UploadConversion\Conversion;
 use EXACTSports\FedEx\Services\UploadConversion\PreviewConvertedDocument;
 use EXACTSports\FedEx\Services\UploadConversion\Rate;
 use EXACTSports\FedEx\Services\UploadConversion\UploadDocumentFromLocalDrive;
-use Illuminate\Support\Collection;
+use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\Pure;
 
 class UploadConversionService
 {
     private UploadDocumentFromLocalDrive $uploadDocumentFromLocalDrive;
+
     private Conversion $conversion;
+
     private PreviewConvertedDocument $previewConvertedDocument;
+
     private ProductService $productService;
+
     private ProductFeatures $productFeatures;
+
     private FedExService $fedExService;
-    private Rate $rate;
-    private array $features = [];
+
+    private array $features;
+
     public array $selectedPrintOptions = [
         '1448981549109' => [
             'Size' => '8.5x11',
@@ -60,7 +64,9 @@ class UploadConversionService
             'Lamination' => 'None',
         ],
     ];
+
     public array $convertToPdfIds = ['1448981549109', '1448984679218'];
+
     public Product $baseProduct;
 
     public function __construct()
@@ -75,32 +81,26 @@ class UploadConversionService
     }
 
     /**
-     * Uploads file to FedEx.
-     * @param string $contents
-     * @param string $fileName
-     * @param int $quantity
+     * @throws GuzzleException
      */
-    public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = [])
+    public function uploadFile(string $contents, string $fileName, int $quantity = 1, $options = []): array
     {
         // Upload document
         $document = $this->uploadDocumentFromLocalDrive->uploadDocument($contents, $fileName);
         $documentId = $document->documentId;
         $this->baseProduct = (new ProductService())->getBaseProduct();
-    
+
         if (count($options) > 0) {
             $this->baseProduct->features = $this->productFeatures->getBaseFeatures($options);
         }
-    
-        $document = $this->processDocument($documentId, $quantity);
 
-        return $document;
+        return $this->processDocument($documentId, $quantity);
     }
 
     /**
-     * Processes document.
-     * @param string $documentId
+     * @throws GuzzleException
      */
-    public function processDocument(string $documentId, int $quantity = 1, $options = null)
+    public function processDocument(string $documentId, int $quantity = 1, $options = null): array
     {
         // Convert to pdf
         $document = $this->convertToPdf($documentId, $options);
@@ -123,23 +123,18 @@ class UploadConversionService
         $document->rate = $rate;
 
         $documentArray = [];
-        $documentArray = $this->setDocumentArray($document);
 
-        return $documentArray;
+        return $this->setDocumentArray($document);
     }
 
-    /**
-     * Gets content association.
-     * @param object $document
-     * @return ContentAssociation
-     */
+    #[Pure]
     public function getContentAssociation($document) : ContentAssociation
     {
         return $this->productService->getContentAssociation($document);
     }
 
     /**
-     * Gets document rate.
+     * @throws GuzzleException
      */
     public function getRate(object $document) : object
     {
@@ -150,15 +145,12 @@ class UploadConversionService
 
         if (isset($response->output->alerts)) {
             $rateDetail->hasAlerts = 1;
-            $rateDetail->alerts = $response->output->alerts; 
+            $rateDetail->alerts = $response->output->alerts;
         }
 
         return $rateDetail;
     }
 
-    /**
-     * Sets document array.
-     */
     public function setDocumentArray(object $document) : array
     {
         $documentArray = [];
@@ -178,7 +170,7 @@ class UploadConversionService
     }
 
     /**
-     * Converts uploaded document to pdf.
+     * @throws GuzzleException
      */
     public function convertToPdf(string $documentId, $options = null)
     {
@@ -186,10 +178,9 @@ class UploadConversionService
     }
 
     /**
-     * Reconverts to pdf.
-     * @param string $documentId
+     * @throws GuzzleException
      */
-    public function reconvertToPdf(string $documentId, string $printOptionId, string $optionId)
+    public function reconvertToPdf(string $documentId, string $printOptionId, string $optionId): array
     {
         $options = new Options();
 
@@ -206,25 +197,17 @@ class UploadConversionService
             $options->input->conversionOptions->orientation = $choice->properties[0]->value;
         }
 
-        $document = $this->processDocument($documentId, $options);
-
-        return $document;
+        return $this->processDocument($documentId, 1, $options);
     }
 
     /**
-     * Gets document preview.
-     * @param string $documentId
-     * @param int $pageNumber
+     * @throws GuzzleException
      */
     public function getDocumentPreview(string $documentId, int $pageNumber = 1) : string
     {
         return $this->previewConvertedDocument->getPreview($documentId, $pageNumber);
     }
 
-    /**
-     * Gets print option index.
-     * @param string $printOptionId
-     */
     public function getPrintOptionIndex(string $printOptionId)
     {
         $printOptionIds = collect($this->productService->printOptionIds);
@@ -232,25 +215,12 @@ class UploadConversionService
         return $printOptionIds->search($printOptionId);
     }
 
-    /**
-     * Gets choice.
-     * @param string $printOptionId
-     * @param string $optionId
-     */
     public function getChoice(string $printOptionId, string $optionId)
     {
-        $selectedChoice = $this->features[$printOptionId]['choices'][$optionId];
-
-        return $selectedChoice;
+        return $this->features[$printOptionId]['choices'][$optionId];
     }
 
-    /**
-     * Updates current document.
-     * @param array $document
-     * @param string $printOptionId - Paper Size, Paper Color, etc
-     * @param string $optionId - Paper Size -> 8.5x11, etc
-     */
-    public function updatePrintOption(array $currentDocument, string $printOptionId, string $optionId)
+    public function updatePrintOption(array $currentDocument, string $printOptionId, string $optionId): array
     {
         $selectedChoice = $this->getChoice($printOptionId, $optionId);
         $currentDocumentProduct = $currentDocument['product'];

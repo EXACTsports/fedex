@@ -3,22 +3,18 @@
 namespace EXACTSports\FedEx\Services\PickupRequest;
 
 use EXACTSports\FedEx\DeliveryOptions\Delivery;
-use EXACTSports\FedEx\DeliveryOptions\DeliveryRequestedPickup;
 use EXACTSports\FedEx\DeliveryOptions\ProductAssociation;
 use EXACTSports\FedEx\DeliveryOptions\Request;
-use EXACTSports\FedEx\DeliveryOptions\RequestedDeliveryTypes;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Services\FedExService;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Location
 {
     use FedExTrait;
 
     /**
-     * Gets locations.
-     * @param array $documents
-     * @param string $distance
-     * @param string $address
+     * @throws GuzzleException
      */
     public function search(array $documents, string $distance, array $address)
     {
@@ -51,20 +47,18 @@ class Location
         $doRequest = new Request();
         $doRequest->deliveryOptionsRequest->products = $products;
         $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
-        
+
         $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
 
         return $response->output->deliveryOptions[0]->pickupOptions;
     }
 
     /**
-     * Gets location details. This method makes a call to api v1.
-     * @param int $id
-     * @param string $startDate
+     * @throws GuzzleException
      */
-    public function getDetails(int $id, string $startDate = '')
+    public function getDetails(int $id)
     {
-        $response = (new FedexService())->getLocationDetails($id, $startDate);
+        $response = (new FedexService())->getLocationDetails($id);
 
         return ! empty($response->output->location) ? $response->output->location : null;
     }

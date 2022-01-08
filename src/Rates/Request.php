@@ -2,12 +2,13 @@
 
 namespace EXACTSports\FedEx\Rates;
 
-use EXACTSports\FedEx\Rates\RateRequest;
+use JetBrains\PhpStorm\Pure;
 
 class Request
 {
     public RateRequest $rateRequest;
 
+    #[Pure]
     public function __construct()
     {
         $this->rateRequest = new RateRequest();

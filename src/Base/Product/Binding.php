@@ -2,15 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
-use EXACTSports\FedEx\Base\Product\Choice;
-use EXACTSports\FedEx\Base\Product\Property;
+use JetBrains\PhpStorm\Pure;
 
 class Binding
 {
-    /**
-     * Gets top left staple.
-     */
-    public function getTopLeftStaple()
+    #[Pure]
+    public function getTopLeftStaple(): Choice
     {
         $choice = new Choice();
         $choice->id = '1452632212741';

@@ -4,6 +4,7 @@ namespace EXACTSports\FedEx\Services;
 
 class PrintOptionService
 {
+    // TODO: Unused?
     public static array $options = [
         [
             'id' => '1448981549109',
@@ -21,7 +22,7 @@ class PrintOptionService
             'options' => [
                 'withMenu' => [
                     [
-                        'head' => 'Standar White Papers',
+                        'head' => 'Standard White Papers',
                         'description' => 'Everyday paper, 20-32 lb',
                         'options' => [
                             '1448988661630' => 'Laser (24 lb.)',

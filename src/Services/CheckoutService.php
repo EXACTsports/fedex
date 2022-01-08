@@ -2,39 +2,41 @@
 
 namespace EXACTSports\FedEx\Services;
 
+use EXACTSports\FedEx\Base\ProductAssociation;
 use EXACTSports\FedEx\Base\Recipient;
-use EXACTSports\FedEx\Rates\RatesRequest;
+use EXACTSports\FedEx\FedExTrait;
+use EXACTSports\FedEx\Rates\RateRequest;
 use EXACTSports\FedEx\Services\OrderRequest\OrderSubmission;
 use EXACTSports\FedEx\Services\PickupRequest\Location;
+use GuzzleHttp\Exception\GuzzleException;
+use JetBrains\PhpStorm\Pure;
 
 class CheckoutService
 {
+    use FedExTrait;
+
     public Location $location;
 
+    #[Pure]
     public function __construct()
     {
         $this->location = new Location();
     }
 
     /**
-     * Gets locations.
-     * @param array $documents
-     * @param string $distance
-     * @param string $address
+     * @throws GuzzleException
      */
-    public function getLocations(array $documents, string $distance, string $address)
+    public function getLocations(array $documents, string $distance, array $address): void
     {
         $locations = $this->location->search($documents, $distance, $address);
     }
 
     /**
-     * Gets documents rate.
-     * @param array $documents
-     * @param string $idLocation
+     * @throws GuzzleException
      */
     public function getDocumentsRate(array $documents = [], string $idLocation = '')
     {
-        $ratesRequest = new RatesRequest();
+        $ratesRequest = new RateRequest();
         $products = [];
         $productAssociations = [];
 
@@ -52,43 +54,40 @@ class CheckoutService
         $recipient->pickUpDelivery->location->id = $idLocation;
         $recipient->productAssociations = $productAssociations;
         $recipient = $this->removeEmptyElements($this->objectToArray($recipient));
-        $ratesRequest->rateRequest->products = $products;
-        $ratesRequest->rateRequest->recipients[] = $recipient;
+        $ratesRequest->products = $products;
+        $ratesRequest->recipients[] = $recipient;
         $response = (new FedexService())->getRate($this->removeEmptyElements($this->objectToArray($ratesRequest)));
 
         return $response->output->rate->rateDetails;
     }
 
     /**
-     * Encrypts data.
+     * @throws GuzzleException
      */
-    public function getEncryptedData(string $cardData)
+    public function getEncryptedData(string $cardData): string
     {
         return (new FedexService())->getEncryptedData($cardData);
     }
 
     /**
-     * Submits order.
-     * @param array $documents
-     * @param array $contactInformation
-     * @param array $paymentInformation
+     * @throws GuzzleException
      */
-    public function submitOrder(array $documents, array $contactInformation, 
-        array $billingInformation,
-        array $paymentInformation, 
-        string $locationId)
+    public function submitOrder(array $documents, array $contactInformation,
+                                array $billingInformation,
+                                array $paymentInformation,
+                                string $locationId)
     {
         $cardData = 'M' .
             trim($paymentInformation['cardNumber']) . '=' . substr($paymentInformation['year'], -2) .
             $paymentInformation['month'] . ':' . $paymentInformation['securityCode'];
         $encryptedData = $this->getEncryptedData($cardData);
-        
+
         $paymentInformation['encryptedData'] = $encryptedData;
 
         $orderSubmission = new OrderSubmission();
-        
+
         $request = $orderSubmission->getRequest($documents, $contactInformation, $billingInformation, $paymentInformation, $locationId);
-        
-        return (new FedExService)->orderSubmissions($request);
+
+        return (new FedExService())->orderSubmissions($request);
     }
 }

@@ -4,17 +4,17 @@ namespace EXACTSports\FedEx\Services;
 
 use EXACTSports\FedEx\Base\PageGroup;
 use EXACTSports\FedEx\Base\Product;
-use EXACTSports\FedEx\Base\Product\Choice;
 use EXACTSports\FedEx\Base\Product\ContentAssociation;
-use EXACTSports\FedEx\Base\Product\Feature;
-use EXACTSports\FedEx\Base\Product\Property;
 use EXACTSports\FedEx\Base\Product\ProductFeatures;
+use EXACTSports\FedEx\Base\Product\Property;
+use JetBrains\PhpStorm\Pure;
 
 class ProductService
 {
     private Product $product;
-    private ContentAssociation $contentAssociation;
+
     private ProductFeatures $productFeatures;
+
     public array $printOptionIds = [
         '1448981549109',
         '1448981549741',
@@ -31,15 +31,11 @@ class ProductService
     public function __construct()
     {
         $this->product = new Product();
-        $this->contentAssociation = new ContentAssociation();
         $this->productFeatures = new ProductFeatures();
         $this->setBaseProduct();
     }
 
-    /**
-     * Sets base product.
-     */
-    public function setBaseProduct()
+    public function setBaseProduct(): void
     {
         $this->product->id = '1456773326927'; // This is the base id, it is used for custom document
         $this->product->name = 'Multi Sheet';
@@ -53,9 +49,7 @@ class ProductService
         $this->product->contentAssociations = [];
     }
 
-    /**
-     * Gets base properties.
-     */
+    #[Pure]
     public function getBaseProperties() : array
     {
         $properties = [];
@@ -74,18 +68,12 @@ class ProductService
         return $properties;
     }
 
-    /**
-     * Gets base product.
-     */
     public function getBaseProduct() : Product
     {
         return $this->product;
     }
 
-    /**
-     * Gets content association.
-     * @param object $document in question
-     */
+    #[Pure]
     public function getContentAssociation(object $document) : ContentAssociation
     {
         $pageGroup = new PageGroup();

@@ -2,15 +2,12 @@
 
 namespace EXACTSports\FedEx\Base\Product;
 
-use EXACTSports\FedEx\Base\Product\Choice;
-use EXACTSports\FedEx\Base\Product\Property;
+use JetBrains\PhpStorm\Pure;
 
 class PaperTypes
 {
-    /**
-     * Gets 24 lb.
-     */
-    public function get24lb()
+    #[Pure]
+    public function get24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988661630';
@@ -40,10 +37,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 32 lb.
-     */
-    public function get32lb()
+    #[Pure]
+    public function get32lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988664295';
@@ -73,10 +68,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser recycled 24 lb.
-     */
-    public function getLaserRecycled24lb()
+    #[Pure]
+    public function getLaserRecycled24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988665655';
@@ -106,10 +99,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 20 lb.
-     */
-    public function get30Recycled20lb()
+    #[Pure]
+    public function get30Recycled20lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666102';
@@ -139,10 +130,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets 100% recycled 20 lb.
-     */
-    public function get100Recycled20lb()
+    #[Pure]
+    public function get100Recycled20lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666494';
@@ -172,10 +161,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser 60lb.
-     */
-    public function getLaser60lb()
+    #[Pure]
+    public function getLaser60lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988665015';
@@ -205,10 +192,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets gloss 100 lb.
-     */
-    public function getGloss100lb()
+    #[Pure]
+    public function getGloss100lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988895624';
@@ -238,10 +223,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets laser 80 lb.
-     */
-    public function getLaser80lb()
+    #[Pure]
+    public function getLaser80lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988677979';
@@ -271,10 +254,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets index 110 lb.
-     */
-    public function getIndex110lb()
+    #[Pure]
+    public function getIndex110lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988675190';
@@ -304,10 +285,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets pure white 100.
-     */
-    public function getPureWhite100()
+    #[Pure]
+    public function getPureWhite100(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988908744';
@@ -337,10 +316,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets gloss text 32 lb.
-     */
-    public function getGlossText32lb()
+    #[Pure]
+    public function getGlossText32lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988666879';
@@ -370,10 +347,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ultra bright white 32 lb.
-     */
-    public function getUltraBrightWhite32()
+    #[Pure]
+    public function getUltraBrightWhite32(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988908007';
@@ -403,10 +378,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets water resistant.
-     */
-    public function getWaterResistant()
+    #[Pure]
+    public function getWaterResistant(): Choice
     {
         $choice = new Choice();
         $choice->id = '1559837164426';
@@ -436,10 +409,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ivory 65 lb.
-     */
-    public function getIvory65lb()
+    #[Pure]
+    public function getIvory65lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1450369886752';
@@ -469,10 +440,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ivory 24 lb.
-     */
-    public function getIvory24lb()
+    #[Pure]
+    public function getIvory24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988667606';
@@ -502,10 +471,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets sun yellow 24 lb.
-     */
-    public function getSunYellow24lb()
+    #[Pure]
+    public function getSunYellow24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988671383';
@@ -535,10 +502,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets ultra blue 24 lb.
-     */
-    public function getUltraBlue24lb()
+    #[Pure]
+    public function getUltraBlue24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988673318';
@@ -568,10 +533,8 @@ class PaperTypes
         return $choice;
     }
 
-    /**
-     * Gets sand stone 24 lb.
-     */
-    public function getSandStone24lb()
+    #[Pure]
+    public function getSandStone24lb(): Choice
     {
         $choice = new Choice();
         $choice->id = '1448988899767';
