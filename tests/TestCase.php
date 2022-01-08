@@ -22,7 +22,6 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             FedExProvider::class,
-            LivewireServiceProvider::class,
         ];
     }
 

@@ -346,6 +346,8 @@ class FedExServiceTest extends TestCase
         $request->deliveryOptionsRequest->deliveries = [$delivery];
 
         $response = (new FedexService())->getDeliveryOptions((array) $request);
+
+        $this->assertStringContainsString('Libertyville IL West of I94', json_encode($response));
     }
 
     public function testOrderSubmission(): void
@@ -393,7 +395,8 @@ class FedExServiceTest extends TestCase
 
         $request = $this->removeEmptyElements($this->objectToArray($request));
 
-        $response = (new FedexService())->orderSubmisions((array) $request);
+        $response = app(FedExService::class)->orderSubmissions($request);
+
 
         $this->assertTrue(isset($response->output));
     }
