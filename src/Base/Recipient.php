@@ -18,6 +18,6 @@ class Recipient
     public function __construct()
     {
         $this->contact = new Contact();
-        $this->pickUpDelivery = new PickupDelivery();
+        $this->pickUpDelivery = app(PickUpDelivery::class);
     }
 }
