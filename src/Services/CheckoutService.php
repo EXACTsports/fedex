@@ -66,7 +66,7 @@ class CheckoutService
      */
     public function getEncryptedData(string $cardData): string
     {
-        return (new FedexService())->getEncryptedData($cardData);
+        return app(FedExService::class)->getEncryptedData($cardData);
     }
 
     /**
