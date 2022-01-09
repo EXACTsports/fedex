@@ -14,7 +14,6 @@ class Recipient
 
     public array $productAssociations;      // N - Associates the product instance in a request with its recipient
 
-    #[Pure]
     public function __construct()
     {
         $this->contact = new Contact();
