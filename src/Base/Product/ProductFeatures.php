@@ -210,6 +210,18 @@ class ProductFeatures
         }
 
         $features[] = new Feature('1448981555573', 'Hole Punching', $choice);
+        
+        // Folding
+        $properties = [];
+
+        if (! array_key_exists('1448984877645', $options) || ! isset($options['1448984877645']['selected'])) {
+            $choice = new Choice('1448999720595', 'None', []);
+        } else {
+            $choice = $allFeatures['1448984877645']['choices'][$options['1448984877645']['selected']];
+        }
+
+        $features[] = new Feature('1448984877645', 'Folding', $choice);
+        
 
         // Collation
         $properties = [];
