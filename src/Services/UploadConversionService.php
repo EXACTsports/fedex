@@ -92,6 +92,38 @@ class UploadConversionService
 
         if (count($options) > 0) {
             $this->baseProduct->features = $this->productFeatures->getBaseFeatures($options);
+
+            $featureIndex = -1;
+
+            // Folding. 
+            foreach ($this->baseProduct->features as $index => &$feature) {
+                if ($feature->id == "1448984877645") {
+                    $featureIndex = $index;
+                }
+            }
+
+            if ($featureIndex != -1) {
+                array_splice($this->baseProduct->features, $featureIndex, 1);
+            }
+
+            $featureIndex = -1;
+
+            // Binding.
+            foreach ($this->baseProduct->features as $index => &$feature) {
+                if ($feature->id == "1448981549269") {
+                    if ($feature->choice->id == "1448988124807") {
+                        foreach ($this->baseProduct->features as $i => $f) {
+                            if ($f->id == "1448981554597") {
+                                $featureIndex = $i;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ($featureIndex != -1) {
+                array_splice($this->baseProduct->features, $featureIndex, 1);
+            }
         }
 
         return $this->processDocument($documentId, $quantity);

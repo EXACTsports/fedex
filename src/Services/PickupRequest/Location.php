@@ -48,7 +48,7 @@ class Location
         $doRequest->deliveryOptionsRequest->products = $products;
         $doRequest->deliveryOptionsRequest->deliveries = [$delivery];
 
-        $response = (new FedexService())->getDeliveryOptions((array) $doRequest);
+        $response = (new FedExService())->getDeliveryOptions((array) $doRequest);
 
         return $response->output->deliveryOptions[0]->pickupOptions;
     }
@@ -56,10 +56,11 @@ class Location
     /**
      * @throws GuzzleException
      */
-    public function getDetails(int $id)
+    public function getDetails(string $id)
     {
-        $response = (new FedexService())->getLocationDetails($id);
-
+        $response = (new FedExService())->getLocationDetails($id);
+        
+        
         return ! empty($response->output->location) ? $response->output->location : null;
     }
 }

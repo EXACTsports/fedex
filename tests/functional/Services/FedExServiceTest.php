@@ -16,6 +16,7 @@ use EXACTSports\FedEx\OrderSubmissions\Payment;
 use EXACTSports\FedEx\OrderSubmissions\Request as OSRequest;
 use EXACTSports\FedEx\Services\FedExService;
 use EXACTSports\FedEx\Services\ProductService;
+use EXACTSports\FedEx\Services\UploadConversion\Rate;
 use Tests\TestCase;
 
 class FedExServiceTest extends TestCase
@@ -32,298 +33,40 @@ class FedExServiceTest extends TestCase
     {
         parent::setUp();
 
-        $options['1448981549109']['selected'] = '1448986650332'; // 8.5x11
-        $options['1448981549741']['selected'] = '1448988661630'; // 24lb
-        $options['1448981549581']['selected'] = '1448988600931'; // B&W
-        $options['1448981549269']['selected'] = '1448988124560'; // Single
-        $options['1448984679218']['selected'] = '1449000016192'; // Portrait
-        $options['1448981554101']['selected'] = '1448990257151'; // Prints Per Page
+        $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
+        $options['1448981549741']['selected'] = "1448988664295"; // 32lb
+        $options['1448981549581']['selected'] = "1448988600931"; // B&W
+        $options['1448981549269']['selected'] = "1448988124807"; // Double Sided
+        $options['1448984679218']['selected'] = "1449000016192"; // Portrait
+        $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
 
         $pageGroup = new PageGroup();
         $pageGroup->start = 1;
-        $pageGroup->end = 2;
+        $pageGroup->end = 5;
         $pageGroup->width = 8.5;
         $pageGroup->height = 11;
 
         $contentAssociation = new ContentAssociation();
-        $contentAssociation->parentContentReference = '12908100113209068636807434278081056720995';
-        $contentAssociation->contentReference = '12908065522168811287015008554850000984596';
+        $contentAssociation->parentContentReference = '13023738835148663768800626030551265807845';
+        $contentAssociation->contentReference = '13023843245048243454418873968780053634881';
         $contentAssociation->contentType = 'PDF';
-        $contentAssociation->fileName = '21-08-01-Los-Angeles-Volleyball-1075-checkin.pdf';
+        $contentAssociation->fileName = '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf';
         $contentAssociation->pageGroups[] = $pageGroup;
 
         $product = (new ProductService())->getBaseProduct();
 
-        $product->instanceId = 1640903559;
-        $product->userProductName = '21-08-01-Los-Angeles-Volleyball-1075-checkin.pdf';
-        $product->qty = 3;
+        $product->instanceId = 16409035591;
+        $product->userProductName = '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf';
+        $product->qty = 17;
         $product->features = (new ProductFeatures())->getBaseFeatures($options);
         $product->contentAssociations[] = $contentAssociation;
 
         $productAssociation = new ProductAssociation();
-        $productAssociation->id = 1640903559;
-        $productAssociation->quantity = 3;
+        $productAssociation->id = 16409035591;
+        $productAssociation->quantity = 17;
 
         $this->productAssociations[] = $productAssociation;
         $this->products[] = $product;
-    }
-
-    /**
-     * A basic test example.
-     */
-    public function testGetProductsRate(): void
-    {
-        $fedexService = new FedExService();
-        $request = [
-            'rateRequest' => [
-                'products' => [
-                    [
-                        'id' => '1456773326927',
-                        'name' => 'Multi Sheet',
-                        'version' => 2,
-                        'instanceId' => '1636671062',
-                        'userProductName' => '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf',
-                        'qty' => 17,
-                        'properties' => [
-                            [
-                                'id' => '1453242488328',
-                                'name' => 'ZOOM_PERCENTAGE',
-                                'value' => '60',
-                            ],
-                            [
-                                'id' => '1453895478444',
-                                'name' => 'MIN_DPI',
-                                'value' => '150',
-                            ],
-                            [
-                                'id' => '1453894861756',
-                                'name' => 'LOCK_CONTENT_ORIENTATION',
-                                'value' => false,
-                            ],
-                            [
-                                'id' => '1453243262198',
-                                'name' => 'ENCODE_QUALITY',
-                                'value' => '100',
-                            ],
-                            [
-                                'id' => '1454950109636',
-                                'name' => 'USER_SPECIAL_INSTRUCTIONS',
-                                'value' => null,
-                            ],
-                            [
-                                'id' => '1455050109636',
-                                'name' => 'DEFAULT_IMAGE_WIDTH',
-                                'value' => '8.5',
-                            ],
-                            [
-                                'id' => '1455050109631',
-                                'name' => 'DEFAULT_IMAGE_HEIGHT',
-                                'value' => '11',
-                            ],
-                            [
-                                'id' => '1494365340946',
-                                'name' => 'PREVIEW_TYPE',
-                                'value' => 'DYNAMIC',
-                            ],
-                            [
-                                'id' => '1470151626854',
-                                'name' => 'SYSTEM_SI',
-                                'value' => null,
-                            ],
-                            [
-                                'id' => '1470151737965',
-                                'name' => 'TEMPLATE_AVAILABLE',
-                                'value' => 'NO',
-                            ],
-                            [
-                                'id' => '1490292304798',
-                                'name' => 'MIGRATED_PRODUCT',
-                                'value' => 'true',
-                            ],
-                        ],
-                        'features' => [
-                            [
-                                'id' => '1448981549109',
-                                'name' => 'Paper Size',
-                                'choice' => [
-                                    'id' => '1448986650332',
-                                    'name' => '8.5x11',
-                                    'properties' => [
-                                        [
-                                            'id' => '1449069906033',
-                                            'name' => 'MEDIA_HEIGHT',
-                                            'value' => '11',
-                                        ],
-                                        [
-                                            'id' => '1449069908929',
-                                            'name' => 'MEDIA_WIDTH',
-                                            'value' => '8.5',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981549741',
-                                'name' => 'Paper Type',
-                                'choice' => [
-                                    'id' => '1448988664295',
-                                    'name' => 'Laser (32 lb.)',
-                                    'properties' => [
-                                        [
-                                            'id' => '1450324098012',
-                                            'name' => 'MEDIA_TYPE',
-                                            'value' => 'E32',
-                                        ],
-                                        [
-                                            'id' => '1453234015081',
-                                            'name' => 'PAPER_COLOR',
-                                            'value' => '#FFFFFF',
-                                        ],
-                                        [
-                                            'id' => '1471275182312',
-                                            'name' => 'MEDIA_CATEGORY',
-                                            'value' => 'RESUME',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981549581',
-                                'name' => 'Print Color',
-                                'choice' => [
-                                    'id' => '1448988600611',
-                                    'name' => 'Full Color',
-                                    'properties' => [
-                                        [
-                                            'id' => '1453242778807',
-                                            'name' => 'PRINT_COLOR',
-                                            'value' => 'COLOR',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981549269',
-                                'name' => 'Sides',
-                                'choice' => [
-                                    'id' => '1448988124560',
-                                    'name' => 'Single-Sided',
-                                    'properties' => [
-                                        [
-                                            'id' => '1461774376168',
-                                            'name' => 'SIDE',
-                                            'value' => 'SINGLE',
-                                        ],
-                                        [
-                                            'id' => '1471294217799',
-                                            'name' => 'SIDE_VALUE',
-                                            'value' => '1',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448984679218',
-                                'name' => 'Orientation',
-                                'choice' => [
-                                    'id' => '1449000016192',
-                                    'name' => 'Vertical',
-                                    'properties' => [
-                                        [
-                                            'id' => '1453260266287',
-                                            'name' => 'PAGE_ORIENTATION',
-                                            'value' => 'PORTRAIT',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981554101',
-                                'name' => 'Prints Per Page',
-                                'choice' => [
-                                    'id' => '1448990257151',
-                                    'name' => 'One',
-                                    'properties' => [
-                                        [
-                                            'id' => '1455387404922',
-                                            'name' => 'PRINTS_PER_PAGE',
-                                            'value' => 'ONE',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448984877869',
-                                'name' => 'Cutting',
-                                'choice' => [
-                                    'id' => '1448999392195',
-                                    'name' => 'None',
-                                    'properties' => [],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981555573',
-                                'name' => 'Hole Punching',
-                                'choice' => [
-                                    'id' => '1448999902070',
-                                    'name' => 'None',
-                                    'properties' => [],
-                                ],
-                            ],
-                            [
-                                'id' => '1448981532145',
-                                'name' => 'Collation',
-                                'choice' => [
-                                    'id' => '1448986654687',
-                                    'name' => 'Collated',
-                                    'properties' => [
-                                        [
-                                            'id' => '1449069945785',
-                                            'name' => 'COLLATION_TYPE',
-                                            'value' => 'MACHINE',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            [
-                                'id' => '1448984679442',
-                                'name' => 'Lamination',
-                                'choice' => [
-                                    'id' => '1448999458409',
-                                    'name' => 'None',
-                                    'properties' => [],
-                                ],
-                            ],
-                        ],
-                        'contentAssociations' => [
-                            [
-                                'parentContentReference' => '12742959633065283519616696809770541953321',
-                                'contentReference' => '12742954914040976625419627059360196884682',
-                                'contentType' => 'PDF',
-                                'fileName' => '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf',
-                                'contentReqId' => '1483999952979',
-                                'name' => 'Multi Sheet',
-                                'purpose' => 'MAIN_CONTENT',
-                                'printReady' => true,
-                                'pageGroups' => [
-                                    [
-                                        'start' => 1,
-                                        'end' => 5,
-                                        'width' => 8.5,
-                                        'height' => 11,
-                                        'orientation' => 'PORTRAIT',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        $response = $fedexService->getRate($request);
-
-        $this->assertTrue(true);
     }
 
     public function testGetDeliveryOptions(): void
@@ -348,6 +91,40 @@ class FedExServiceTest extends TestCase
         $response = (new FedexService())->getDeliveryOptions((array) $request);
 
         $this->assertStringContainsString('Libertyville IL West of I94', json_encode($response));
+    }
+
+    public function testGetRate(): void
+    {
+        $rate = new Rate();        
+
+        $foldingIndex;
+        $featureIndex;
+        
+        foreach ($this->products[0]->features as $index => &$feature) {
+            if ($feature->id == "1448984877645") {
+                $foldingIndex = $index;
+            }
+
+            if ($feature->id == "1448981549269") {
+                if ($feature->choice->id == "1448988124807") {
+                    foreach ($this->products[0]->features as $i => $f) {
+                        if ($f->id == "1448981554597") {
+                            $featureIndex = $i;
+                        }
+                    }
+                }
+            }
+        }
+       
+        array_splice($this->products[0]->features, $foldingIndex, 1);
+        array_splice($this->products[0]->features, $featureIndex, 1);
+        
+
+        $request = $rate->getRateRequest($this->products[0]);
+        
+        $response = (new FedExService())->getRate($request);
+
+        $this->assertTrue(isset($response->output));
     }
 
     public function testOrderSubmission(): void
@@ -396,7 +173,6 @@ class FedExServiceTest extends TestCase
         $request = $this->removeEmptyElements($this->objectToArray($request));
 
         $response = app(FedExService::class)->orderSubmissions($request);
-
 
         $this->assertTrue(isset($response->output));
     }

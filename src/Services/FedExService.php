@@ -261,7 +261,7 @@ class FedExService
     /**
      * @throws GuzzleException
      */
-    public function getLocationDetails(int $id)
+    public function getLocationDetails(string $id)
     {
         if (empty($startDate)) {
             $startDate = date('Y-m-d', time());
