@@ -32,30 +32,12 @@ class FedExServiceTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-   
-        /*
-        $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
-        $options['1448981549741']['selected'] = "1448988661630"; // 24lb
-        $options['1448981549581']['selected'] = "1448988600931"; // B&W
-        $options['1448981549269']['selected'] = "1448988124560"; // Single
-        $options['1448984679218']['selected'] = "1449000016192"; // Portrait
-        $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
-        */
-        /*
-        $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
-        $options['1448981549741']['selected'] = "1448988664295"; // 32lb
-        $options['1448981549581']['selected'] = "1448988600931"; // B&W
-        $options['1448981549269']['selected'] = "1448988124807"; // Double Sided
-        $options['1448984679218']['selected'] = "1449000016192"; // Portrait
-        $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
-        */
 
         $options = (new ProductFeatures())->get();
         $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
         $options['1448981549741']['selected'] = "1448988673318"; // Blue
         $options['1448981549581']['selected'] = "1448988600931"; // B&W
         $options['1448981549269']['selected'] = "1448988124807"; // Double Sided
-        // $options['1448981549269']['selected'] = "1448988124560"; // Single
         $options['1448984679218']['selected'] = "1449000016192"; // Portrait
         $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
 
@@ -147,17 +129,9 @@ class FedExServiceTest extends TestCase
         
 
         $request = $rate->getRateRequest($this->products[0]);
-        /*
-        echo "<pre>";
-        print_r($request);
-        echo "</pre>";
-        die;
-        */      
+
         $response = (new FedExService())->getRate($request);
-        echo "<pre>";
-        print_r($response);
-        echo "</pre>";
-        die;
+    
         $this->assertTrue(isset($response->output));
     }
 
