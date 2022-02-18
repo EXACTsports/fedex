@@ -32,38 +32,57 @@ class FedExServiceTest extends TestCase
     public function setUp() : void
     {
         parent::setUp();
-
+   
+        /*
+        $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
+        $options['1448981549741']['selected'] = "1448988661630"; // 24lb
+        $options['1448981549581']['selected'] = "1448988600931"; // B&W
+        $options['1448981549269']['selected'] = "1448988124560"; // Single
+        $options['1448984679218']['selected'] = "1449000016192"; // Portrait
+        $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
+        */
+        /*
         $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
         $options['1448981549741']['selected'] = "1448988664295"; // 32lb
         $options['1448981549581']['selected'] = "1448988600931"; // B&W
         $options['1448981549269']['selected'] = "1448988124807"; // Double Sided
         $options['1448984679218']['selected'] = "1449000016192"; // Portrait
         $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
+        */
+
+        $options = (new ProductFeatures())->get();
+        $options['1448981549109']['selected'] = "1448986650332"; // 8.5x11
+        $options['1448981549741']['selected'] = "1448988673318"; // Blue
+        $options['1448981549581']['selected'] = "1448988600931"; // B&W
+        $options['1448981549269']['selected'] = "1448988124807"; // Double Sided
+        // $options['1448981549269']['selected'] = "1448988124560"; // Single
+        $options['1448984679218']['selected'] = "1449000016192"; // Portrait
+        $options['1448981554101']['selected'] = "1448990257151"; // Prints Per Page
 
         $pageGroup = new PageGroup();
         $pageGroup->start = 1;
-        $pageGroup->end = 5;
+        $pageGroup->end = 1;
         $pageGroup->width = 8.5;
         $pageGroup->height = 11;
 
         $contentAssociation = new ContentAssociation();
-        $contentAssociation->parentContentReference = '13023738835148663768800626030551265807845';
-        $contentAssociation->contentReference = '13023843245048243454418873968780053634881';
+        $contentAssociation->parentContentReference = '13031962552189615557917255714311948405166';
+        $contentAssociation->contentReference = '13031962554189018837506414992340488995187';
         $contentAssociation->contentType = 'PDF';
-        $contentAssociation->fileName = '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf';
+        $contentAssociation->fileName = '22-01-17-Chicago-Soccer-1273-checkin.pdf';
         $contentAssociation->pageGroups[] = $pageGroup;
 
         $product = (new ProductService())->getBaseProduct();
 
-        $product->instanceId = 16409035591;
-        $product->userProductName = '21-08-01-Los-Angeles-Volleyball-1075-coach_packet.pdf';
-        $product->qty = 17;
+        $product->instanceId = 16451503133;
+        $product->userProductName = '22-01-17-Chicago-Soccer-1273-checkin.pdf';
+        $product->qty = 2;
         $product->features = (new ProductFeatures())->getBaseFeatures($options);
         $product->contentAssociations[] = $contentAssociation;
 
         $productAssociation = new ProductAssociation();
-        $productAssociation->id = 16409035591;
-        $productAssociation->quantity = 17;
+        $productAssociation->id = 16451503133;
+        $productAssociation->quantity = 2;
 
         $this->productAssociations[] = $productAssociation;
         $this->products[] = $product;
@@ -97,16 +116,22 @@ class FedExServiceTest extends TestCase
     {
         $rate = new Rate();        
 
-        $foldingIndex;
-        $featureIndex;
+        $foldingIndex = -1;
+        $featureIndex = -1;
         
         foreach ($this->products[0]->features as $index => &$feature) {
             if ($feature->id == "1448984877645") {
                 $foldingIndex = $index;
             }
+        }
+       
+        if ($foldingIndex != -1) {
+            array_splice($this->products[0]->features, $foldingIndex, 1);
+        }
 
+        foreach ($this->products[0]->features as $index => &$feature) {
             if ($feature->id == "1448981549269") {
-                if ($feature->choice->id == "1448988124807") {
+                if ($feature->choice->id == "1448988124807" || $feature->choice->id == "1448988124560") {
                     foreach ($this->products[0]->features as $i => $f) {
                         if ($f->id == "1448981554597") {
                             $featureIndex = $i;
@@ -115,15 +140,24 @@ class FedExServiceTest extends TestCase
                 }
             }
         }
-       
-        array_splice($this->products[0]->features, $foldingIndex, 1);
-        array_splice($this->products[0]->features, $featureIndex, 1);
+
+        if ($featureIndex != -1) {
+            array_splice($this->products[0]->features, $featureIndex, 1);
+        }
         
 
         $request = $rate->getRateRequest($this->products[0]);
-        
+        /*
+        echo "<pre>";
+        print_r($request);
+        echo "</pre>";
+        die;
+        */      
         $response = (new FedExService())->getRate($request);
-
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
+        die;
         $this->assertTrue(isset($response->output));
     }
 
