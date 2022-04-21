@@ -441,6 +441,37 @@ class PaperTypes
     }
 
     #[Pure]
+    public function getCanary65Lb(): Choice
+    {
+        $choice = new Choice();
+        $choice->id = '1450369912077';
+        $choice->name = 'Canary';
+
+        $property = new Property();
+        $property->id = '1450324098012';
+        $property->name = 'MEDIA_TYPE';
+        $property->value = 'PC2';
+
+        $choice->properties[] = $property;
+
+        $property = new Property();
+        $property->id = '1453234015081';
+        $property->name = 'PAPER_COLOR';
+        $property->value = '#F8E998';
+
+        $choice->properties[] = $property;
+
+        $property = new Property();
+        $property->id = '1471275182312';
+        $property->name = 'MEDIA_CATEGORY';
+        $property->value = 'CARDSTOCK';
+
+        $choice->properties[] = $property;
+
+        return $choice;
+    }
+
+    #[Pure]
     public function getIvory24lb(): Choice
     {
         $choice = new Choice();
@@ -458,6 +489,38 @@ class PaperTypes
         $property->id = '1453234015081';
         $property->name = 'PAPER_COLOR';
         $property->value = '#F5EFDF';
+
+        $choice->properties[] = $property;
+
+        $property = new Property();
+        $property->id = '1471275182312';
+        $property->name = 'MEDIA_CATEGORY';
+        $property->value = 'PASTEL_BRIGHTS';
+
+        $choice->properties[] = $property;
+
+        return $choice;
+    }
+
+
+    #[Pure]
+    public function getCanary24lb(): Choice
+    {
+        $choice = new Choice();
+        $choice->id = '1448988668006';
+        $choice->name = 'Canary';
+
+        $property = new Property();
+        $property->id = '1450324098012';
+        $property->name = 'MEDIA_TYPE';
+        $property->value = 'P2';
+
+        $choice->properties[] = $property;
+
+        $property = new Property();
+        $property->id = '1453234015081';
+        $property->name = 'PAPER_COLOR';
+        $property->value = '#F8E998';
 
         $choice->properties[] = $property;
 

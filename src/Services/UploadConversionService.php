@@ -151,7 +151,7 @@ class UploadConversionService
         $document->product = $this->baseProduct;
 
         // Get rate
-        $rate = $this->getRate($document);
+        $rate = $this->getRate();
         $document->rate = $rate;
 
         $documentArray = [];
@@ -168,13 +168,13 @@ class UploadConversionService
     /**
      * @throws GuzzleException
      */
-    public function getRate(object $document) : object
+    public function getRate($product = null) : object
     {
         $rate = new Rate();
-        $rateRequest = $rate->getRateRequest($this->baseProduct);
+        $rateRequest = $rate->getRateRequest(is_null($product) ? $this->baseProduct : $product);
         $response = $this->fedExService->getRate($rateRequest);
         $rateDetail = $response->output->rate->rateDetails[0];
-
+        
         if (isset($response->output->alerts)) {
             $rateDetail->hasAlerts = 1;
             $rateDetail->alerts = $response->output->alerts;
