@@ -6,7 +6,7 @@ class Address
 {
     public array $streetLines;              // - N Street details of delivery address. This may contain address line 1 and address line 2
 
-    public string $city;                    // - C Delivery city. Either postal code or city is required to determine the centers
+    public ?string $city;                    // - C Delivery city. Either postal code or city is required to determine the centers
 
     public string $stateOrProvinceCode;     // - N State code where delivery is requested
 
