@@ -32,12 +32,12 @@ class Location
         }
 
         $delivery = new Delivery();
-        $delivery->address->streetLines = data_get($address, 'street');
-        $delivery->address->city = data_get($address, 'city');
-        $delivery->address->stateOrProvinceCode = data_get($address, 'state');
-        $delivery->address->postalCode = data_get($address, 'zip');
-        $delivery->address->countryCode = data_get($address, 'country');
-        $delivery->address->addressClassification = data_get($address, 'type');
+        $delivery->address->streetLines = data_get($address, 'street'. '');
+        $delivery->address->city = data_get($address, 'city', '');
+        $delivery->address->stateOrProvinceCode = data_get($address, 'state','');
+        $delivery->address->postalCode = data_get($address, 'zip', '');
+        $delivery->address->countryCode = data_get($address, 'country', '');
+        $delivery->address->addressClassification = data_get($address, 'type', '');
 
         $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
         $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
