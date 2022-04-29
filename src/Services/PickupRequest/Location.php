@@ -32,7 +32,7 @@ class Location
         }
 
         $delivery = new Delivery();
-        $delivery->address->streetLines = data_get($address, 'street'. '');
+        $delivery->address->streetLines = data_get($address, 'street', '');
         $delivery->address->city = data_get($address, 'city', '');
         $delivery->address->stateOrProvinceCode = data_get($address, 'state','');
         $delivery->address->postalCode = data_get($address, 'zip', '');
