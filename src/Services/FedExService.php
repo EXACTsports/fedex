@@ -254,7 +254,7 @@ class FedExService
     {
         $key = PublicKeyLoader::load($this->getPublicKey());
         $key = $key->withPadding(RSA::ENCRYPTION_OAEP)->withHash('sha1')->withMGFHash('sha1');
-
+        
         return base64_encode($key->encrypt($cardData));
     }
 

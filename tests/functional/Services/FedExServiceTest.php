@@ -184,4 +184,12 @@ class FedExServiceTest extends TestCase
 
         $this->assertTrue(isset($response->output));
     }
+
+    public function testGetEncryptedData()
+    {
+        $cardData = "M4242424242424242=2205:123";
+        $encryptedData = app(FedExService::class)->getEncryptedData($cardData);
+
+        $this->assertTrue(true);
+    }
 }

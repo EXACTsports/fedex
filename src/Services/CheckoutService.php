@@ -80,14 +80,15 @@ class CheckoutService
         $cardData = 'M' .
             trim($paymentInformation['cardNumber']) . '=' . substr($paymentInformation['year'], -2) .
             $paymentInformation['month'] . ':' . $paymentInformation['securityCode'];
+        
         $encryptedData = $this->getEncryptedData($cardData);
-
+    
         $paymentInformation['encryptedData'] = $encryptedData;
 
         $orderSubmission = new OrderSubmission();
 
         $request = $orderSubmission->getRequest($documents, $contactInformation, $billingInformation, $paymentInformation, $locationId);
-
+        // dd(json_encode($request));
         return (new FedExService())->orderSubmissions($request);
     }
 }
