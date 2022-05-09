@@ -62,12 +62,18 @@ class ProductFeatures
                     '1448988908744' => $this->paperTypes->getPureWhite100(),
                     '1448988666879' => $this->paperTypes->getGlossText32lb(),
                     '1448988908007' => $this->paperTypes->getUltraBrightWhite32(),
+                    // Card Stocks and Specialty
                     '1559837164426' => $this->paperTypes->getWaterResistant(),
                     '1450369886752' => $this->paperTypes->getIvory65lb(),
+                    '1450369912077' => $this->paperTypes->getCanary65Lb(),
+
+
+                    // Standard Color Papers
                     '1448988667606' => $this->paperTypes->getIvory24lb(),
+                    '1448988668006' => $this->paperTypes->getCanary24lb(),
                     '1448988671383' => $this->paperTypes->getSunYellow24lb(),
                     '1448988673318' => $this->paperTypes->getUltraBlue24lb(),
-                    '1448988899767' => $this->paperTypes->getSandStone24lb(),
+                    '1448988899767' => $this->paperTypes->getSandStone24lb()
                 ],
             ],
             '1448981549581' => [
