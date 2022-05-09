@@ -7,8 +7,7 @@ return [
     'trace' => env('FEDEX_TRACE', true),
     'exceptions' => env('FEDEX_EXCEPTIONS', true),
     'location' => env('FEDEX_API_URL', 'https://wsbeta.fedex.com:443/web-services/office'),
-    'apiBaseUrl' => env('FEDEX_API_BASE_URL', 'https://api.test.office.fedex.com'),
+    'apiBaseUrl' => env('FEDEX_API_BASE_URL', 'https://api.office.fedex.com'),
     'documentUploadHostname' => env('FEDEX_UPLOAD_HOSTNAME', 'https://dunc.fedex.com/document/fedexoffice/v1/documents'),
-    'document-preview-hostname' => env('FEDEX_PREVIEW_HOSTNAME', 'https://dunc.dmz.fedex.com'),
-    'print-services' => env('FEDEX_PRINT_SERVICES')
+    'document-preview-hostname' => env('FEDEX_PREVIEW_HOSTNAME', 'https://dunc.dmz.fedex.com')
 ];
