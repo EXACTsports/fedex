@@ -180,7 +180,7 @@ class UploadConversionService
             $rateDetail->hasAlerts = 1;
             $rateDetail->alerts = $response->output->alerts;
         }
-
+        
         return $rateDetail;
     }
 

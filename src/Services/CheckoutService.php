@@ -88,7 +88,7 @@ class CheckoutService
         $orderSubmission = new OrderSubmission();
 
         $request = $orderSubmission->getRequest($documents, $contactInformation, $billingInformation, $paymentInformation, $locationId);
-        // dd(json_encode($request));
+        
         return (new FedExService())->orderSubmissions($request);
     }
 }
