@@ -265,4 +265,16 @@ class ProductFeatures
 
         return $features;
     }
+
+    /**
+     * Gets specific product feature.
+     */
+    public function getProductFeature(string $featureId, string $choiceId)
+    {
+        $features = $this->get();
+        $feature = $features[$featureId];
+        $choice = $feature["choices"][$choiceId];
+    
+        return new Feature($featureId, $feature["name"], $choice);
+    }
 }

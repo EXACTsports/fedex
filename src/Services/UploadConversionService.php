@@ -148,6 +148,7 @@ class UploadConversionService
 
         $this->baseProduct->userProductName = $document->originalDocumentName;
         $this->baseProduct->contentAssociations[] = $this->getContentAssociation($document);
+        
         $document->product = $this->baseProduct;
 
         // Get rate
@@ -179,7 +180,7 @@ class UploadConversionService
             $rateDetail->hasAlerts = 1;
             $rateDetail->alerts = $response->output->alerts;
         }
-
+        
         return $rateDetail;
     }
 

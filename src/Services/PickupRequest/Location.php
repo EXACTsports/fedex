@@ -50,7 +50,7 @@ class Location
 
         $response = (new FedExService())->getDeliveryOptions((array) $doRequest);
 
-        return $response->output->deliveryOptions[0]->pickupOptions;
+        return $response;
     }
 
     /**
