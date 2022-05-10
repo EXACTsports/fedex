@@ -22,11 +22,13 @@ class Location
         $productAssociations = [];
 
         foreach ($documents as $document) {
+
+
             $products[] = $document['product'];
 
             $productAssociation = new ProductAssociation();
-            $productAssociation->id = $document['product']['instanceId'];
-            $productAssociation->quantity = $document['product']['qty'];
+            $productAssociation->id = data_get($document, 'product.instanceId');
+            $productAssociation->quantity = data_get($document, 'product.qty');
 
             $productAssociations[] = $productAssociation;
         }
@@ -38,7 +40,6 @@ class Location
         $delivery->address->postalCode = data_get($address, 'zip');
         $delivery->address->countryCode = data_get($address, 'country');
         $delivery->address->addressClassification = data_get($address, 'type');
-
         $delivery->requestedDeliveryTypes->requestedPickup->resultsRequested = 10;
         $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->value = explode('-', $distance)[0];
         $delivery->requestedDeliveryTypes->requestedPickup->searchRadius->unit = 'MILES';
