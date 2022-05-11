@@ -21,8 +21,8 @@ class Rate
 
     public function getRateRequest(Product | array $product) : array
     {
-        if (!empty(env('FEDEX_DISCOUNT_CODE'))) {
-            $this->request->rateRequest->fedExAccountNumber = env('FEDEX_DISCOUNT_CODE'); 
+        if (config('fedex.account_number') !== null) {
+           $this->request->rateRequest->fedExAccountNumber = config('fedex.account_number');
         }
 
         $this->request->rateRequest->products[] = $product;

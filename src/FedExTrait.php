@@ -6,7 +6,7 @@ trait FedExTrait
 {
     public function toArray(): array
     {
-        $array = json_decode(json_encode($this), true);
+        $array = json_decode(json_encode($this), true, 512, JSON_THROW_ON_ERROR);
         $array = $this->ucFirstKeys($array);
 
         return $this->removeEmptyElements($array);

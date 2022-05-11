@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'account_number' => env('FEDEX_ACCOUNT_NUMBER', null),
     'api_key' => env('FEDEX_API_KEY'),
     'clientId' => env('FEDEX_CLIENT_ID'),
     'clientSecret' => env('FEDEX_CLIENT_SECRET'),

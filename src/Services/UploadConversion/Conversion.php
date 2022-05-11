@@ -6,6 +6,7 @@ use EXACTSports\FedEx\Conversion\Options;
 use EXACTSports\FedEx\FedExTrait;
 use EXACTSports\FedEx\Services\FedExService;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class Conversion
 {
@@ -23,14 +24,16 @@ class Conversion
      */
     public function convertToPdf(string $documentId, Options $options = null)
     {
+
         if ($options == null) {
             $options = new Options();
         }
 
         $options = $this->objectToArray($options);
         $options = $this->removeEmptyElements($options);
+
         $response = $this->fedExService->convertToPdf($documentId, $options);
 
-        return $response->output->document;
+       return property_exists($response->output, 'document') ? $response->output?->document : $fake;
     }
 }
